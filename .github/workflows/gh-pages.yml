@@ -21,3 +21,4 @@ jobs:
           script: |
             cd /home/$USER/Projects/Punch
             git pull
+            npm install
