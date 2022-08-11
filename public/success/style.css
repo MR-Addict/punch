@@ -36,3 +36,16 @@ img{
     height: 120px;
     margin: 20px auto 50px;
 }
+
+button{
+    padding: 15px;
+    background: #FF0063;
+    color: #FFFF;
+    font-size: 18px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    width: 150px;
+    margin: 10px auto 20px;
+    border-radius: 20px;
+}
