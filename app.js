@@ -1,30 +1,12 @@
-const Joi = require("joi");
-const mysql = require("mysql");
 const express = require("express");
 const bodyParser = require("body-parser");
+
+const db = require("./libs/pool");
+const notes_schema = require("./libs/schema");
 
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Connect databse
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "punch",
-  password: "@Punch_password_1234",
-  database: "punch",
-});
-db.connect(function (err) {
-  if (err) console.error(err);
-  else console.log("MySQL Connected successfully!");
-});
-
-// Notes validation schema
-const notes_schema = Joi.object().keys({
-  group: Joi.string().min(2).max(10).required(),
-  name: Joi.string().min(2).max(10).required(),
-  notes: Joi.string().min(4).max(500).required(),
-});
 
 // Post requests
 app.post("/post", (req, res) => {
@@ -48,5 +30,6 @@ app.post("/post", (req, res) => {
   }
 });
 
+// Listen on port 8083
 const port = process.env.PORT || 8083;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
