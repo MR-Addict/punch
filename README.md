@@ -3,33 +3,15 @@
 
 ## 1. 预览
 
-|             值班笔记主页             |             值班笔记提交成功页             |
-| :----------------------------------: | :----------------------------------------: |
-| ![Punch-Home](images/Punch-Home.png) | ![Punch-Success](images/Punch-Success.png) |
+值班笔记主页：
 
-> 值班笔记主页：[https://punch.mraddict.top](https://punch.mraddict.top)
+![Punch-Home](images/Punch-Home.png)
 
-## 2. 搭建服务器
+值班笔记提交成功页：
 
-克隆本文档：
+![Punch-Success](images/Punch-Success.png)
 
-```bash
-git clone https://github.com/MR-Addict/punch.git
-```
-
-安装依赖：
-
-```bash
-npm install
-```
-
-运行脚本：
-
-```bash
-node app.js
-```
-
-## 3. 准备MySQL
+## 2. 准备MySQL
 
 创建新的MySQL用户，用户名为`punch`，密码为`@Punch_password_1234`：
 
@@ -61,4 +43,24 @@ CREATE TABLE `punch`(
     `time` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     `notes` VARCHAR(500) NOT NULL
 );
+```
+
+## 3. 搭建服务器
+
+克隆本文档：
+
+```bash
+git clone https://github.com/MR-Addict/punch.git
+```
+
+安装依赖：
+
+```bash
+npm install
+```
+
+运行脚本：
+
+```bash
+node app.js
 ```
