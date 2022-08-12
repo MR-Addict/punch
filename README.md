@@ -3,13 +3,7 @@
 
 ## 1. 预览
 
-值班笔记主页：
-
-![Punch-Home](images/Punch-Home.png)
-
-值班笔记提交成功页：
-
-![Punch-Success](images/Punch-Success.png)
+![Punch](images/Punch.jpg)
 
 ## 2. 准备MySQL
 

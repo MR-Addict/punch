@@ -23,6 +23,7 @@
           id="name"
           name="name"
           placeholder="姓名"
+          maxlength="10"
           required
           oninvalid="this.setCustomValidity('请留下你的大名！')"
           oninput="this.setCustomValidity('')"
@@ -34,6 +35,7 @@
           style="height: 200px"
           required
           minlength="4"
+          maxlength="500"
           oninvalid="this.setCustomValidity('笔记内容至少四个字哦！')"
           oninput="this.setCustomValidity('')"
         ></textarea>
