@@ -1,32 +1,30 @@
-const fs = require("fs");
+const mysql = require("mysql");
 const express = require("express");
 const bodyParser = require("body-parser");
-const dateTime = require("node-datetime");
-const csvWriter = require("csv-write-stream");
+
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "punch",
+  password: "@Punch_password_1234",
+  database: "punch",
+});
+
+db.connect(function (err) {
+  if (err) throw err;
+  console.log("MySQL Connected!");
+});
 
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/post", (req, res) => {
-  // Add data record
-  const dt = dateTime.create();
-  req.body["date"] = dt.format("Y-m-d H:M:S");
-
-  // Write date to CSV file
-  const db_path = "./database/punch.csv";
-  if (!fs.existsSync(db_path)) writer = csvWriter({ headers: ["组别", "姓名", "日期", "值班笔记"] });
-  else writer = csvWriter({ sendHeaders: false });
-  writer.pipe(fs.createWriteStream(db_path, { flags: "a" }));
-  writer.write({
-    组别: req.body["group"],
-    姓名: req.body["name"],
-    日期: req.body["date"],
-    值班笔记: req.body["notes"],
+  const record = req.body;
+  const sql = "INSERT INTO punch SET ?";
+  db.query(sql, record, (err, result) => {
+    if (err) throw err;
+    console.log("Record insert success!");
   });
-  writer.end();
-
-  // Redirect to success page
   res.redirect("/success");
 });
 
