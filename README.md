@@ -1,5 +1,4 @@
-<h1>科协技术部值班笔记👻<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/>
-</h1>
+<h1>技术部值班笔记👻<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/></h1>
 
 ## 1. 预览
 
@@ -56,5 +55,5 @@ npm install
 运行脚本：
 
 ```bash
-node app.js
+npm run start
 ```

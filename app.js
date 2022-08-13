@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const db = require("./libs/pool");
+const punch_db = require("./libs/pool");
 const punch_schema = require("./libs/schema");
 
 const app = express();
@@ -16,15 +16,15 @@ app.get("/", (req, res) => {
 
 // Post requests
 app.post("/", (req, res) => {
-  const record = req.body;
-  const sql = "INSERT INTO punch SET ?";
-  const validate_result = punch_schema.validate(record);
+  const punch_record = req.body;
+  const punch_sql = "INSERT INTO punch SET ?";
+  const validate_result = punch_schema.validate(punch_record);
 
   if (validate_result.error) {
     console.error(validate_result.error);
     res.render("fail/index");
   } else {
-    db.query(sql, record, (err, result) => {
+    punch_db.query(punch_sql, punch_record, (err, result) => {
       if (err) {
         console.error(err);
         res.redirect("fail/index");
