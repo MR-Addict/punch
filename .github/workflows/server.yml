@@ -21,5 +21,6 @@ jobs:
           script: |
             cd /home/$USER/Projects/Punch
             git pull -f
-            docker build -t punch .
-            docker-compose restart
+            docker-compose down
+            docker build -t punch --rm .
+            docker-compose up -d
