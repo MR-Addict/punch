@@ -11,7 +11,7 @@
 创建新的MySQL用户，用户名为`punch`，密码为`password`：
 
 ```sql
-CREATE USER 'punch'@'localhost' IDENTIFIED WITH mysql_native_password BY '@Punch_password_1234';
+CREATE USER 'punch'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 ```
 
 授予`punch`用户权限：

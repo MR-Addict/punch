@@ -20,6 +20,6 @@ jobs:
           script_stop: true
           script: |
             cd /home/$USER/Projects/Punch
-            git pull
+            git pull -f
             docker build -t punch .
             docker-compose restart
