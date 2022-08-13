@@ -4,9 +4,11 @@
 
 ![Punch](images/Punch.jpg)
 
-## 2. 准备MySQL
+## 2. 准备数据库
 
-创建新的MySQL用户，用户名为`punch`，密码为`@Punch_password_1234`：
+### 2.1 创建新用户
+
+创建新的MySQL用户，用户名为`punch`，密码为`password`：
 
 ```sql
 CREATE USER 'punch'@'localhost' IDENTIFIED WITH mysql_native_password BY '@Punch_password_1234';
@@ -17,6 +19,14 @@ CREATE USER 'punch'@'localhost' IDENTIFIED WITH mysql_native_password BY '@Punch
 ```sql
 GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'punch'@'localhost' WITH GRANT OPTION;
 ```
+
+重置用户权限缓存：
+
+```sql
+FLUSH PRIVILEGES;
+```
+
+### 2.2 创建新数据库
 
 创建新的数据库，名称为`punch`：
 
@@ -46,14 +56,14 @@ CREATE TABLE `punch`(
 git clone https://github.com/MR-Addict/punch.git
 ```
 
-安装依赖：
+编译docker镜像：
 
 ```bash
-npm install
+docker build -t punch .
 ```
 
-运行脚本：
+启动docker容器：
 
 ```bash
-npm run start
+docker-compose up -d
 ```
