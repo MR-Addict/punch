@@ -2,29 +2,35 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const db = require("./libs/pool");
-const notes_schema = require("./libs/schema");
+const punch_schema = require("./libs/schema");
 
 const app = express();
+app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Render home pages
+app.get("/", (req, res) => {
+  res.render("index/index");
+});
+
 // Post requests
-app.post("/post", (req, res) => {
+app.post("/", (req, res) => {
   const record = req.body;
   const sql = "INSERT INTO punch SET ?";
-  const validate_result = notes_schema.validate(record);
+  const validate_result = punch_schema.validate(record);
 
   if (validate_result.error) {
     console.error(validate_result.error);
-    res.redirect("/fail");
+    res.render("fail/index");
   } else {
     db.query(sql, record, (err, result) => {
       if (err) {
         console.error(err);
-        res.redirect("/fail");
+        res.redirect("fail/index");
       } else {
         console.log("New record inserted successfully!");
-        res.redirect("/success");
+        res.render("success/index");
       }
     });
   }

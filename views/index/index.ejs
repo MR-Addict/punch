@@ -2,15 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="favicon.png" />
+    <link rel="icon" href="/images/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/css/index/style.css" />
     <title>值班笔记</title>
   </head>
   <body>
     <div class="container">
-      <form action="/post" method="post">
+      <form action="/" method="post">
         <h2>值班笔记</h2>
         <select id="group" name="group">
           <option value="航模组">航模组</option>
@@ -33,9 +33,9 @@
           name="notes"
           placeholder="值班笔记内容"
           style="height: 200px"
-          required
           minlength="4"
           maxlength="500"
+          required
           oninvalid="this.setCustomValidity('笔记内容至少四个字哦！')"
           oninput="this.setCustomValidity('')"
         ></textarea>
