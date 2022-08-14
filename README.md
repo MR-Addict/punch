@@ -1,4 +1,4 @@
-<h1>技术部值班笔记👻<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/></h1>
+<h1>技术部值班笔记👻<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/> <img src="https://github.com/MR-Addict/punch/actions/workflows/docker.yml/badge.svg?branch=main"/></h1>
 
 ## 1. 预览
 
