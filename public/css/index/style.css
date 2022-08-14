@@ -12,9 +12,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
-form{
+.container-body {
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -24,13 +25,13 @@ form{
     border-radius: 10px;
 }
 
-form h2{
+.container-body  h2{
     color: #555;
     font-weight: 800;
     margin: 20px auto 10px;
 }
 
-form input,form textarea,form select{
+.container-body input, .container-body textarea, .container-body select{
     border: 0;
     margin: 10px 0;
     padding: 20px;
@@ -40,7 +41,7 @@ form input,form textarea,form select{
     border-radius: 10px;
 }
 
-form button{
+.container-body  button{
     padding: 15px;
     background: #FF0063;
     color: #FFFF;
@@ -51,4 +52,8 @@ form button{
     width: 150px;
     margin: 10px auto 20px;
     border-radius: 20px;
+}
+
+.container footer{
+    margin-top: 20px;
 }

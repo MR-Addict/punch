@@ -62,7 +62,19 @@ git clone https://github.com/MR-Addict/punch.git
 docker build -t punch .
 ```
 
-启动docker容器：
+你也可以远程拉取：
+
+```bash
+docker pull mraddict063/punch
+```
+
+然后重新tag：
+
+```
+docker tag mraddict063/punch punch
+```
+
+最后启动docker容器：
 
 ```bash
 docker-compose up -d

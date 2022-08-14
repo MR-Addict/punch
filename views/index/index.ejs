@@ -10,12 +10,12 @@
   </head>
   <body>
     <div class="container">
-      <form action="/" method="post">
+      <form action="/" method="post" class="container-body">
         <h2>值班笔记</h2>
         <select id="group" name="group">
           <option value="航模组">航模组</option>
-          <option value="电子组">电子组</option>
           <option value="编程组">编程组</option>
+          <option value="电子组">电子组</option>
           <option value="静模组">静模组</option>
         </select>
         <input
@@ -41,6 +41,7 @@
         ></textarea>
         <button type="submit">提交</button>
       </form>
+      <footer class="footer">&copy; Copyright <%= current_year %></footer>
     </div>
   </body>
 </html>

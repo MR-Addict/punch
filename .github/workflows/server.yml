@@ -22,5 +22,6 @@ jobs:
             cd /home/$USER/Projects/Punch
             git pull -f
             docker-compose down
+            docker rmi punch
             docker build -t punch --rm .
             docker-compose up -d
