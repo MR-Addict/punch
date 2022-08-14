@@ -22,12 +22,12 @@ app.post("/", (req, res) => {
 
   if (validate_result.error) {
     console.error(validate_result.error);
-    res.render("fail/index");
+    res.status(502).render("fail/index");
   } else {
     punch_db.query(punch_sql, punch_record, (err, result) => {
       if (err) {
         console.error(err);
-        res.redirect("fail/index");
+        res.status(502).render("fail/index");
       } else {
         console.log("New record inserted successfully!");
         res.render("success/index");
