@@ -1,7 +1,9 @@
+images
+README.md
 node_modules
 npm-debug.log
+actions-runner
+docker-compose.yml
 .git
 .github
-images
 .gitignore
-README.md
