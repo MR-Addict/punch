@@ -16,7 +16,7 @@
     overflow: hidden;
 }
 
-.container-body {
+.container-body{
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@
     border-radius: 10px;
 }
 
-.container-body  h2{
+.container-body h2{
     color: #555;
     font-weight: 800;
     margin: 20px auto 10px;
@@ -42,7 +42,11 @@
     border-radius: 10px;
 }
 
-.container-body  button{
+.container-body input:focus::placeholder, .container-body textarea:focus::placeholder{
+    color: transparent;
+}
+
+.container-body button{
     padding: 15px;
     background: #FF0063;
     color: #FFFFFF;
@@ -54,6 +58,11 @@
     width: 150px;
     margin: 10px auto;
     border-radius: 20px;
+    transition: transform .3s;
+}
+
+.container-body button:hover{
+    transform: scale(1.05);
 }
 
 .container footer{

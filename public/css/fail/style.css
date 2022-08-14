@@ -25,7 +25,7 @@
     border-radius: 10px;
 }
 
-.container-body h1 {
+.container-body h1{
     color: #555;
     font-weight: 800;
     font-size: 50px;
@@ -50,6 +50,11 @@
     width: 150px;
     margin: 10px auto;
     border-radius: 20px;
+    transition: transform .3s;
+}
+
+.container-body button:hover{
+    transform: scale(1.05);
 }
 
 .container footer{

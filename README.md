@@ -2,7 +2,7 @@
 
 ## 1. 预览
 
-![Punch](images/Punch.jpg)
+![Punch](images/Punch.png)
 
 ## 2. 准备数据库
 
