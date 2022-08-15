@@ -1,5 +1,6 @@
 images
 README.md
+Dockerfile
 node_modules
 npm-debug.log
 actions-runner

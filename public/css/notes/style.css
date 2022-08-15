@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Home background */
+.container{
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 10vh;
+    background: linear-gradient(160deg,#80ffdb,#0077b6);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+/* Main page */
+.container-body{
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 2vw 2vw;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+/* Main pages elements */
+.container-body h1, .container-body .search-box, .container-body .notes-list {
+    border: 0;
+    margin: 10px 0;
+    padding: 10px;
+    outline: none;
+    background: #FFFFFF;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+/* Reivew chekc box */
+.search-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Serach header */
+.container-body h1{
+    font-weight: 800;
+    color: #555;
+    text-align: center;
+    font-size: 30px;
+}
+
+/* Search input and button */
+.search-box input, .search-box button{
+    border: 0;
+    margin: 0 10px;
+    padding: 20px;
+    outline: none;
+    background: #f5f5f5;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.search-box input{
+    width: 80%;
+}
+
+.search-box button{
+    background: #FF0063;
+    color: #FFFFFF;
+    font-weight: 800;
+}
+
+.container-body button:hover{
+    transform: scale(1.05);
+}
+
+.container-body input:focus::placeholder {
+    color: transparent;
+}
+
+/* Notes list */
+
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+table th{
+    padding: 12px;
+    text-align: center;
+    background-color: #5da68d;
+    color: white;
+}
+
+/* Header */
+.container footer{
+    margin: 20px;
+}
