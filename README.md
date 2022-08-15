@@ -56,25 +56,13 @@ CREATE TABLE `punch`(
 git clone https://github.com/MR-Addict/punch.git
 ```
 
-编译docker镜像：
-
-```bash
-docker build -t punch .
-```
-
-你也可以远程拉取：
+拉取docker镜像：
 
 ```bash
 docker pull mraddict063/punch
 ```
 
-然后重新tag：
-
-```
-docker tag mraddict063/punch punch
-```
-
-最后启动docker容器：
+启动docker容器：
 
 ```bash
 docker-compose up -d

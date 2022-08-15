@@ -20,8 +20,8 @@ jobs:
           script_stop: true
           script: |
             cd /home/$USER/Projects/Punch
-            git pull -f
+            git pull
             docker-compose down
-            docker rmi punch
-            docker build -t punch --rm .
+            docker build -t mraddict063/punch --rm .
+            docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
             docker-compose up -d
