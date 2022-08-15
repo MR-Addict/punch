@@ -22,6 +22,6 @@ jobs:
             cd /home/$USER/Projects/Punch
             git pull
             docker-compose down
+            docker rmi mraddict063/punch
             docker build -t mraddict063/punch --rm .
-            docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
             docker-compose up -d
