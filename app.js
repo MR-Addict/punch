@@ -41,7 +41,11 @@ app.post("/records", (req, res) => {
         console.error(err);
         notes_render.records = [{ ERROR: err.sqlMessage }];
       } else {
-        notes_render.records = result;
+        if (result.length) {
+          notes_render.records = result;
+        } else {
+          notes_render.records = [{ ERROR: "There's no satisfied results!" }];
+        }
       }
       res.render("records/index", notes_render);
     });
