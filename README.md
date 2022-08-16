@@ -8,11 +8,13 @@
 
 ### 2.1 创建新数据库
 
-创建新的数据库，名称为`punch`：
+创建新的提交数据库，名称为`punch`：
 
 ```sql
 CREATE DATABASE punch;
 ```
+
+#### 2.1.1 创建提交Table
 
 创建新的Table，名称为`punch`：
 
@@ -25,6 +27,20 @@ CREATE TABLE `punch`(
     `name` VARCHAR(10) NOT NULL,
     `time` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     `notes` VARCHAR(500) NOT NULL
+);
+```
+
+#### 2.1.2 创建管理员Table
+
+创建新的Table，名称为`admin`：
+
+```sql
+USE punch;
+
+CREATE TABLE `admin`(
+    `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(20) NOT NULL,
+    `password` VARCHAR(20) NOT NULL
 );
 ```
 
