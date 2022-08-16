@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/images/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/admin/login.css" />
+    <title>值班笔记</title>
+  </head>
+  <body>
+    <div class="container">
+      <form action="/login" method="post" class="container-body">
+        <h1>请先登录</h1>
+        <input
+          type="text"
+          id="user"
+          name="user"
+          placeholder="用户名"
+          maxlength="20"
+          required
+          oninvalid="this.setCustomValidity('用户名不能为空！')"
+          oninput="this.setCustomValidity('')"
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="密码"
+          maxlength="20"
+          required
+          oninvalid="this.setCustomValidity('密码不能为空！')"
+          oninput="this.setCustomValidity('')"
+        />
+        <button type="submit">登录</button>
+      </form>
+    </div>
+    <footer class="footer">&copy; Copyright <%= current_year %></footer>
+  </body>
+</html>

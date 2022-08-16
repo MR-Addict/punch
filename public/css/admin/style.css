@@ -84,8 +84,7 @@
     color: transparent;
 }
 
-/* Notes list */
-
+/* Records list */
 table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -109,7 +108,7 @@ table th{
     color: white;
 }
 
-/* Header */
+/* Footer */
 .container footer{
     margin: 20px;
 }

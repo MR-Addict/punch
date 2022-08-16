@@ -9,21 +9,25 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 const home_render = { current_year: new Date().getFullYear() };
-const notes_render = {
+const admin_render = {
   current_year: new Date().getFullYear(),
   records: [{ ERROR: "DATABASE ERROR!" }],
 };
 
-// Render records page
+app.get("/login", (req, res) => {
+  res.render("admin/login", admin_render);
+});
+
+// Render admin page
 app.get("/admin", (req, res) => {
   punch_db.pool_select.query("SELECT * FROM punch", function (err, result, fields) {
     if (err) {
       console.error(err);
-      notes_render.records = [{ ERROR: err.sqlMessage }];
+      admin_render.records = [{ ERROR: err.sqlMessage }];
     } else {
-      notes_render.records = result;
+      admin_render.records = result;
     }
-    res.render("admin/index", notes_render);
+    res.render("admin/index", admin_render);
   });
 });
 
@@ -32,21 +36,21 @@ app.post("/admin", (req, res) => {
 
   if (validate_result.error) {
     console.error(validate_result.error);
-    notes_render.records = [{ ERROR: validate_result.error.details[0].message }];
-    res.render("admin/index", notes_render);
+    admin_render.records = [{ ERROR: validate_result.error.details[0].message }];
+    res.render("admin/index", admin_render);
   } else {
     punch_db.pool_select.query(req.body.command, function (err, result, fields) {
       if (err) {
         console.error(err);
-        notes_render.records = [{ ERROR: err.sqlMessage }];
+        admin_render.records = [{ ERROR: err.sqlMessage }];
       } else {
         if (result.length) {
-          notes_render.records = result;
+          admin_render.records = result;
         } else {
-          notes_render.records = [{ ERROR: "There's no satisfied results!" }];
+          admin_render.records = [{ ERROR: "There's no satisfied results!" }];
         }
       }
-      res.render("admin/index", notes_render);
+      res.render("admin/index", admin_render);
     });
   }
 });
