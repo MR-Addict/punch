@@ -8,11 +8,8 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-const home_render = { current_year: new Date().getFullYear() };
-const admin_render = {
-  current_year: new Date().getFullYear(),
-  records: [{ ERROR: "DATABASE ERROR!" }],
-};
+
+const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }] };
 
 app.get("/login", (req, res) => {
   res.render("admin/login", admin_render);
@@ -57,7 +54,7 @@ app.post("/admin", (req, res) => {
 
 // Render home pages
 app.get("/", (req, res) => {
-  res.render("index/index", home_render);
+  res.render("index/index");
 });
 
 // Post requests
@@ -68,15 +65,15 @@ app.post("/", (req, res) => {
 
   if (validate_result.error) {
     console.error(validate_result.error);
-    res.status(502).render("fail/index", home_render);
+    res.status(502).render("fail/index");
   } else {
     punch_db.pool_insert.query(punch_sql, punch_record, (err, result) => {
       if (err) {
         console.error(err);
-        res.status(502).render("fail/index", home_render);
+        res.status(502).render("fail/index");
       } else {
         console.log("New record inserted successfully!");
-        res.render("success/index", home_render);
+        res.render("success/index");
       }
     });
   }
