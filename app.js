@@ -15,7 +15,7 @@ const notes_render = {
 };
 
 // Render records page
-app.get("/records", (req, res) => {
+app.get("/admin", (req, res) => {
   punch_db.pool_select.query("SELECT * FROM punch", function (err, result, fields) {
     if (err) {
       console.error(err);
@@ -23,18 +23,17 @@ app.get("/records", (req, res) => {
     } else {
       notes_render.records = result;
     }
-    res.render("records/index", notes_render);
+    res.render("admin/index", notes_render);
   });
 });
 
-app.post("/records", (req, res) => {
+app.post("/admin", (req, res) => {
   const validate_result = punch_schema.sql_schema.validate(req.body);
-  console.log(validate_result);
 
   if (validate_result.error) {
     console.error(validate_result.error);
     notes_render.records = [{ ERROR: validate_result.error.details[0].message }];
-    res.render("records/index", notes_render);
+    res.render("admin/index", notes_render);
   } else {
     punch_db.pool_select.query(req.body.command, function (err, result, fields) {
       if (err) {
@@ -47,7 +46,7 @@ app.post("/records", (req, res) => {
           notes_render.records = [{ ERROR: "There's no satisfied results!" }];
         }
       }
-      res.render("records/index", notes_render);
+      res.render("admin/index", notes_render);
     });
   }
 });
