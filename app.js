@@ -11,32 +11,41 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const home_render = { current_year: new Date().getFullYear() };
 const notes_render = {
   current_year: new Date().getFullYear(),
-  notes: [{ Error: "Databse not connected!" }],
+  records: [{ ERROR: "DATABASE ERROR!" }],
 };
 
-// Render notes page
-app.get("/notes", (req, res) => {
-  punch_db.query("SELECT * FROM punch", function (err, result, fields) {
+// Render records page
+app.get("/records", (req, res) => {
+  punch_db.pool_select.query("SELECT * FROM punch", function (err, result, fields) {
     if (err) {
       console.error(err);
-      res.render("notes/index", notes_render);
+      notes_render.records = [{ ERROR: err.sqlMessage }];
     } else {
-      notes_render.notes = result;
-      res.render("notes/index", notes_render);
+      notes_render.records = result;
     }
+    res.render("records/index", notes_render);
   });
 });
 
-app.post("/notes", (req, res) => {
-  punch_db.query(req.body.command, function (err, result, fields) {
-    if (err) {
-      console.error(err);
-      res.render("notes/index", notes_render);
-    } else {
-      notes_render.notes = result;
-      res.render("notes/index", notes_render);
-    }
-  });
+app.post("/records", (req, res) => {
+  const validate_result = punch_schema.sql_schema.validate(req.body);
+  console.log(validate_result);
+
+  if (validate_result.error) {
+    console.error(validate_result.error);
+    notes_render.records = [{ ERROR: validate_result.error.details[0].message }];
+    res.render("records/index", notes_render);
+  } else {
+    punch_db.pool_select.query(req.body.command, function (err, result, fields) {
+      if (err) {
+        console.error(err);
+        notes_render.records = [{ ERROR: err.sqlMessage }];
+      } else {
+        notes_render.records = result;
+      }
+      res.render("records/index", notes_render);
+    });
+  }
 });
 
 // Render home pages
@@ -48,13 +57,13 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
   const punch_record = req.body;
   const punch_sql = "INSERT INTO punch SET ?";
-  const validate_result = punch_schema.validate(punch_record);
+  const validate_result = punch_schema.form_schema.validate(punch_record);
 
   if (validate_result.error) {
     console.error(validate_result.error);
     res.status(502).render("fail/index", home_render);
   } else {
-    punch_db.query(punch_sql, punch_record, (err, result) => {
+    punch_db.pool_insert.query(punch_sql, punch_record, (err, result) => {
       if (err) {
         console.error(err);
         res.status(502).render("fail/index", home_render);

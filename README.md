@@ -6,27 +6,7 @@
 
 ## 2. 准备数据库
 
-### 2.1 创建新用户
-
-创建新的MySQL用户，用户名为`punch`，密码为`password`：
-
-```sql
-CREATE USER 'punch'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-```
-
-授予`punch`用户权限：
-
-```sql
-GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'punch'@'localhost' WITH GRANT OPTION;
-```
-
-重置用户权限缓存：
-
-```sql
-FLUSH PRIVILEGES;
-```
-
-### 2.2 创建新数据库
+### 2.1 创建新数据库
 
 创建新的数据库，名称为`punch`：
 
@@ -48,18 +28,50 @@ CREATE TABLE `punch`(
 );
 ```
 
+### 2.2 创建新用户
+
+#### 2.2.1 punch_insert用户
+
+创建新的MySQL用户，用户名为`punch_insert`，密码为`password`：
+
+```sql
+CREATE USER 'punch_insert'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+```
+
+授予`punch_insert`用户权限：
+
+```sql
+GRANT INSERT ON punch TO 'punch_insert'@'localhost' WITH GRANT OPTION;
+```
+
+#### 2.2.2 punch_select用户
+
+创建新的MySQL用户，用户名为`punch_select`，密码为`password`：
+
+```sql
+CREATE USER 'punch_select'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+```
+
+授予`punch_select`用户权限：
+
+```sql
+GRANT SELECT ON punch TO 'punch_select'@'localhost' WITH GRANT OPTION;
+```
+
+#### 2.2.3 重置用户权限缓存
+
+重置用户权限缓存：
+
+```sql
+FLUSH PRIVILEGES;
+```
+
 ## 3. 搭建服务器
 
 克隆本文档：
 
 ```bash
 git clone https://github.com/MR-Addict/punch.git
-```
-
-拉取docker镜像：
-
-```bash
-docker pull mraddict063/punch
 ```
 
 启动docker容器：

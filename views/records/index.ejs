@@ -5,14 +5,14 @@
     <link rel="icon" href="/images/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/notes/style.css" />
+    <link rel="stylesheet" href="/css/records/style.css" />
     <title>值班笔记</title>
   </head>
   <body>
     <div class="container">
       <div class="container-body">
         <h1>值班笔记查询</h1>
-        <form class="search-box" action="/notes" method="post">
+        <form class="search-box" action="/records" method="post">
           <input
             type="text"
             id="command"
@@ -24,24 +24,25 @@
             oninput="this.setCustomValidity('')"
           />
           <button type="submit">查询</button>
+          <button type="button" onclick="location.href = '/records'">重置</button>
         </form>
-        <div class="notes-list">
+        <div class="records-list">
           <table>
             <!-- Title -->
             <tr>
-              <% Object.keys(notes[0]).forEach(function(prop) { %>
+              <% Object.keys(records[0]).forEach(function(prop) { %>
               <th><%= prop %></th>
               <% }); %>
             </tr>
             <!-- Content -->
-            <% notes.forEach(function(note) { %>
+            <% records.forEach(function(record) { %>
             <tr>
-              <% Object.keys(note).forEach(function(prop) { %>
+              <% Object.keys(record).forEach(function(prop) { %>
               <!-- If element is time -->
               <% if(prop==='time'){ %>
-              <td><%= new Date(note[prop]).toLocaleString() %></td>
+              <td><%= new Date(record[prop]).toLocaleDateString(); %></td>
               <% } else{ %>
-              <td><%= note[prop] %></td>
+              <td><%= record[prop] %></td>
               <% } %>
               <!-- If end -->
               <% }); %>

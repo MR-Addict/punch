@@ -24,12 +24,12 @@
     flex-direction: column;
     padding: 2vw 2vw;
     width: 90%;
-    max-width: 800px;
+    max-width: 80%;
     border-radius: 10px;
 }
 
 /* Main pages elements */
-.container-body h1, .container-body .search-box, .container-body .notes-list {
+.container-body h1, .container-body .search-box, .container-body .records-list {
     border: 0;
     margin: 10px 0;
     padding: 10px;
