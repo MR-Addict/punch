@@ -27,7 +27,6 @@ app.use(
 
 // Custom variables
 const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }] };
-const users = punch_db.users;
 
 // Passport
 app.use(passport.initialize());
@@ -45,7 +44,7 @@ function checkNotAuthenticated(req, res, next) {
 
 // Login pages
 app.get("/login", checkNotAuthenticated, (req, res) => {
-  res.render("admin/login", admin_render);
+  res.render("admin/login", { error: req.query.error });
 });
 
 app.post(

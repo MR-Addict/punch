@@ -29,6 +29,17 @@
 }
 
 /* Main pages elements */
+.err-msg {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 15px;
+    text-align: center;
+    color: red;
+    box-shadow: 0px 6px 12px #aaaaaa;
+}
+
+
 .container-body h1 {
     color: #555;
     font-weight: 800;
@@ -45,6 +56,14 @@
     border-radius: 10px;
 }
 
+.container-body label {
+    display: block;
+    color:#949494;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
 .container-body input:focus::placeholder {
     color: transparent;
 }
@@ -59,7 +78,7 @@
     outline: none;
     cursor: pointer;
     width: 150px;
-    margin: 10px auto;
+    margin: 20px auto;
     border-radius: 20px;
     transition: transform .3s;
 }

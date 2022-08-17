@@ -4,9 +4,7 @@ const users = require("./pool").users;
 
 function initPassport(passport) {
   const authenticateUser = async (username, password, done) => {
-    console.log(users);
     const user = users.find((user) => user.username === username);
-    console.log(user, username);
     if (!user) return done(null, false, { message: "No such user!" });
     try {
       if (await bcrypt.compare(password, user.password)) {

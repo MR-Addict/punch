@@ -11,7 +11,11 @@
   <body>
     <div class="container">
       <form action="/login" method="post" class="container-body">
+        <% if(error){ %>
+        <p class="err-msg">Username or password is incorrect</p>
+        <% } %>
         <h1>请先登录</h1>
+        <label for="username">用户名</label>
         <input
           type="text"
           id="username"
@@ -22,6 +26,7 @@
           oninvalid="this.setCustomValidity('用户名不能为空！')"
           oninput="this.setCustomValidity('')"
         />
+        <label for="password">密码</label>
         <input
           type="password"
           id="password"
