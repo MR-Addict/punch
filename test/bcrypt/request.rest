@@ -6,8 +6,8 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name":"admin",
-    "password":"admin"
+    "name":"cael",
+    "password":"QP07dz93UKa6"
 }
 
 ###

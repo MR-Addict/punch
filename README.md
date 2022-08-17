@@ -74,6 +74,10 @@ CREATE USER 'punch_select'@'localhost' IDENTIFIED WITH mysql_native_password BY 
 GRANT SELECT ON punch TO 'punch_select'@'localhost' WITH GRANT OPTION;
 ```
 
+```sql
+GRANT INSERT ON admin TO 'punch_select'@'localhost' WITH GRANT OPTION;
+```
+
 #### 2.2.3 重置用户权限缓存
 
 重置用户权限缓存：

@@ -10,6 +10,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }] };
+const users = punch_db.users;
 
 app.get("/login", (req, res) => {
   res.render("admin/login", admin_render);
