@@ -29,7 +29,8 @@
 }
 
 /* Main pages elements */
-.err-msg {
+.container-body .err-msg {
+    font-weight: 800;
     padding: 10px 15px;
     background-color: #fff;
     border-radius: 8px;

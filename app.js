@@ -1,7 +1,6 @@
 // Offical packages
 const express = require("express");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
 const session = require("express-session");
 const passport = require("passport");
 
@@ -16,12 +15,15 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "verygoodsecret",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 30 * 60 * 1000,
+    },
   })
 );
 
