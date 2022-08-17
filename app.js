@@ -3,10 +3,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+const passport = require("passport");
 
 // Custom libs
 const punch_db = require("./libs/pool");
 const punch_schema = require("./libs/schema");
+const initPassport = require("./libs/passport-config");
+initPassport(passport);
 
 // Offical middleware
 const app = express();
@@ -27,50 +30,21 @@ const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }] };
 const users = punch_db.users;
 
 // Passport
-const passport = require("passport");
-const localStrategy = require("passport-local").Strategy;
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  done(
-    null,
-    users.find((user) => user.id === id)
-  );
-});
-
-passport.use(
-  new localStrategy({ usernameField: "username" }, async (username, password, done) => {
-    const user = users.find((user) => user.username === username);
-    if (!user) return done(null, false, { message: "No such user!" });
-    try {
-      if (await bcrypt.compare(password, user.password)) {
-        return done(null, user);
-      } else {
-        return done(null, false, { message: "Incorrect password!" });
-      }
-    } catch (error) {
-      return done(error);
-    }
-  })
-);
-
-function isLoggedIn(req, res, next) {
+function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) return next();
   res.redirect("/login");
 }
 
-function isLoggedOut(req, res, next) {
+function checkNotAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) return next();
   res.redirect("/admin");
 }
 
 // Login pages
-app.get("/login", isLoggedOut, (req, res) => {
+app.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("admin/login", admin_render);
 });
 
@@ -92,7 +66,7 @@ app.get("/logout", (req, res, next) => {
 });
 
 // Render admin page
-app.get("/admin", isLoggedIn, (req, res) => {
+app.get("/admin", checkAuthenticated, (req, res) => {
   punch_db.pool_select.query("SELECT * FROM punch", function (err, result, fields) {
     if (err) {
       console.error(err);
