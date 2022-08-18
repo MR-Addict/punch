@@ -5,12 +5,51 @@
     <link rel="icon" href="/images/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/admin/style.css" />
+    <link rel="stylesheet" href="/css/admin/help.css" />
     <title>值班笔记</title>
   </head>
   <body>
     <div class="container">
-      <div class="container-body"></div>
+      <div class="container-body">
+        <div class="icons">
+          <button type="button" onclick="location.href = '/admin'">
+            <img src="/images/reset.svg" alt="admin" />
+            <p>重置</p>
+          </button>
+          <button type="button" onclick="location.href = '/'">
+            <img src="/images/home.svg" alt="home" />
+            <p>首页</p>
+          </button>
+          <button type="button" onclick="location.href = '/logout'">
+            <img src="/images/logout.svg" alt="logout" />
+            <p>退出</p>
+          </button>
+          <button type="button" onclick="location.href = '/admin'">
+            <img src="/images/help.svg" alt="admin" />
+            <p>返回</p>
+          </button>
+        </div>
+        <h1>筛选命令</h1>
+        <div class="help-content">
+          <h2>一、基础筛选</h2>
+          <p>选择某些列：</p>
+          <p class="code">select `id`,`group`,`time`,`notes` from punch</p>
+          <p>选择某个组别的所有笔记：</p>
+          <p class="code">select * from punch where `group` = '电子组'</p>
+          <p>选择某一时间点后的所有笔记：</p>
+          <p class="code">select * from punch where `time` > '2022-8-13'</p>
+          <p>选择一定字数的笔记：</p>
+          <p class="code">select * from punch where length(`notes`) > 100</p>
+
+          <h2>二、高阶筛选</h2>
+          <p>选择某个组别并且时间大于某个点：</p>
+          <p class="code">select * from punch where `group` = '电子组' and `time` > '2022-8-13'</p>
+          <p>选择某个时间点后的笔记并且以倒序排序：</p>
+          <p class="code">select * from punch where `time` > '2022-8-13' order by `time` desc</p>
+          <p>选择某个人的笔记并且计算出每次的笔记字数：</p>
+          <p class="code">select *, length(`notes`) as "字数" from punch where `name` = 'Cael' order by `字数`</p>
+        </div>
+      </div>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
     </div>
   </body>
