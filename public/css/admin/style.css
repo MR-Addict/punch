@@ -7,7 +7,7 @@
 
 /* Home background */
 .container{
-    min-width: 100vw;
+    width: 100%;
     min-height: 100vh;
     padding-top: 10vh;
     background: linear-gradient(160deg,#80ffdb,#0077b6);
@@ -45,6 +45,28 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+/* Bar icons */
+.container-body .icons{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 5px;
+}
+
+.container-body .icons button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0 7px;
+}
+
+.container-body .icons img{
+    height: 20px;
+    opacity: 0.8;
 }
 
 /* Serach header */

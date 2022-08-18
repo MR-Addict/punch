@@ -6,7 +6,7 @@
 }
 
 .container{
-    min-width: 100vw;
+    width: 100%;
     min-height: 100vh;
     background: linear-gradient(160deg,#80ffdb,#0077b6);
     display: flex;

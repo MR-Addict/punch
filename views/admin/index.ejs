@@ -11,6 +11,17 @@
   <body>
     <div class="container">
       <div class="container-body">
+        <div class="icons">
+          <button type="button" title="重置" onclick="location.href = '/admin'">
+            <img src="/images/reset.svg" alt="admin" />
+          </button>
+          <button type="button" title="退出" onclick="location.href = '/logout'">
+            <img src="/images/logout.svg" alt="logout" />
+          </button>
+          <button type="button" title="首页" onclick="location.href = '/'">
+            <img src="/images/home.svg" alt="home" />
+          </button>
+        </div>
         <h1>值班笔记查询</h1>
         <form class="search-box" action="/admin" method="post">
           <input
@@ -24,8 +35,6 @@
             oninput="this.setCustomValidity('')"
           />
           <button type="submit"><img src="/images/search.svg" alt="search" /></button>
-          <!-- <button type="button" onclick="location.href = '/admin'">重置</button>
-          <button type="button" onclick="location.href = '/logout'">退出</button> -->
         </form>
         <div class="records-list">
           <table>
