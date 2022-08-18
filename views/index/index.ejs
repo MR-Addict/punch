@@ -11,11 +11,6 @@
   <body>
     <div class="container">
       <form action="/" method="post" class="container-body">
-        <div class="icons">
-          <button type="button" title="后台" onclick="location.href = '/admin'">
-            <img src="/images/admin.svg" alt="admin" />
-          </button>
-        </div>
         <h1>值班笔记</h1>
         <select id="group" name="group">
           <option value="航模组">航模组</option>
@@ -45,6 +40,7 @@
           oninput="this.setCustomValidity('')"
         ></textarea>
         <button type="submit">提交</button>
+        <a href="/admin">我是管理员</a>
       </form>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
     </div>

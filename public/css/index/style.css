@@ -25,26 +25,6 @@
     border-radius: 10px;
 }
 
-.container-body .icons{
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.container-body .icons button{
-    border: none;
-    background: none;
-    cursor: pointer;
-    margin: 0 7px;
-}
-
-.container-body .icons img{
-    height: 20px;
-    opacity: 0.8;
-}
-
 .container-body h1{
     color: #555;
     font-weight: 800;
@@ -88,6 +68,11 @@
     width: fit-content;
     font-size: small;
     margin: 0 auto 10px;
+}
+
+.container-body a{
+    margin: 3px auto;
+    font-size: small;
 }
 
 .container footer{

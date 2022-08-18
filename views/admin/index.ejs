@@ -12,14 +12,21 @@
     <div class="container">
       <div class="container-body">
         <div class="icons">
-          <button type="button" title="重置" onclick="location.href = '/admin'">
+          <button type="button" onclick="location.href = '/admin'">
             <img src="/images/reset.svg" alt="admin" />
+            <p>重置</p>
           </button>
-          <button type="button" title="退出" onclick="location.href = '/logout'">
-            <img src="/images/logout.svg" alt="logout" />
-          </button>
-          <button type="button" title="首页" onclick="location.href = '/'">
+          <button type="button" onclick="location.href = '/'">
             <img src="/images/home.svg" alt="home" />
+            <p>首页</p>
+          </button>
+          <button type="button" onclick="location.href = '/logout'">
+            <img src="/images/logout.svg" alt="logout" />
+            <p>退出</p>
+          </button>
+          <button type="button" onclick="location.href = '/help'">
+            <img src="/images/help.svg" alt="help" />
+            <p>帮助</p>
           </button>
         </div>
         <h1>值班笔记查询</h1>
@@ -34,7 +41,6 @@
             oninvalid="this.setCustomValidity('SQL语句不能为空！')"
             oninput="this.setCustomValidity('')"
           />
-          <button type="submit"><img src="/images/search.svg" alt="search" /></button>
         </form>
         <div class="records-list">
           <table>

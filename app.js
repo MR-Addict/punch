@@ -22,7 +22,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 2 * 60 * 60 * 1000,
+      maxAge: 30 * 60 * 1000,
     },
   })
 );
@@ -43,6 +43,10 @@ function checkNotAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) return next();
   res.redirect("/admin");
 }
+
+app.get("/help", checkAuthenticated, (req, res) => {
+  res.render("admin/help");
+});
 
 // Login pages
 app.get("/login", checkNotAuthenticated, (req, res) => {

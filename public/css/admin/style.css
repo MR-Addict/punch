@@ -9,7 +9,7 @@
 .container{
     width: 100%;
     min-height: 100vh;
-    padding-top: 10vh;
+    padding-top: 5vh;
     background: linear-gradient(160deg,#80ffdb,#0077b6);
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
     border-radius: 10px;
 }
 
-/* Reivew chekc box */
+/* Reivew check box */
 .search-box{
     display: flex;
     flex-direction: row;
@@ -58,15 +58,24 @@
 }
 
 .container-body .icons button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
     border: none;
     background: none;
     cursor: pointer;
-    margin: 0 7px;
+    margin: 0 8px;
 }
 
 .container-body .icons img{
     height: 20px;
     opacity: 0.8;
+    margin-right: 5px;
+}
+
+.container-body .icons p{
+    font-weight: bold;
 }
 
 /* Serach header */
@@ -88,24 +97,6 @@
     border-radius: 10px;
     width: 70%;
     flex-grow:2;
-}
-
-.search-box button[type="submit"]{
-    border: none;
-    background: none;
-    cursor: pointer;
-    margin: 0 7px;
-}
-
-.search-box button[type="submit"] img{
-    height: 20px;
-    opacity: 0.8;
-}
-
-.search-box button{
-    background: #FF0063;
-    color: #FFFFFF;
-    font-weight: 800;
 }
 
 .container-body button:hover{
