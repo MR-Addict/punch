@@ -36,20 +36,50 @@
 }
 
 .container-body .help-content{
-    width: 60%;
+    width: 70%;
     border: 0;
     margin: 10px auto 30px;
     padding: 20px;
     outline: none;
-    background: #FFFFFF;
+    background: #e6e6e6;
     font-size: 16px;
     border-radius: 10px;
 }
 
+.container-body .help-content ul{
+    padding-left: 20px;
+}
+
+/* Clipboard */
+.container-body .help-content .code-copy{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .container-body .help-content .code{
     padding: 5px 10px;
-    background: #ededed;
-    width: max-content;
+    background: #252525;
+    width: 96%;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+.container-body .help-content button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.container-body .help-content img{
+    height: 20px;
+    opacity: 0.8;
+    margin-left: 5px;
 }
 
 /* Bar icons */

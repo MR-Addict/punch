@@ -31,26 +31,73 @@
         </div>
         <h1>筛选命令</h1>
         <div class="help-content">
-          <h2>一、基础筛选</h2>
-          <p>选择某些列：</p>
-          <p class="code">select `id`,`group`,`time`,`notes` from punch</p>
-          <p>选择某个组别的所有笔记：</p>
-          <p class="code">select * from punch where `group` = '电子组'</p>
-          <p>选择某一时间点后的所有笔记：</p>
-          <p class="code">select * from punch where `time` > '2022-8-13'</p>
-          <p>选择一定字数的笔记：</p>
-          <p class="code">select * from punch where length(`notes`) > 100</p>
+          <ul>
+            <h2>一、基础筛选</h2>
+            <li>选择某些列：</li>
+            <div class="code-copy">
+              <p class="code" id="code1">SELECT `id`,`group`,`time`,`notes` FROM punch</p>
+              <button type="button" onclick="copyText('code1')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
+            <li>选择某个组别的所有笔记：</li>
+            <div class="code-copy">
+              <p class="code" id="code2">SELECT * FROM punch WHERE `group` = '电子组'</p>
+              <button type="button" onclick="copyText('code2')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
+            <li>选择某一时间点后的所有笔记：</li>
+            <div class="code-copy">
+              <p class="code" id="code3">SELECT * FROM punch WHERE `time` > '2022-8-13'</p>
+              <button type="button" onclick="copyText('code3')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
+            <li>选择一定字数的笔记：</li>
+            <div class="code-copy">
+              <p class="code" id="code4">SELECT * FROM punch WHERE LENGTH(`notes`) > 100</p>
+              <button type="button" onclick="copyText('code4')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
 
-          <h2>二、高阶筛选</h2>
-          <p>选择某个组别并且时间大于某个点：</p>
-          <p class="code">select * from punch where `group` = '电子组' and `time` > '2022-8-13'</p>
-          <p>选择某个时间点后的笔记并且以倒序排序：</p>
-          <p class="code">select * from punch where `time` > '2022-8-13' order by `time` desc</p>
-          <p>选择某个人的笔记并且计算出每次的笔记字数：</p>
-          <p class="code">select *, length(`notes`) as "字数" from punch where `name` = 'Cael' order by `字数`</p>
+            <h2>二、高阶筛选</h2>
+            <li>选择某个组别并且时间大于某个点：</li>
+            <div class="code-copy">
+              <p class="code" id="code5">SELECT * FROM punch WHERE `group` = '电子组' and `time` > '2022-8-13'</p>
+              <button type="button" onclick="copyText('code5')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
+            <li>选择某个时间点后的笔记并且以倒序排序：</li>
+            <div class="code-copy">
+              <p class="code" id="code6">SELECT * FROM punch WHERE `time` > '2022-8-13' ORDER BY `time` desc</p>
+              <button type="button" onclick="copyText('code6')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
+            <li>选择某个人的笔记并且计算出每次的笔记字数：</li>
+            <div class="code-copy">
+              <p class="code" id="code7">
+                SELECT *, LENGTH(`notes`) as "字数" FROM punch WHERE `name` = 'Cael' ORDER BY `字数`
+              </p>
+              <button type="button" onclick="copyText('code7')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
+          </ul>
         </div>
       </div>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
     </div>
   </body>
+  <script>
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+    function copyText(code_id, img_id) {
+      navigator.clipboard.writeText(document.getElementById(code_id).innerText);
+    }
+  </script>
 </html>
