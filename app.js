@@ -22,7 +22,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 30 * 60 * 1000,
+      maxAge: 2 * 60 * 60 * 1000,
     },
   })
 );
@@ -79,7 +79,7 @@ app.get("/admin", checkAuthenticated, (req, res) => {
   });
 });
 
-app.post("/admin", (req, res) => {
+app.post("/admin", checkAuthenticated, (req, res) => {
   const validate_result = punch_schema.sql_schema.validate(req.body);
 
   if (validate_result.error) {

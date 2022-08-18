@@ -6,8 +6,8 @@
 }
 
 .container{
-    width: 100%;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     background: linear-gradient(160deg,#80ffdb,#0077b6);
     display: flex;
     align-items: center;
@@ -32,13 +32,13 @@
     margin: 50px auto 20px;
 }
 
-.container-body img{
+.container-body .msg-img{
     width: 120px;
     height: 120px;
     margin: 20px auto 50px;
 }
 
-.container-body button{
+.container-body .return-but{
     padding: 15px;
     background: #FF0063;
     color: #FFFFFF;

@@ -40,7 +40,7 @@ USE punch;
 CREATE TABLE `admin`(
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(20) NOT NULL,
-    `password` VARCHAR(20) NOT NULL
+    `password` VARCHAR(100) NOT NULL
 );
 ```
 
@@ -75,7 +75,7 @@ GRANT SELECT ON punch TO 'punch_select'@'localhost' WITH GRANT OPTION;
 ```
 
 ```sql
-GRANT INSERT ON admin TO 'punch_select'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON admin TO 'punch_select'@'localhost' WITH GRANT OPTION;
 ```
 
 #### 2.2.3 重置用户权限缓存
