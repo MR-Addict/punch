@@ -125,7 +125,6 @@ table tr:nth-child(even) {
 
 table th{
     padding: 12px;
-    text-align: center;
     background-color: #5da68d;
     color: white;
 }

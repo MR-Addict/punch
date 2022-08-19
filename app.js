@@ -87,29 +87,17 @@ app.get("/export", checkAuthenticated, (req, res) => {
   worksheet.columns = worksheet_columns;
   worksheet.addRows(punch_export);
 
-  // Style sheets
-  // Fill background color
-  worksheet.eachRow((row, rowNum) => {
-    row.eachCell((cell) => {
-      if (rowNum % 2 == 0) {
-        cell.fill = {
-          type: "pattern",
-          pattern: "solid",
-          fgColor: { argb: "efefef" },
-        };
-      }
-    });
-  });
   // Wrap text and alignment
   Object.keys(punch_export[0]).forEach((prop) => {
     worksheet.getColumn(prop).width = 10;
     worksheet.getColumn(prop).font = { size: 14 };
-    worksheet.getColumn(prop).alignment = { vertical: "top", horizontal: "left", wrapText: true };
+    worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "center" };
     if (prop === "time") {
       worksheet.getColumn(prop).width = 15;
     }
     if (prop === "notes") {
       worksheet.getColumn(prop).width = 100;
+      worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
     }
   });
   // Header style

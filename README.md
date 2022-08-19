@@ -99,3 +99,7 @@ git clone https://github.com/MR-Addict/punch.git
 ```bash
 docker-compose up -d
 ```
+
+## 4. 后台管理
+
+后台账号请联系部长或者组长。
