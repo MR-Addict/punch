@@ -90,7 +90,7 @@ app.get("/export", checkAuthenticated, (req, res) => {
   // Wrap text and alignment
   Object.keys(punch_export[0]).forEach((prop) => {
     worksheet.getColumn(prop).width = 10;
-    worksheet.getColumn(prop).font = { size: 14 };
+    worksheet.getColumn(prop).font = { size: 13 };
     worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "center" };
     if (prop === "time") {
       worksheet.getColumn(prop).width = 15;
