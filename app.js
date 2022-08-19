@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
+const excel = require("exceljs");
 
 // Custom libs
 const punch_db = require("./libs/pool");
@@ -67,6 +68,74 @@ app.get("/logout", (req, res, next) => {
       return next(err);
     }
     res.redirect("/admin");
+  });
+});
+
+// Export mysql data
+app.get("/export", checkAuthenticated, (req, res) => {
+  // Create sheets
+  const punch_export = JSON.parse(JSON.stringify(admin_render.records));
+  const workbook = new excel.Workbook();
+  const worksheet = workbook.addWorksheet("值班笔记");
+  const worksheet_columns = [];
+  Object.keys(punch_export[0]).forEach(function (prop) {
+    worksheet_columns.push({
+      header: prop,
+      key: prop,
+    });
+  });
+  worksheet.columns = worksheet_columns;
+  worksheet.addRows(punch_export);
+
+  // Style sheets
+  // Fill background color
+  worksheet.eachRow((row, rowNum) => {
+    row.eachCell((cell) => {
+      if (rowNum % 2 == 0) {
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "efefef" },
+        };
+      }
+    });
+  });
+  // Wrap text and alignment
+  Object.keys(punch_export[0]).forEach((prop) => {
+    worksheet.getColumn(prop).width = 10;
+    worksheet.getColumn(prop).font = { size: 14 };
+    worksheet.getColumn(prop).alignment = { vertical: "top", horizontal: "left", wrapText: true };
+    if (prop === "time") {
+      worksheet.getColumn(prop).width = 15;
+    }
+    if (prop === "notes") {
+      worksheet.getColumn(prop).width = 100;
+    }
+  });
+  // Header style
+  worksheet.getRow(1).font = {
+    size: 16,
+    bold: true,
+    color: { argb: "00008B" },
+  };
+  // Formate Data
+  if (Object.keys(punch_export[0]).includes("time")) {
+    const time_columns = worksheet.getColumn("time");
+    time_columns.eachCell({ includeEmpty: true }, (cell) => {
+      if (cell.value != "time") {
+        cell.value = new Date(cell.value).toISOString().split("T")[0];
+      }
+    });
+  }
+
+  // Export excel
+  res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  res.setHeader(
+    "Content-Disposition",
+    "attachment; filename=" + "punch-" + new Date().toISOString().split("T")[0] + ".xlsx"
+  );
+  return workbook.xlsx.write(res).then(function () {
+    res.status(200).end();
   });
 });
 
