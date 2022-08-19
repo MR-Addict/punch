@@ -3,20 +3,20 @@ const LocalStrategy = require("passport-local").Strategy;
 const users = require("./pool").users;
 
 function initPassport(passport) {
-  const authenticateUser = async (username, password, done) => {
+  const authenticateUser = async (req, username, password, done) => {
     const user = users.find((user) => user.username === username);
-    if (!user) return done(null, false, { message: "No such user!" });
+    if (!user) return done(null, false, req.flash("error", "用户不存在！"));
     try {
       if (await bcrypt.compare(password, user.password)) {
         return done(null, user);
       } else {
-        return done(null, false, { message: "Incorrect password!" });
+        return done(null, false, req.flash("error", "密码错误！"));
       }
     } catch (error) {
       return done(error);
     }
   };
-  passport.use(new LocalStrategy({ usernameField: "username" }, authenticateUser));
+  passport.use(new LocalStrategy({ usernameField: "username", passReqToCallback: true }, authenticateUser));
 
   passport.serializeUser((user, done) => {
     done(null, user.id);

@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
 const excel = require("exceljs");
+const flash = require("connect-flash");
 
 // Custom libs
 const punch_db = require("./libs/pool");
@@ -14,6 +15,7 @@ initPassport(passport);
 // Offical middleware
 const app = express();
 app.set("view engine", "ejs");
+app.use(flash());
 app.use(express.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,14 +53,16 @@ app.get("/help", checkAuthenticated, (req, res) => {
 
 // Login pages
 app.get("/login", checkNotAuthenticated, (req, res) => {
-  res.render("admin/login", { error: req.query.error });
+  const error_message = req.flash("error");
+  res.render("admin/login", { error: error_message });
 });
 
 app.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/admin",
-    failureRedirect: "/login?error=true",
+    failureRedirect: "/login",
+    failureFlash: true,
   })
 );
 

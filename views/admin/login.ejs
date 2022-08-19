@@ -11,8 +11,8 @@
   <body>
     <div class="container">
       <form action="/login" method="post" class="container-body">
-        <% if(error){ %>
-        <p class="err-msg">用户名或密码错误</p>
+        <% if(error!=''){ %>
+        <p class="err-msg"><%= error %></p>
         <% } %>
         <h1>请先登录</h1>
         <label for="username">用户名</label>
