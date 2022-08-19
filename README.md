@@ -1,4 +1,4 @@
-<h1>技术部值班笔记👻<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/> <img src="https://github.com/MR-Addict/punch/actions/workflows/docker.yml/badge.svg?branch=main"/></h1>
+<h1>技术部值班笔记<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/> <img src="https://github.com/MR-Addict/punch/actions/workflows/docker.yml/badge.svg?branch=main"/></h1>
 
 ## 1. 预览
 
@@ -22,7 +22,7 @@ CREATE DATABASE punch;
 USE punch;
 
 CREATE TABLE `punch`(
-    `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `group` VARCHAR(10) NOT NULL,
     `name` VARCHAR(10) NOT NULL,
     `time` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -86,7 +86,7 @@ GRANT SELECT ON admin TO 'punch_select'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 
-## 3. 搭建服务器
+## 3. 启动服务器
 
 克隆本文档：
 
