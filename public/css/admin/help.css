@@ -5,6 +5,10 @@
     font-family: sans-serif;
 }
 
+:root{
+    --pri-blue:#5da68d
+}
+
 /* Home background */
 .container{
     width: 100%;
@@ -44,6 +48,7 @@
     background: #f5f5f5;
     font-size: 16px;
     border-radius: 10px;
+    border: 2px solid var(--pri-blue);
 }
 
 .container-body .help-content ul{

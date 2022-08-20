@@ -35,16 +35,19 @@
         </div>
         <h1>值班笔记查询</h1>
         <form class="search-box" action="/admin" method="post">
-          <input
-            type="text"
-            id="command"
-            name="command"
-            placeholder="输入SQL语句查询结果"
-            maxlength="200"
-            required
-            oninvalid="this.setCustomValidity('SQL语句不能为空！')"
-            oninput="this.setCustomValidity('')"
-          />
+          <div class="search">
+            <button type="submit"><img src="/images/search.svg" alt="search" /></button>
+            <input
+              type="text"
+              id="command"
+              name="command"
+              placeholder="输入SQL语句查询结果"
+              maxlength="200"
+              required
+              oninvalid="this.setCustomValidity('SQL语句不能为空！')"
+              oninput="this.setCustomValidity('')"
+            />
+          </div>
         </form>
         <div class="records-list">
           <table>

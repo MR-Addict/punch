@@ -5,6 +5,10 @@
     font-family: sans-serif;
 }
 
+:root{
+    --pri-blue:#5da68d
+}
+
 /* Home background */
 .container{
     width: 100%;
