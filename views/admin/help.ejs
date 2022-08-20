@@ -58,7 +58,7 @@
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
-            <li>选择一定字数的笔记：</li>
+            <li>查看一定字数的笔记：</li>
             <div class="code-copy">
               <p class="code" id="code4">SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100</p>
               <button type="button" onclick="copyText('code4')" title="复制">
@@ -67,16 +67,16 @@
             </div>
 
             <h2>二、高阶筛选</h2>
-            <li>选择某几天的笔记：</li>
+            <li>查看某个时间段的笔记：</li>
             <div class="code-copy">
               <p class="code" id="code5">SELECT * FROM `punch` WHERE `time` BETWEEN '2022-8-13' and '2022-8-16'</p>
               <button type="button" onclick="copyText('code5')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
-            <li>选择某个人的笔记并且计算出每次的笔记字数：</li>
+            <li>查看某个人的笔记并计算出每次的笔记字数：</li>
             <div class="code-copy">
-              <p class="code" id="code7">SELECT *, LENGTH(`notes`) as "字数" FROM `punch` WHERE `name` = 'Cael'</p>
+              <p class="code" id="code7">SELECT *, LENGTH(`notes`) as '字数' FROM `punch` WHERE `name` = 'Cael'</p>
               <button type="button" onclick="copyText('code7')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
