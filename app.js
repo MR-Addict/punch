@@ -93,12 +93,9 @@ app.get("/export", checkAuthenticated, (req, res) => {
 
   // Wrap text and alignment
   Object.keys(punch_export[0]).forEach((prop) => {
-    worksheet.getColumn(prop).width = 10;
+    worksheet.getColumn(prop).width = 15;
     worksheet.getColumn(prop).font = { size: 13 };
     worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "center" };
-    if (prop === "time") {
-      worksheet.getColumn(prop).width = 15;
-    }
     if (prop === "notes") {
       worksheet.getColumn(prop).width = 100;
       worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
@@ -110,15 +107,6 @@ app.get("/export", checkAuthenticated, (req, res) => {
     bold: true,
     color: { argb: "00008B" },
   };
-  // Formate Data
-  if (Object.keys(punch_export[0]).includes("time")) {
-    const time_columns = worksheet.getColumn("time");
-    time_columns.eachCell({ includeEmpty: true }, (cell) => {
-      if (cell.value != "time") {
-        cell.value = new Date(cell.value).toISOString().split("T")[0];
-      }
-    });
-  }
 
   // Export excel
   res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

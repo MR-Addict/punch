@@ -39,7 +39,7 @@
             <h2>一、基础筛选</h2>
             <li>隐藏姓名：</li>
             <div class="code-copy">
-              <p class="code" id="code1">SELECT `id`,`group`,`time`,`notes` FROM `punch`</p>
+              <p class="code" id="code1">SELECT `id`,`group`,`date`,`notes` FROM `punch`</p>
               <button type="button" onclick="copyText('code1')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
@@ -53,7 +53,7 @@
             </div>
             <li>查看某一时间点后的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code3">SELECT * FROM `punch` WHERE `time` > '2022-8-13'</p>
+              <p class="code" id="code3">SELECT * FROM `punch` WHERE DATE(`date`) > '2022-8-13'</p>
               <button type="button" onclick="copyText('code3')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
@@ -69,7 +69,9 @@
             <h2>二、高阶筛选</h2>
             <li>查看某个时间段的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code5">SELECT * FROM `punch` WHERE `time` BETWEEN '2022-8-13' and '2022-8-16'</p>
+              <p class="code" id="code5">
+                SELECT * FROM `punch` WHERE DATE(`date`) BETWEEN '2022-8-13' and '2022-8-16'
+              </p>
               <button type="button" onclick="copyText('code5')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
@@ -84,7 +86,7 @@
             <li>查看每天的提交人数：</li>
             <div class="code-copy">
               <p class="code" id="code6">
-                SELECT DATE(`time`) AS 'time', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`time`)
+                SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`date`)
               </p>
               <button type="button" onclick="copyText('code6')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />

@@ -49,14 +49,14 @@
               list="commands-options"
             />
             <datalist id="commands-options">
-              <option value="SELECT `id`,`group`,`time`,`notes` FROM `punch`"></option>
+              <option value="SELECT `id`,`group`,`date`,`notes` FROM `punch`"></option>
               <option value="SELECT * FROM `punch` WHERE `group` = '电子组'"></option>
-              <option value="SELECT * FROM `punch` WHERE `time` > '2022-8-13'"></option>
+              <option value="SELECT * FROM `punch` WHERE DATE(`date`) > '2022-8-13'"></option>
               <option value="SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100"></option>
-              <option value="SELECT * FROM `punch` WHERE `time` BETWEEN '2022-8-13' and '2022-8-16'"></option>
+              <option value="SELECT * FROM `punch` WHERE DATE(`date`) BETWEEN '2022-8-13' and '2022-8-16'"></option>
               <option value="SELECT *, LENGTH(`notes`) as '字数' FROM `punch` WHERE `name` = 'Cael'"></option>
               <option
-                value="SELECT DATE(`time`) AS 'time', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`time`)"
+                value="SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`date`)"
               ></option>
             </datalist>
           </div>
@@ -73,13 +73,7 @@
             <% records.forEach(function(record) { %>
             <tr>
               <% Object.keys(record).forEach(function(prop) { %>
-              <!-- If element is time -->
-              <% if(prop==='time'){ %>
-              <td><%= new Date(record[prop]).toLocaleDateString(); %></td>
-              <% } else{ %>
-              <td><%= record[prop] %></td>
-              <% } %>
-              <!-- If end -->
+              <td><%= record[prop]; %></td>
               <% }); %>
             </tr>
             <% }); %>
