@@ -16,6 +16,10 @@
             <img src="/images/reset.svg" alt="admin" />
             <p>重置</p>
           </button>
+          <button type="button" onclick="location.href = '/export'" title="导出筛选结果">
+            <img src="/images/export.svg" alt="export" />
+            <p>导出</p>
+          </button>
           <button type="button" onclick="location.href = '/'" title="返回提交页面">
             <img src="/images/home.svg" alt="home" />
             <p>首页</p>
@@ -63,9 +67,9 @@
             </div>
 
             <h2>二、高阶筛选</h2>
-            <li>选择某个组并且时间大于某个点的笔记：</li>
+            <li>选择某几天的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code5">SELECT * FROM `punch` WHERE `group` = '电子组' and `time` > '2022-8-13'</p>
+              <p class="code" id="code5">SELECT * FROM `punch` WHERE `time` BETWEEN '2022-8-13' and '2022-8-16'</p>
               <button type="button" onclick="copyText('code5')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
@@ -80,7 +84,7 @@
             <li>查看每天的提交人数：</li>
             <div class="code-copy">
               <p class="code" id="code6">
-                SELECT DATE(`time`) AS 'time', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`time`);
+                SELECT DATE(`time`) AS 'time', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`time`)
               </p>
               <button type="button" onclick="copyText('code6')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
