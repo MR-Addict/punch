@@ -149,8 +149,10 @@ table tr:nth-child(even) {
 }
 
 table th{
+    color: #FFFFFF;
+    white-space: nowrap;
+    text-transform: capitalize;
     background-color: var(--pri-blue);
-    color: white;
 }
 
 /* Footer */
