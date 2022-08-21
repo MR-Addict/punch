@@ -73,7 +73,13 @@
             <% records.forEach(function(record) { %>
             <tr>
               <% Object.keys(record).forEach(function(prop) { %>
+              <!-- If begin -->
+              <% if(prop === "date") {%>
+              <td style="white-space: nowrap"><%= record[prop]; %></td>
+              <% }else{ %>
               <td><%= record[prop]; %></td>
+              <% } %>
+              <!-- If end -->
               <% }); %>
             </tr>
             <% }); %>
