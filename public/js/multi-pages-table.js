@@ -2,9 +2,10 @@ const rows = document.querySelector(".multi-page-table tbody").rows;
 
 const num_of_records_per_page = 50;
 const num_of_all_records = rows.length;
-const num_of_pages = num_of_all_records / num_of_records_per_page + 1;
+const num_of_pages = parseInt(num_of_all_records / num_of_records_per_page + 1);
 
-document.getElementById("sta-all-pages").innerText = num_of_all_records;
+document.getElementById("sta-all-pages").innerText = num_of_pages;
+document.getElementById("sta-all-records").innerText = num_of_all_records;
 // Generate buttons
 for (var i = 1; i <= num_of_pages; i++) {
   document.getElementById(
@@ -20,11 +21,13 @@ function showTables(num_of_page) {
       rows[i].style.display = "none";
     }
   }
+  // Update current page
+  document.getElementById("sta-current-page").innerText = num_of_page;
   // Update current num of results
   if (num_of_page * num_of_records_per_page <= num_of_all_records) {
-    document.getElementById("sta-current-page").innerText = num_of_records_per_page;
+    document.getElementById("sta-current-records").innerText = num_of_records_per_page;
   } else {
-    document.getElementById("sta-current-page").innerText =
+    document.getElementById("sta-current-records").innerText =
       num_of_all_records - num_of_records_per_page * (num_of_page - 1);
   }
   // Change button color
