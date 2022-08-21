@@ -51,9 +51,9 @@
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
-            <li>查看今天的笔记：</li>
+            <li>查看一定字数的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code3">SELECT * FROM `punch` WHERE DATE(`date`) = CURRENT_DATE</p>
+              <p class="code" id="code3">SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100</p>
               <button type="button" onclick="copyText('code3')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
@@ -65,20 +65,18 @@
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
-            <li>查看一定字数的笔记：</li>
+
+            <h2>二、进阶筛选</h2>
+            <li>查看今天的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code5">SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100</p>
+              <p class="code" id="code5">SELECT * FROM `punch` WHERE DATE(`date`) = CURRENT_DATE</p>
               <button type="button" onclick="copyText('code5')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
-
-            <h2>二、高阶筛选</h2>
-            <li>查看某个时间段的笔记：</li>
+            <li>查看本周的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code6">
-                SELECT * FROM `punch` WHERE DATE(`date`) BETWEEN '2022-8-13' and '2022-8-16'
-              </p>
+              <p class="code" id="code6">SELECT * FROM `punch` WHERE DATE(`date`) > DATE_SUB(NOW(), INTERVAL 1 WEEK)</p>
               <button type="button" onclick="copyText('code6')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
