@@ -140,16 +140,15 @@ table {
 
 table td, table th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 5px;
     text-align: center;
 }
 
 table tr:nth-child(even) {
-    background-color: #f5f5f5;
+    background-color: #f0f0f0;
 }
 
 table th{
-    padding: 12px;
     background-color: var(--pri-blue);
     color: white;
 }
