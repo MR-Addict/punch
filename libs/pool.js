@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const users = [];
 const analyze_command =
-  "SELECT (SELECT COUNT(*) FROM `punch`) AS 'all',(SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) BETWEEN (CURRENT_DATE-7) AND CURRENT_DATE) AS 'week',(SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS 'today'";
+  "SELECT (SELECT COUNT(*) FROM `punch`) AS 'all',(SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) > DATE_SUB(NOW(), INTERVAL 1 WEEK)) AS 'week',(SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS 'today'";
 
 const pool_insert = mysql.createPool({
   connectionLimit: 4,
