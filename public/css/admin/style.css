@@ -6,7 +6,11 @@
 }
 
 :root {
-  --pri-blue: #5da68d;
+  --pri-green: #5da68d;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 /* Home background */
@@ -29,7 +33,7 @@
   padding: 2vw 2vw;
   width: 90%;
   max-width: 80%;
-  border-radius: 10px;
+  border-radius: 1rem;
 }
 
 /* Main pages elements */
@@ -37,22 +41,22 @@
 .container-body .search-box,
 .container-body .records-list {
   border: 0;
-  margin: 10px 0;
-  padding: 10px 0;
+  margin: 1rem 0;
+  padding: 1rem 0;
   outline: none;
   background: #ffffff;
-  font-size: 16px;
-  border-radius: 10px;
+  font-size: 1.6rem;
+  border-radius: 1rem;
 }
 
 /* Bar icons */
 .container-body .icons {
-  padding: 5px;
+  padding: 0.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 5px;
+  margin-right: 0.5rem;
 }
 
 /*Button effects*/
@@ -64,18 +68,18 @@
   border: none;
   background: none;
   cursor: pointer;
-  margin: 0 10px;
+  margin: 0 1rem;
   position: relative;
 }
 
 .container-body .icons button::after {
   content: "";
   left: 0;
-  bottom: -4px;
+  bottom: -0.4rem;
   width: 100%;
-  height: 3px;
+  height: 0.3rem;
   position: absolute;
-  background: #0077b6;
+  background: var(--pri-green);
 
   transform: scaleX(0);
   transform-origin: left;
@@ -87,9 +91,9 @@
 }
 
 .container-body .icons img {
-  height: 20px;
+  height: 2rem;
   opacity: 0.8;
-  margin-right: 5px;
+  margin-right: 0.5rem;
 }
 
 .container-body .icons p {
@@ -101,7 +105,7 @@
   font-weight: 800;
   color: #555;
   text-align: center;
-  font-size: 30px;
+  font-size: 3rem;
 }
 
 /* Reivew check box */
@@ -118,17 +122,17 @@
   display: flex;
   width: 100%;
   background: #f5f5f5;
-  border-radius: 20px;
+  border-radius: 2rem;
 }
 
 .search-box .search input {
   flex-grow: 1;
   border: 0;
-  padding: 10px;
+  padding: 1rem;
   outline: none;
-  font-size: 16px;
+  font-size: 1.6rem;
   background: transparent;
-  margin-right: 20px;
+  margin-right: 2rem;
 }
 
 .search-box .search button {
@@ -136,9 +140,9 @@
   background: transparent;
   cursor: pointer;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  margin: 8px;
+  height: 4rem;
+  width: 4rem;
+  margin: 0.8rem;
 }
 
 .search-box .search button:hover {
@@ -146,7 +150,7 @@
 }
 
 .search-box .search button img {
-  height: 20px;
+  height: 2rem;
   opacity: 0.8;
 }
 
@@ -164,7 +168,7 @@
 }
 
 .status div {
-  margin: 0 5px;
+  margin: 0 0.5rem;
 }
 
 .status div span {
@@ -181,8 +185,8 @@ table {
 
 table td,
 table th {
-  border: 1px solid #ddd;
-  padding: 5px;
+  border: 0.1rem solid #ddd;
+  padding: 0.5rem;
   text-align: center;
 }
 
@@ -198,14 +202,26 @@ table th {
   color: #ffffff;
   white-space: nowrap;
   text-transform: capitalize;
-  background-color: var(--pri-blue);
+  background-color: var(--pri-green);
 }
 
 table td {
-  font-size: 15px;
+  font-size: 1.5rem;
 }
 
 /* Footer */
 .container footer {
-  margin: 20px;
+  margin: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  html {
+    font-size: 40%;
+  }
+  .container {
+    padding-top: 3vh;
+  }
+  .container-body {
+    max-width: 90%;
+  }
 }
