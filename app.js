@@ -31,7 +31,7 @@ app.use(
 );
 
 // Custom variables
-const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }] };
+const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }], statistics: { today: 0, week: 0, all: 0 } };
 
 // Passport
 app.use(passport.initialize());
@@ -121,13 +121,20 @@ app.get("/export", checkAuthenticated, (req, res) => {
 
 // Render admin page
 app.get("/admin", checkAuthenticated, (req, res) => {
-  punch_db.pool_select.query("SELECT * FROM punch", function (err, result, fields) {
+  punch_db.pool_select.query("SELECT * FROM punch", (err, result, fields) => {
     if (err) {
       console.error(err);
       admin_render.records = [{ ERROR: err.sqlMessage }];
     } else {
-      admin_render.records = result;
+      if (result.length) {
+        admin_render.records = result;
+      } else {
+        admin_render.records = [{ ERROR: "The database is empty!" }];
+      }
     }
+  });
+  punch_db.pool_select.query(punch_db.analyze_command, (err, result, fields) => {
+    admin_render.statistics = result[0];
     res.render("admin/index", admin_render);
   });
 });
@@ -140,7 +147,7 @@ app.post("/admin", checkAuthenticated, (req, res) => {
     admin_render.records = [{ ERROR: validate_result.error.details[0].message }];
     res.render("admin/index", admin_render);
   } else {
-    punch_db.pool_select.query(req.body.command, function (err, result, fields) {
+    punch_db.pool_select.query(req.body.command, (err, result, fields) => {
       if (err) {
         console.error(err);
         admin_render.records = [{ ERROR: err.sqlMessage }];
@@ -150,8 +157,8 @@ app.post("/admin", checkAuthenticated, (req, res) => {
         } else {
           admin_render.records = [{ ERROR: "There's no satisfied results!" }];
         }
+        res.render("admin/index", admin_render);
       }
-      res.render("admin/index", admin_render);
     });
   }
 });

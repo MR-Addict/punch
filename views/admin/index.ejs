@@ -61,6 +61,14 @@
             </datalist>
           </div>
         </form>
+        <div class="status">
+          <div>
+            今日提交:
+            <span><%= statistics["today"] %></span>
+          </div>
+          <div>本周提交:<span><%= statistics["week"] %></span></div>
+          <div>总提交:<span><%= statistics["all"] %></span></div>
+        </div>
         <div class="records-list">
           <table>
             <!-- Title -->
@@ -75,7 +83,7 @@
               <% Object.keys(record).forEach(function(prop) { %>
               <!-- If begin -->
               <% if(prop === "date") {%>
-              <td style="white-space: nowrap"><%= record[prop]; %></td>
+              <td><%= record[prop]; %></td>
               <% }else{ %>
               <td><%= record[prop]; %></td>
               <% } %>

@@ -1,5 +1,7 @@
 const mysql = require("mysql");
 const users = [];
+const analyze_command =
+  "SELECT (SELECT COUNT(*) FROM `punch`) AS 'all',(SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) BETWEEN (CURRENT_DATE-7) AND CURRENT_DATE) AS 'week',(SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS 'today'";
 
 const pool_insert = mysql.createPool({
   connectionLimit: 4,
@@ -35,4 +37,4 @@ pool_select.query("SELECT * FROM admin", function (err, result, fields) {
   }
 });
 
-module.exports = { pool_insert, pool_select, users };
+module.exports = { pool_insert, pool_select, users, analyze_command };

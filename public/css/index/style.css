@@ -1,80 +1,83 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
-.container{
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(160deg,#80ffdb,#0077b6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #80ffdb, #0077b6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.container-body{
-    background: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    padding: 2vw 4vw;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 10px;
+.container-body {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 2vw 4vw;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
 }
 
-.container-body h1{
-    color: #555;
-    font-weight: 800;
-    margin: 20px auto 10px;
+.container-body h1 {
+  color: #555;
+  font-weight: 800;
+  margin: 20px auto 10px;
 }
 
-.container-body input, .container-body textarea, .container-body select{
-    border: 0;
-    margin: 10px 0;
-    padding: 20px;
-    outline: none;
-    background: #f5f5f5;
-    font-size: 16px;
-    border-radius: 10px;
+.container-body input,
+.container-body textarea,
+.container-body select {
+  border: 0;
+  margin: 10px 0;
+  padding: 20px;
+  outline: none;
+  background: #f5f5f5;
+  font-size: 16px;
+  border-radius: 10px;
 }
 
-.container-body input:focus::placeholder, .container-body textarea:focus::placeholder{
-    color: transparent;
+.container-body input:focus::placeholder,
+.container-body textarea:focus::placeholder {
+  color: transparent;
 }
 
-.container-body button[type="submit"]{
-    padding: 15px;
-    background: #FF0063;
-    color: #FFFFFF;
-    font-weight: 800;
-    font-size: 18px;
-    border: 0;
-    outline: none;
-    cursor: pointer;
-    width: 150px;
-    margin: 10px auto;
-    border-radius: 20px;
-    transition: transform .3s;
+.container-body button[type="submit"] {
+  padding: 15px;
+  background: #ff0063;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 18px;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  width: 150px;
+  margin: 10px auto;
+  border-radius: 20px;
+  transition: transform 0.3s;
 }
 
-.container-body button:hover{
-    transform: scale(1.05);
+.container-body button:hover {
+  transform: scale(1.05);
 }
 
-.container-body .admin-href{
-    width: fit-content;
-    font-size: small;
-    margin: 0 auto 10px;
+.container-body .admin-href {
+  width: fit-content;
+  font-size: small;
+  margin: 0 auto 10px;
 }
 
-.container-body a{
-    margin: 3px auto;
-    font-size: small;
+.container-body a {
+  margin: 3px auto;
+  font-size: small;
 }
 
-.container footer{
-    margin-top: 20px;
+.container footer {
+  margin-top: 20px;
 }
