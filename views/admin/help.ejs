@@ -51,17 +51,24 @@
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
+            <li>查看今天的笔记：</li>
+            <div class="code-copy">
+              <p class="code" id="code3">SELECT * FROM `punch` WHERE DATE(`date`) = CURRENT_DATE</p>
+              <button type="button" onclick="copyText('code3')" title="复制">
+                <img src="/images/copy.svg" alt="copy" />
+              </button>
+            </div>
             <li>查看某一时间点后的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code3">SELECT * FROM `punch` WHERE DATE(`date`) > '2022-8-13'</p>
-              <button type="button" onclick="copyText('code3')" title="复制">
+              <p class="code" id="code4">SELECT * FROM `punch` WHERE DATE(`date`) > '2022-8-13'</p>
+              <button type="button" onclick="copyText('code4')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
             <li>查看一定字数的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code4">SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100</p>
-              <button type="button" onclick="copyText('code4')" title="复制">
+              <p class="code" id="code5">SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100</p>
+              <button type="button" onclick="copyText('code5')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
@@ -69,10 +76,10 @@
             <h2>二、高阶筛选</h2>
             <li>查看某个时间段的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code5">
+              <p class="code" id="code6">
                 SELECT * FROM `punch` WHERE DATE(`date`) BETWEEN '2022-8-13' and '2022-8-16'
               </p>
-              <button type="button" onclick="copyText('code5')" title="复制">
+              <button type="button" onclick="copyText('code6')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
@@ -85,10 +92,10 @@
             </div>
             <li>查看每天的提交人数：</li>
             <div class="code-copy">
-              <p class="code" id="code6">
+              <p class="code" id="code8">
                 SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`date`)
               </p>
-              <button type="button" onclick="copyText('code6')" title="复制">
+              <button type="button" onclick="copyText('code8')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>

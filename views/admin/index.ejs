@@ -51,6 +51,7 @@
             <datalist id="commands-options">
               <option value="SELECT `id`,`group`,`date`,`notes` FROM `punch`"></option>
               <option value="SELECT * FROM `punch` WHERE `group` = '电子组'"></option>
+              <option value="SELECT * FROM `punch` WHERE DATE(`date`) = CURRENT_DATE"></option>
               <option value="SELECT * FROM `punch` WHERE DATE(`date`) > '2022-8-13'"></option>
               <option value="SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100"></option>
               <option value="SELECT * FROM `punch` WHERE DATE(`date`) BETWEEN '2022-8-13' and '2022-8-16'"></option>
