@@ -63,9 +63,15 @@
           </div>
         </form>
         <div class="status">
-          <div>今日提交:<span><%= statistics["today"] %></span></div>
-          <div>本周提交:<span><%= statistics["week"] %></span></div>
-          <div>总提交:<span><%= statistics["all"] %></span></div>
+          <div class="sta-left">
+            <div class="sta-element">当前结果:<span id="sta-current-page"></span></div>
+            <div class="sta-element">所有结果:<span id="sta-all-pages"></span></div>
+          </div>
+          <div class="sta-right">
+            <div class="sta-element">今日提交:<span><%= statistics["today"] %></span></div>
+            <div class="sta-element">本周提交:<span><%= statistics["week"] %></span></div>
+            <div class="sta-element">总提交:<span><%= statistics["all"] %></span></div>
+          </div>
         </div>
         <div class="records-list">
           <table class="multi-page-table">
@@ -82,21 +88,17 @@
               <% records.forEach(function(record) { %>
               <tr>
                 <% Object.keys(record).forEach(function(prop) { %>
-                <!-- If begin -->
-                <% if(prop === "date") {%>
                 <td><%= record[prop]; %></td>
-                <% }else{ %>
-                <td><%= record[prop]; %></td>
-                <% } %>
-                <!-- If end -->
                 <% }); %>
               </tr>
               <% }); %>
             </tbody>
           </table>
         </div>
+        <div id="table-pages-nav"></div>
       </div>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
     </div>
   </body>
+  <script src="/js/multi-pages-table.js"></script>
 </html>

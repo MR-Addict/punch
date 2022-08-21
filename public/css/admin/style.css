@@ -162,18 +162,51 @@ html {
 .status {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  font-size: small;
+  font-size: 1.3rem;
+  justify-content: space-between;
 }
 
-.status div {
+.status .sta-right,
+.status .sta-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Status begin */
+.status .sta-left {
+  justify-content: flex-start;
+}
+
+/* Status right */
+.status .sta-right {
+  justify-content: flex-end;
+}
+.status .sta-element {
   margin: 0 0.5rem;
 }
 
-.status div span {
+.status .sta-element span {
   color: #0077b6;
   font-weight: bold;
+}
+
+/* Table bottom button */
+#table-pages-nav {
+  margin: 1rem auto;
+}
+
+#table-pages-nav button {
+  background: var(--pri-green);
+  border: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 15%;
+  color: #ffffff;
+  cursor: pointer;
+  margin: 0 0.3rem;
+  font-size: 1.4rem;
+  text-align: center;
 }
 
 /* Records list */
