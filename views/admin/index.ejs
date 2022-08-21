@@ -68,31 +68,42 @@
           <div>总提交:<span><%= statistics["all"] %></span></div>
         </div>
         <div class="records-list">
-          <table>
-            <!-- Title -->
-            <tr>
-              <% Object.keys(records[0]).forEach(function(prop) { %>
-              <th><%= prop %></th>
+          <table class="multi-page-table">
+            <thead>
+              <!-- Title -->
+              <tr>
+                <% Object.keys(records[0]).forEach(function(prop) { %>
+                <th><%= prop %></th>
+                <% }); %>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Content -->
+              <% records.forEach(function(record) { %>
+              <tr>
+                <% Object.keys(record).forEach(function(prop) { %>
+                <!-- If begin -->
+                <% if(prop === "date") {%>
+                <td><%= record[prop]; %></td>
+                <% }else{ %>
+                <td><%= record[prop]; %></td>
+                <% } %>
+                <!-- If end -->
+                <% }); %>
+              </tr>
               <% }); %>
-            </tr>
-            <!-- Content -->
-            <% records.forEach(function(record) { %>
-            <tr>
-              <% Object.keys(record).forEach(function(prop) { %>
-              <!-- If begin -->
-              <% if(prop === "date") {%>
-              <td><%= record[prop]; %></td>
-              <% }else{ %>
-              <td><%= record[prop]; %></td>
-              <% } %>
-              <!-- If end -->
-              <% }); %>
-            </tr>
-            <% }); %>
+            </tbody>
           </table>
         </div>
       </div>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
     </div>
   </body>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/jquery-datatables.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("table.multi-page-table").DataTable();
+    });
+  </script>
 </html>
