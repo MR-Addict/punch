@@ -76,7 +76,7 @@
             </div>
             <li>查看本周的笔记：</li>
             <div class="code-copy">
-              <p class="code" id="code6">SELECT * FROM `punch` WHERE DATE(`date`) > DATE_SUB(NOW(), INTERVAL 1 WEEK)</p>
+              <p class="code" id="code6">SELECT * FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)</p>
               <button type="button" onclick="copyText('code6')" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
