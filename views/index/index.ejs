@@ -12,12 +12,15 @@
     <div class="container">
       <form action="/" method="post" class="container-body">
         <h1>值班笔记</h1>
-        <select id="group" name="group">
-          <option value="航模组">航模组</option>
-          <option value="编程组">编程组</option>
-          <option value="电子组">电子组</option>
-          <option value="静模组">静模组</option>
-        </select>
+        <div class="select">
+          <select id="group" name="group">
+            <option value="航模组">航模组</option>
+            <option value="编程组">编程组</option>
+            <option value="电子组">电子组</option>
+            <option value="静模组">静模组</option>
+          </select>
+          <div class="arrow-icon"><img src="/images/triangle.svg" alt="arrow" /></div>
+        </div>
         <input
           type="text"
           id="name"

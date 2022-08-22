@@ -33,7 +33,7 @@
 
 .container-body input,
 .container-body textarea,
-.container-body select {
+.container-body .select {
   border: 0;
   margin: 10px 0;
   padding: 20px;
@@ -41,6 +41,42 @@
   background: #f5f5f5;
   font-size: 16px;
   border-radius: 10px;
+}
+
+/* Select body */
+.container-body .select {
+  position: relative;
+  padding: 10px;
+}
+
+.container-body select {
+  width: 100%;
+  height: min-content;
+  border: 0;
+  padding: 10px;
+  outline: none;
+  font-size: 16px;
+  appearance: none;
+  background: #f5f5f5;
+}
+
+.container-body .select .arrow-icon {
+  position: absolute;
+  top: 0%;
+  right: 5px;
+  height: 100%;
+  width: 40px;
+  background: transparent;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-body .select .arrow-icon img {
+  height: 30px;
+  opacity: 0.7;
+  background-image: #ffffff;
 }
 
 .container-body input:focus::placeholder,
