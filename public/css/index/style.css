@@ -62,8 +62,8 @@
 
 .container-body .select .arrow-icon {
   position: absolute;
-  top: 0%;
-  right: 5px;
+  top: 0;
+  right: 0;
   height: 100%;
   width: 40px;
   background: transparent;
