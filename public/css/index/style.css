@@ -68,19 +68,18 @@ html {
 /* Select body */
 .container-body .select {
   position: relative;
-  padding: 1rem;
-  background: #f5f5f5;
+  margin: 1rem 0;
 }
 
 .container-body select {
-  width: 100%;
-  height: min-content;
   border: 0;
-  padding: 1rem;
+  width: 100%;
+  padding: 2rem;
   outline: none;
   font-size: 1.6rem;
   appearance: none;
   background: #f5f5f5;
+  border-radius: 1rem;
 }
 
 .form-element textarea {
