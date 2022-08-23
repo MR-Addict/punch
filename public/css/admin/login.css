@@ -37,7 +37,7 @@ html {
 }
 
 /* Main pages elements */
-.container-body .err-msg {
+.container-body .login-err-msg {
   font-weight: 800;
   padding: 1rem 1.5rem;
   background-color: #ffffff;
@@ -60,6 +60,7 @@ html {
   margin: 1rem 0;
   padding: 2rem;
   outline: none;
+  width: 100%;
   background: #f5f5f5;
   font-size: 1.6rem;
   border-radius: 1rem;
@@ -69,8 +70,18 @@ html {
   display: block;
   color: #949494;
   font-size: 1.4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   padding-left: 0.5rem;
+}
+
+/* error message */
+.form-element .err-msg {
+  color: red;
+  width: 100%;
+  margin-left: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
 }
 
 .container-body a {

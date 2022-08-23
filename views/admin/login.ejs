@@ -12,35 +12,24 @@
     <div class="container">
       <form action="/login" method="post" class="container-body">
         <% if(error!=''){ %>
-        <p class="err-msg"><%= error %></p>
+        <p class="login-err-msg"><%= error %></p>
         <% } %>
         <h1>请先登录</h1>
-        <label for="username">用户名</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="用户名"
-          maxlength="20"
-          required
-          oninvalid="this.setCustomValidity('用户名不能为空！')"
-          oninput="this.setCustomValidity('')"
-        />
-        <label for="password">密码</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="密码"
-          maxlength="20"
-          required
-          oninvalid="this.setCustomValidity('密码不能为空！')"
-          oninput="this.setCustomValidity('')"
-        />
+        <div class="form-element">
+          <label for="username">用户名</label>
+          <input type="text" id="username" name="username" placeholder="用户名" />
+          <div class="err-msg"></div>
+        </div>
+        <div class="form-element">
+          <label for="password">密码</label>
+          <input type="password" id="password" name="password" placeholder="密码" />
+          <div class="err-msg"></div>
+        </div>
         <button type="submit">登录</button>
         <a href="/">返回提交页面</a>
       </form>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
     </div>
   </body>
+  <script src="/js/login.js" type="module"></script>
 </html>
