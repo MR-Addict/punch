@@ -60,7 +60,7 @@ html {
 .form-element .err-msg {
   color: red;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   margin-left: 1rem;
   border-radius: 0.5rem;
 }
