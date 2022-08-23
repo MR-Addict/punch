@@ -21,31 +21,19 @@
           </select>
           <div class="arrow-icon"><img src="/images/triangle.svg" alt="arrow" /></div>
         </div>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="姓名"
-          maxlength="10"
-          required
-          oninvalid="this.setCustomValidity('请留下你的大名！')"
-          oninput="this.setCustomValidity('')"
-        />
-        <textarea
-          id="notes"
-          name="notes"
-          placeholder="今天的值班笔记内容"
-          style="height: 200px"
-          minlength="4"
-          maxlength="500"
-          required
-          oninvalid="this.setCustomValidity('笔记内容至少四个字哦！')"
-          oninput="this.setCustomValidity('')"
-        ></textarea>
+        <div class="form-element">
+          <div class="err-msg"></div>
+          <input type="text" id="name" name="name" placeholder="姓名" />
+        </div>
+        <div class="form-element">
+          <div class="err-msg"></div>
+          <textarea id="notes" name="notes" placeholder="今天的值班笔记内容" style="height: 200px"></textarea>
+        </div>
         <button type="submit">提交</button>
         <a href="/admin">我是管理员</a>
       </form>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
     </div>
+    <script src="/js/index.js" type="module"></script>
   </body>
 </html>
