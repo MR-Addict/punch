@@ -83,6 +83,10 @@ html {
   background: #f5f5f5;
 }
 
+.form-element textarea {
+  height: 20rem;
+}
+
 .container-body .select .arrow-icon {
   position: absolute;
   top: 0;
