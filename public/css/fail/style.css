@@ -5,6 +5,10 @@
   font-family: sans-serif;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 .container {
   width: 100%;
   min-height: 100vh;
@@ -21,35 +25,35 @@
   flex-direction: column;
   padding: 2vw 4vw;
   width: 90%;
-  max-width: 600px;
-  border-radius: 10px;
+  max-width: 60rem;
+  border-radius: 1rem;
 }
 
 .container-body h1 {
   color: #555;
   font-weight: 800;
-  font-size: 50px;
-  margin: 50px auto 20px;
+  font-size: 5rem;
+  margin: 5rem auto 2rem;
 }
 
 .container-body .msg-img {
-  width: 120px;
-  height: 120px;
-  margin: 20px auto 50px;
+  width: 12rem;
+  height: 12rem;
+  margin: 2rem auto 5rem;
 }
 
 .container-body .return-but {
-  padding: 15px;
+  padding: 1.5rem;
   background: #ff0063;
   color: #ffffff;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 1.8rem;
   border: 0;
   outline: none;
   cursor: pointer;
-  width: 150px;
-  margin: 10px auto;
-  border-radius: 20px;
+  width: 15rem;
+  margin: 1rem auto;
+  border-radius: 2rem;
   transition: transform 0.3s;
 }
 
@@ -58,5 +62,5 @@
 }
 
 .container footer {
-  margin-top: 20px;
+  margin-top: 2rem;
 }
