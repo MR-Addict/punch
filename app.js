@@ -112,7 +112,7 @@ app.get("/export", checkAuthenticated, (req, res) => {
   res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   res.setHeader(
     "Content-Disposition",
-    "attachment; filename=" + "punch-" + new Date().toISOString().split("T")[0] + ".xlsx"
+    "attachment; filename=" + "%E5%80%BC%E7%8F%AD%E7%AC%94%E8%AE%B0-" + new Date().toISOString().split("T")[0] + ".xlsx"
   );
   return workbook.xlsx.write(res).then(function () {
     res.status(200).end();
