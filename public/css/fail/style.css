@@ -61,6 +61,7 @@ html {
   transform: scale(1.05);
 }
 
-.container footer {
+footer {
+  font-size: 1.6rem;
   margin-top: 2rem;
 }
