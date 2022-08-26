@@ -1,7 +1,12 @@
 const mysql = require("mysql");
 const users = [];
-const analyze_command =
-  "SELECT (SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS 'today',(SELECT COUNT(*) FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)) AS 'week',(SELECT COUNT(*) FROM `punch`) AS 'all'";
+const analyze_command = {
+  sum_cmd:
+    "SELECT (SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS '今日',(SELECT COUNT(*) FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)) AS '本周',(SELECT COUNT(*) FROM `punch`) AS '所有'",
+  group_cmd:
+    "SELECT (SELECT COUNT(*) FROM `punch` WHERE `group`='航模组') AS '航模组',(SELECT COUNT(*) FROM `punch` WHERE `group`='编程组') AS '编程组',(SELECT COUNT(*) FROM `punch` WHERE `group`='电子组') AS '电子组',(SELECT COUNT(*) FROM `punch` WHERE `group`='航模组') AS '航模组'",
+  days_cmd: "SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`date`)",
+};
 
 const pool_insert = mysql.createPool({
   connectionLimit: 4,

@@ -22,7 +22,7 @@ bar_options.plugins.title.text = "组别";
 const groupChart = new Chart(myChart2, {
   type: "bar", // bar,horizontalBar, pie, line, doughnut, radar, polarArea
   data: {
-    labels: ["航模", "编程", "电子", "静模"],
+    labels: ["航模组", "编程组", "电子组", "静模组"],
     datasets: [
       {
         data: [2, 3, 4, 5],
@@ -37,7 +37,7 @@ line_options.plugins.title.text = "每日提交";
 const daySubmit = new Chart(myChart3, {
   type: "line", // bar,horizontalBar, pie, line, doughnut, radar, polarArea
   data: {
-    labels: ["航模", "编程", "电子", "静模"],
+    labels: ["航模组", "编程组", "电子组", "静模组"],
     datasets: [
       {
         data: [4, 3, 4, 5],

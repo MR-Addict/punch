@@ -20,7 +20,7 @@ const doughnut_options = {
     datalabels: {
       anchor: "center",
       align: "center",
-      color: "#000",
+      color: "#555",
       formatter: (value, context) => {
         const dataPoints = context.dataset.data;
         const sum = parseInt(dataPoints.reduce((prop, a) => prop + a, 0));
@@ -66,7 +66,7 @@ const bar_options = {
     datalabels: {
       anchor: "end",
       align: "center",
-      color: "#000",
+      color: "#555",
       formatter: (value, context) => {
         return `${value}人`;
       },
@@ -109,7 +109,7 @@ const line_options = {
     datalabels: {
       anchor: "end",
       align: "center",
-      color: "#000",
+      color: "#555",
       formatter: (value, context) => {
         return `${value}人`;
       },

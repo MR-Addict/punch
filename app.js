@@ -32,6 +32,11 @@ app.use(
 
 // Custom variables
 const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }], statistics: { today: 0, week: 0, all: 0 } };
+const insight_render = {
+  sum: { 今日: 0, 本周: 0, 所有: 0 },
+  group: { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 },
+  days: [{ 日期: "2000/01/01", 提交次数: 0 }],
+};
 
 // Passport
 app.use(passport.initialize());
@@ -77,6 +82,37 @@ app.get("/logout", (req, res, next) => {
 
 app.get("/insight", checkAuthenticated, (rea, res) => {
   res.render("admin/insight");
+});
+
+app.get("/insights", (req, res) => {
+  punch_db.pool_select.query(punch_db.analyze_command.sum_cmd, (err, result, fields) => {
+    if (err) {
+      console.error(err);
+      insight_render.sum = { 今日: 0, 本周: 0, 所有: 0 };
+    } else {
+      if (result.length) insight_render.sum = JSON.parse(JSON.stringify(result[0]));
+      else insight_render.sum = { 今日: 0, 本周: 0, 所有: 0 };
+    }
+  });
+  punch_db.pool_select.query(punch_db.analyze_command.group_cmd, (err, result, fields) => {
+    if (err) {
+      console.error(err);
+      insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
+    } else {
+      if (result.length) insight_render.group = JSON.parse(JSON.stringify(result[0]));
+      else insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
+    }
+  });
+  punch_db.pool_select.query(punch_db.analyze_command.days_cmd, (err, result, fields) => {
+    if (err) {
+      console.error(err);
+      insight_render.days = [{ 日期: "2000/01/01", 提交次数: 0 }];
+    } else {
+      if (result.length) insight_render.days = JSON.parse(JSON.stringify(result));
+      else insight_render.days = [{ 日期: "2000/01/01", 提交次数: 0 }];
+      res.send(insight_render);
+    }
+  });
 });
 
 // Export mysql data
@@ -137,8 +173,17 @@ app.get("/admin", checkAuthenticated, (req, res) => {
       }
     }
   });
-  punch_db.pool_select.query(punch_db.analyze_command, (err, result, fields) => {
-    admin_render.statistics = result[0];
+  punch_db.pool_select.query(punch_db.analyze_command.sum_cmd, (err, result, fields) => {
+    if (err) {
+      console.error(err);
+      admin_render.statistics = { 今日: 0, 本周: 0, 所有: 0 };
+    } else {
+      if (result.length) {
+        admin_render.statistics = JSON.parse(JSON.stringify(result[0]));
+      } else {
+        admin_render.statistics = { 今日: 0, 本周: 0, 所有: 0 };
+      }
+    }
     res.render("admin/index", admin_render);
   });
 });
