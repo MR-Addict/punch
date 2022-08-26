@@ -61,14 +61,14 @@ html {
 }
 
 /* Clipboard */
-.container-body .help-content .code-copy {
+.container-body .help-content .code {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
 
-.container-body .help-content .code {
+.container-body .help-content .code-block {
   padding: 0.5rem 1rem;
   background: #252525;
   width: 96%;
