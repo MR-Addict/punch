@@ -2,10 +2,11 @@ const mysql = require("mysql");
 const users = [];
 const analyze_command = {
   sum_cmd:
-    "SELECT (SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS '今日',(SELECT COUNT(*) FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)) AS '本周',(SELECT COUNT(*) FROM `punch`) AS '所有'",
+    "SELECT (SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS '今日提交',(SELECT COUNT(*) FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)) AS '本周提交',(SELECT COUNT(*) FROM `punch`) AS '所有提交'",
   group_cmd:
-    "SELECT (SELECT COUNT(*) FROM `punch` WHERE `group`='航模组') AS '航模组',(SELECT COUNT(*) FROM `punch` WHERE `group`='编程组') AS '编程组',(SELECT COUNT(*) FROM `punch` WHERE `group`='电子组') AS '电子组',(SELECT COUNT(*) FROM `punch` WHERE `group`='航模组') AS '航模组'",
-  days_cmd: "SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`date`)",
+    "SELECT (SELECT COUNT(*) FROM `punch` WHERE `group`='航模组') AS '航模组',(SELECT COUNT(*) FROM `punch` WHERE `group`='编程组') AS '编程组',(SELECT COUNT(*) FROM `punch` WHERE `group`='电子组') AS '电子组',(SELECT COUNT(*) FROM `punch` WHERE `group`='静模组') AS '静模组'",
+  days_cmd:
+    "SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`date`) ORDER BY `日期` DESC LIMIT 15",
 };
 
 const pool_insert = mysql.createPool({

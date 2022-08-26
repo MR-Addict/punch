@@ -122,7 +122,7 @@ body {
   width: 92vh;
 
   border-radius: 2rem;
-  border: 2px solid var(--pri-green);
+  border: 0.2rem solid var(--pri-green);
 }
 
 .chart-row canvas {

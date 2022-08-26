@@ -24,7 +24,7 @@ const doughnut_options = {
       formatter: (value, context) => {
         const dataPoints = context.dataset.data;
         const sum = parseInt(dataPoints.reduce((prop, a) => prop + a, 0));
-        if (sum) return `${value}人\n${((value / sum) * 100).toFixed(1)}%`;
+        if (sum) return `${value}\n${((value / sum) * 100).toFixed(1)}%`;
         else return "error";
       },
       labels: {
@@ -68,7 +68,7 @@ const bar_options = {
       align: "center",
       color: "#555",
       formatter: (value, context) => {
-        return `${value}人`;
+        return `${value}`;
       },
       labels: {
         title: {
@@ -85,11 +85,6 @@ const bar_options = {
 const line_options = {
   maintainAspectRatio: false,
   responsive: true,
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
   plugins: {
     tooltip: {
       enabled: true,
@@ -111,7 +106,7 @@ const line_options = {
       align: "center",
       color: "#555",
       formatter: (value, context) => {
-        return `${value}人`;
+        return `${value}`;
       },
       labels: {
         title: {
