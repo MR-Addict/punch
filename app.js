@@ -75,6 +75,10 @@ app.get("/logout", (req, res, next) => {
   });
 });
 
+app.get("/insight", checkAuthenticated, (rea, res) => {
+  res.render("admin/insight");
+});
+
 // Export mysql data
 app.get("/export", checkAuthenticated, (req, res) => {
   // Create sheets

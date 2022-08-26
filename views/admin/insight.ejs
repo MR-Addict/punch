@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/images/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/chart.js" defer></script>
+    <script src="/js/chartDataLabels.js" defer></script>
+    <script src="/js/chartOptions.js" defer></script>
+    <script src="/js/insight.js" defer></script>
+    <link rel="stylesheet" href="/css/admin/insight.css" />
+    <title>值班笔记</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="icons">
+        <button type="button" onclick="location.href = '/admin'" title="重置筛选结果">
+          <img src="/images/reset.svg" alt="admin" />
+          <p>重置</p>
+        </button>
+        <button type="button" onclick="location.href = '/admin'" title="统计所有结果">
+          <img src="/images/insight.svg" alt="insight" />
+          <p>返回</p>
+        </button>
+        <button type="button" onclick="location.href = '/export'" title="导出筛选结果">
+          <img src="/images/export.svg" alt="export" />
+          <p>导出</p>
+        </button>
+        <button type="button" onclick="location.href = '/'" title="返回提交页面">
+          <img src="/images/home.svg" alt="home" />
+          <p>首页</p>
+        </button>
+        <button type="button" onclick="location.href = '/logout'" title="退出当前登录">
+          <img src="/images/logout.svg" alt="logout" />
+          <p>退出</p>
+        </button>
+        <button type="button" onclick="location.href = '/admin'" title="返回管理员界面">
+          <img src="/images/help.svg" alt="admin" />
+          <p>帮助</p>
+        </button>
+      </div>
+      <h1>提交统计</h1>
+      <div class="chart-row">
+        <div class="chart-element">
+          <canvas id="myChart1"></canvas>
+        </div>
+        <div class="chart-element">
+          <canvas id="myChart2"></canvas>
+        </div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-line">
+          <canvas id="myChart3"></canvas>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %></footer>
+  </body>
+  <script>
+    function copyText(code_id, img_id) {
+      navigator.clipboard.writeText(document.getElementById(code_id).innerText);
+    }
+  </script>
+</html>
