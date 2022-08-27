@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/admin/style.css" />
-    <script src="/js/multiPageTable.js" defer></script>
+    <script src="/js/admin.js" defer></script>
     <title>值班笔记</title>
   </head>
   <body>
@@ -73,7 +73,15 @@
             <div class="sta-element">所有结果:<span id="sta-all-records"></span></div>
             <div class="sta-element">当前页数:<span id="sta-current-page"></span>/<span id="sta-all-pages"></span></div>
           </div>
-          <div class="sta-right"></div>
+          <div class="sta-right">
+            <p class="sta-element">每页数目</p>
+            <select id="records_per_page" name="records_per_page" class="sta-element">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
         </div>
         <div class="records-list">
           <table class="multi-page-table">
@@ -97,7 +105,7 @@
             </tbody>
           </table>
         </div>
-        <div id="table-pages-nav"></div>
+        <div id="table-pages-nav-buttons"></div>
       </div>
       <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %> 校大学生科协</footer>
     </div>

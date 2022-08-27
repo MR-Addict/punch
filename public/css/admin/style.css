@@ -182,6 +182,7 @@ html {
 .status .sta-right {
   justify-content: flex-end;
 }
+
 .status .sta-element {
   margin: 0 0.4rem;
 }
@@ -192,11 +193,11 @@ html {
 }
 
 /* Table bottom button */
-#table-pages-nav {
+#table-pages-nav-buttons {
   margin: 1rem auto;
 }
 
-#table-pages-nav button {
+#table-pages-nav-buttons button {
   border: 0;
   width: 2rem;
   height: 2rem;
