@@ -10,7 +10,7 @@ const analyze_command = {
 };
 
 const pool_insert = mysql.createPool({
-  connectionLimit: 4,
+  connectionLimit: 10,
   host: "localhost",
   user: "punch_insert",
   password: "password",
