@@ -7,6 +7,7 @@
 
 :root {
   --pri-bcg: linear-gradient(160deg, #80ffdb, #0077b6);
+  --pri-grey: #f5f5f5;
   --pri-white: #ffffff;
   --pri-green: #5da68d;
 }
@@ -101,6 +102,21 @@ body {
 }
 
 /* chart element */
+.container .chart {
+  background: var(--pri-grey);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 0 auto;
+  width: fit-content;
+
+  border: 0.2rem solid var(--pri-green);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .container .chart-row {
   display: flex;
   flex-direction: row;
@@ -114,15 +130,13 @@ body {
   width: 45vh;
 
   border-radius: 2rem;
-  border: 0.2rem solid var(--pri-green);
 }
 
 .chart-row .chart-line {
   height: 45vh;
-  width: 92vh;
+  width: 100vh;
 
   border-radius: 2rem;
-  border: 0.2rem solid var(--pri-green);
 }
 
 .chart-row canvas {

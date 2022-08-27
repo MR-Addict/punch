@@ -7,6 +7,7 @@ const xmlHttp = new XMLHttpRequest();
 xmlHttp.open("POST", "/insight", false);
 xmlHttp.send(null);
 const insight = JSON.parse(xmlHttp.response);
+const days_length = 20;
 
 function getInsightKeys(insight_key) {
   return Object.keys(insight[insight_key]);
@@ -22,18 +23,30 @@ function getInsightValues(insight_key) {
 
 function getInsightDaysValues() {
   const array = [];
-  insight["days"].forEach(function (record) {
-    array.push(Number(record["提交次数"]));
+
+  getInsightDaysKeys().forEach((prop) => {
+    array.push(0);
+    insight.days.forEach((day) => {
+      if (new Date(day.日期.slice(5)).getTime() === new Date(prop).getTime()) {
+        array.pop();
+        array.push(Number(day.提交次数));
+      }
+    });
   });
-  return array.reverse();
+  return array;
 }
 
 function getInsightDaysKeys() {
-  const array = [];
-  insight["days"].forEach(function (record) {
-    array.push(Number(record["日期"].slice(5).split("/")[0]) + "-" + Number(record["日期"].slice(5).split("/")[1]));
-  });
-  return array.reverse();
+  var array = [];
+  for (
+    dt = new Date(new Date().setDate(new Date().getDate() - days_length + 1));
+    dt <= new Date();
+    dt.setDate(dt.getDate() + 1)
+  ) {
+    const temp_date = dt.toISOString().slice(5, 10);
+    array.push(Number(temp_date.split("-")[0]) + "-" + Number(temp_date.split("-")[1]));
+  }
+  return array;
 }
 
 bar_options.plugins.title.text = "提交汇总";
@@ -80,7 +93,7 @@ const daySubmit = new Chart(myChart3, {
       {
         data: getInsightDaysValues(),
         fill: false,
-        borderColor: "rgb(75, 192, 192)",
+        borderColor: "rgb(75, 192, 192, 0.5)",
         tension: 0.1,
       },
     ],

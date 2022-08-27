@@ -85,9 +85,14 @@ const bar_options = {
 const line_options = {
   maintainAspectRatio: false,
   responsive: true,
+  scales: {
+    y: {
+      beginAtZero: true,
+    },
+  },
   plugins: {
     tooltip: {
-      enabled: true,
+      enabled: false,
     },
     title: {
       display: true,
