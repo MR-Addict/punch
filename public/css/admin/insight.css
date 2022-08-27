@@ -126,17 +126,13 @@ body {
 }
 
 .chart-row .chart-element {
-  height: 45vh;
-  width: 45vh;
-
-  border-radius: 2rem;
+  height: 43vh;
+  width: 43vh;
 }
 
 .chart-row .chart-line {
-  height: 45vh;
-  width: 100vh;
-
-  border-radius: 2rem;
+  height: 43vh;
+  width: 92vh;
 }
 
 .chart-row canvas {
@@ -163,6 +159,6 @@ footer {
     flex-direction: column;
   }
   .chart-row .chart-line {
-    width: 45vh;
+    width: 43vh;
   }
 }
