@@ -85,32 +85,37 @@ app.get("/insight", checkAuthenticated, (rea, res) => {
 });
 
 app.post("/insight", checkAuthenticated, (req, res) => {
+  // sum query
   punch_db.pool_select.query(punch_db.analyze_command.sum_cmd, (err, result, fields) => {
     if (err) {
       console.error(err);
       insight_render.sum = { 今日提交: 0, 本周提交: 0, 所有提交: 0 };
     } else {
-      if (result.length) insight_render.sum = JSON.parse(JSON.stringify(result[0]));
-      else insight_render.sum = { 今日提交: 0, 本周提交: 0, 所有提交: 0 };
-    }
-  });
-  punch_db.pool_select.query(punch_db.analyze_command.group_cmd, (err, result, fields) => {
-    if (err) {
-      console.error(err);
-      insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
-    } else {
-      if (result.length) insight_render.group = JSON.parse(JSON.stringify(result[0]));
-      else insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
-    }
-  });
-  punch_db.pool_select.query(punch_db.analyze_command.days_cmd, (err, result, fields) => {
-    if (err) {
-      console.error(err);
-      insight_render.days = [{ 日期: "2000/01/01", 提交次数: 0 }];
-    } else {
-      if (result.length) insight_render.days = JSON.parse(JSON.stringify(result));
-      else insight_render.days = [{ 日期: "2000/01/01", 提交次数: 0 }];
-      res.send(insight_render);
+      if (result.length) {
+        insight_render.sum = JSON.parse(JSON.stringify(result[0]));
+        // group query
+        punch_db.pool_select.query(punch_db.analyze_command.group_cmd, (err, result, fields) => {
+          if (err) {
+            console.error(err);
+            insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
+          } else {
+            if (result.length) {
+              insight_render.group = JSON.parse(JSON.stringify(result[0]));
+              // days query
+              punch_db.pool_select.query(punch_db.analyze_command.days_cmd, (err, result, fields) => {
+                if (err) {
+                  console.error(err);
+                  insight_render.days = [{ 日期: "2000/01/01", 提交次数: 0 }];
+                } else {
+                  if (result.length) insight_render.days = JSON.parse(JSON.stringify(result));
+                  else insight_render.days = [{ 日期: "2000/01/01", 提交次数: 0 }];
+                  res.send(insight_render);
+                }
+              });
+            } else insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
+          }
+        });
+      } else insight_render.sum = { 今日提交: 0, 本周提交: 0, 所有提交: 0 };
     }
   });
 });
