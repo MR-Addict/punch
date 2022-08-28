@@ -7,6 +7,9 @@
 
 :root {
   --pri-green: #5da68d;
+  --pri-bcg: linear-gradient(160deg, #80ffdb, #0077b6);
+  --pri-white: #ffffff;
+  --pri-grey: #f5f5f5;
 }
 
 html {
@@ -18,7 +21,7 @@ html {
   width: 100%;
   min-height: 100vh;
   padding-top: 5vh;
-  background: linear-gradient(160deg, #80ffdb, #0077b6);
+  background: var(--pri-bcg);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -27,7 +30,7 @@ html {
 
 /* Main page */
 .container-body {
-  background: #ffffff;
+  background: var(--pri-white);
   display: flex;
   flex-direction: column;
   padding: 2vw 2vw;
@@ -44,7 +47,7 @@ html {
   margin: 1rem 0;
   padding: 1rem 0;
   outline: none;
-  background: #ffffff;
+  background: var(--pri-white);
   font-size: 1.6rem;
   border-radius: 1rem;
 }
@@ -121,7 +124,7 @@ html {
 .search-box .search {
   display: flex;
   width: 100%;
-  background: #f5f5f5;
+  background: var(--pri-grey);
   border-radius: 2rem;
 }
 
@@ -164,6 +167,8 @@ html {
   flex-direction: row;
   font-size: 1.3rem;
   justify-content: space-between;
+
+  height: 1.5rem;
 }
 
 .status .sta-right,
@@ -181,6 +186,13 @@ html {
 /* Status right */
 .status .sta-right {
   justify-content: flex-end;
+}
+
+.sta-right select {
+  font-size: 1.2rem;
+  outline: none;
+  border-radius: 0.3rem;
+  background: var(--pri-white);
 }
 
 .status .sta-element {
@@ -202,7 +214,7 @@ html {
   width: 2rem;
   height: 2rem;
   border-radius: 15%;
-  color: #ffffff;
+  color: var(--pri-white);
   cursor: pointer;
   margin: 0 0.3rem;
   font-size: 1.4rem;
@@ -228,11 +240,11 @@ table tr:nth-child(even) {
 }
 
 table tr:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: var(--pri-white);
 }
 
 table th {
-  color: #ffffff;
+  color: var(--pri-white);
   white-space: nowrap;
   text-transform: capitalize;
   background-color: var(--pri-green);
