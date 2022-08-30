@@ -36,11 +36,10 @@ html {
   margin: 2rem auto 1rem;
 }
 
-.container-body .form-element,
-.container-body .select {
+.container-body .form-element {
   border: 0;
   outline: none;
-  margin: 0.5rem 0;
+  margin: 0.5rem;
   font-size: 1.6rem;
   border-radius: 1rem;
 }
@@ -68,7 +67,6 @@ html {
 /* Select body */
 .container-body .select {
   position: relative;
-  margin: 1rem 0;
 }
 
 .container-body select {
@@ -91,7 +89,7 @@ html {
   top: 0;
   right: 0;
   height: 100%;
-  width: 6rem;
+  width: 5rem;
   background: transparent;
   pointer-events: none;
   display: flex;
@@ -100,7 +98,7 @@ html {
 }
 
 .container-body .select .arrow-icon img {
-  height: 2rem;
+  height: 1.5rem;
   opacity: 0.7;
   background-image: #ffffff;
 }
