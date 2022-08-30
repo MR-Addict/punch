@@ -44,28 +44,28 @@
             <h2>一、基础筛选</h2>
             <li>隐藏姓名：</li>
             <div class="code">
-              <p class="code-block">SELECT `id`,`group`,`date`,`notes` FROM `punch`</p>
+              <p class="code-block">SELECT `id`,`group`,`date`,`notes` FROM `<%= login_user %>`</p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
             <li>查看某个组的笔记：</li>
             <div class="code">
-              <p class="code-block">SELECT * FROM `punch` WHERE `group` = '电子组'</p>
+              <p class="code-block">SELECT * FROM `<%= login_user %>` WHERE `group` = '电子组'</p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
             <li>查看一定字数的笔记：</li>
             <div class="code">
-              <p class="code-block">SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100</p>
+              <p class="code-block">SELECT * FROM `<%= login_user %>` WHERE LENGTH(`notes`) > 100</p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
             <li>查看某一时间点后的笔记：</li>
             <div class="code">
-              <p class="code-block">SELECT * FROM `punch` WHERE DATE(`date`) > '2022-8-13'</p>
+              <p class="code-block">SELECT * FROM `<%= login_user %>` WHERE DATE(`date`) > '2022-8-13'</p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
@@ -74,21 +74,23 @@
             <h2>二、进阶筛选</h2>
             <li>查看今天的笔记：</li>
             <div class="code">
-              <p class="code-block">SELECT * FROM `punch` WHERE DATE(`date`) = CURRENT_DATE</p>
+              <p class="code-block">SELECT * FROM `<%= login_user %>` WHERE DATE(`date`) = CURRENT_DATE</p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
             <li>查看本周的笔记：</li>
             <div class="code">
-              <p class="code-block">SELECT * FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)</p>
+              <p class="code-block">SELECT * FROM `<%= login_user %>` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)</p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
             </div>
             <li>查看某个人的笔记并计算出每次的笔记字数：</li>
             <div class="code">
-              <p class="code-block">SELECT *, LENGTH(`notes`) as '字数' FROM `punch` WHERE `name` = 'Cael'</p>
+              <p class="code-block">
+                SELECT *, LENGTH(`notes`) as '字数' FROM `<%= login_user %>` WHERE `name` = 'Cael'
+              </p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
@@ -96,7 +98,7 @@
             <li>查看每天的提交人数：</li>
             <div class="code">
               <p class="code-block">
-                SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `punch` GROUP BY DATE(`date`)
+                SELECT `date` AS '日期', COUNT(*) AS '提交次数' FROM `<%= login_user %>` GROUP BY DATE(`date`)
               </p>
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />

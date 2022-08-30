@@ -33,7 +33,7 @@ app.use(
 );
 
 // Custom variables
-const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }] };
+const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }], login_user: "" };
 
 const insight_render = {
   sum: { 今日提交: 0, 本周提交: 0, 所有提交: 0 },
@@ -56,7 +56,8 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 app.get("/help", checkAuthenticated, (req, res) => {
-  res.render("admin/help");
+  admin_render.login_user = req.user.username;
+  res.render("admin/help", admin_render);
 });
 
 // Login pages
@@ -83,8 +84,8 @@ app.get("/logout", (req, res, next) => {
   });
 });
 
-app.get("/insight", checkAuthenticated, (rea, res) => {
-  res.render("admin/insight");
+app.get("/insight", checkAuthenticated, (req, res) => {
+  console.log(req.user);
 });
 
 app.post("/insight", checkAuthenticated, (req, res) => {
@@ -187,6 +188,7 @@ app.get("/admin", checkAuthenticated, (req, res) => {
         admin_render.records = [{ ERROR: "The database is empty!" }];
       }
     }
+    admin_render.login_user = req.user.username;
     res.render("admin/index", admin_render);
   });
 });
@@ -207,6 +209,7 @@ app.post("/admin", checkAuthenticated, (req, res) => {
       } else {
         if (result.length) {
           admin_render.records = result;
+          req.user.records = req.body.command;
         } else {
           admin_render.records = [{ ERROR: "There's no satisfied results!" }];
         }
