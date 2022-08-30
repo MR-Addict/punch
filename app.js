@@ -5,6 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 const excel = require("exceljs");
 const flash = require("connect-flash");
+const cookieParser = require("cookie-parser");
 
 // Custom libs
 const punch_db = require("./libs/pool");
@@ -16,6 +17,7 @@ initPassport(passport);
 const app = express();
 app.set("view engine", "ejs");
 app.use(flash());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,9 +34,10 @@ app.use(
 
 // Custom variables
 const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }] };
+
 const insight_render = {
   sum: { 今日提交: 0, 本周提交: 0, 所有提交: 0 },
-  group: { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 },
+  group: { 组别: 0 },
   days: [{ 日期: "2000/01/01", 提交次数: 0 }],
 };
 
@@ -113,12 +116,12 @@ app.post("/insight", checkAuthenticated, (req, res) => {
       punch_db.pool_select.query(punch_db.analyze_command.group_cmd, (err, result, fields) => {
         if (err) {
           console.error(err);
-          insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
+          insight_render.group = { 组别: 0 };
         } else {
           if (result.length) {
             insight_render.group = JSON.parse(JSON.stringify(result[0]));
           } else {
-            insight_render.group = { 航模组: 0, 编程组: 0, 电子组: 0, 静模组: 0 };
+            insight_render.group = { 组别: 0 };
           }
         }
         res.send(insight_render);
@@ -173,7 +176,7 @@ app.get("/export", checkAuthenticated, (req, res) => {
 
 // Render admin page
 app.get("/admin", checkAuthenticated, (req, res) => {
-  punch_db.pool_select.query("SELECT * FROM punch", (err, result, fields) => {
+  punch_db.pool_select.query(`SELECT * FROM ${req.user.username}`, (err, result, fields) => {
     if (err) {
       console.error(err);
       admin_render.records = [{ ERROR: err.sqlMessage }];
@@ -221,7 +224,8 @@ app.get("/", (req, res) => {
 // Post requests
 app.post("/", (req, res) => {
   const punch_record = req.body;
-  const punch_sql = "INSERT INTO punch SET ?";
+  delete punch_record.department;
+  const punch_sql = `INSERT INTO ${req.user.username} SET ?`;
   const validate_result = punch_schema.form_schema.validate(punch_record);
 
   if (validate_result.error) {

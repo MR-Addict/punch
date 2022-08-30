@@ -11,7 +11,7 @@ const department_options = {
   新闻宣传部:
     '<select id="group" name="group"><option value="微信推送组">微信推送组</option><option value="视频海报组">视频海报组</option><option value="摄影组">摄影组</option></select><div class="arrow-icon"><img src="/images/triangle.svg" alt="arrow" /></div>',
   对外联络部:
-    '<select id="group" name="group"><option value="校外组">校外组</option><option value="校外组">校外组</option><option value="赞助组">赞助组</option></select><div class="arrow-icon"><img src="/images/triangle.svg" alt="arrow" /></div>',
+    '<select id="group" name="group"><option value="校内组">校内组</option><option value="校外组">校外组</option><option value="赞助组">赞助组</option></select><div class="arrow-icon"><img src="/images/triangle.svg" alt="arrow" /></div>',
   双创联合服务部: "",
 };
 

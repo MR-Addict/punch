@@ -16,12 +16,72 @@ CREATE DATABASE punch;
 
 #### 2.1.1 创建提交Table
 
-创建新的Table，名称为`punch`：
+创建新的Table，名称分别为`punch_js`，`punch_zc`，`punch_kp`，`punch_xx`，`punch_wl`，`punch_sc`：
 
 ```sql
 USE punch;
 
-CREATE TABLE `punch`(
+CREATE TABLE `punch_js`(
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `group` VARCHAR(10) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    `date` VARCHAR(10) DEFAULT (DATE_FORMAT(CURRENT_DATE, '%Y/%m/%d')) NOT NULL,
+    `notes` VARCHAR(500) NOT NULL
+);
+```
+
+```sql
+USE punch;
+
+CREATE TABLE `punch_zc`(
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `group` VARCHAR(10) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    `date` VARCHAR(10) DEFAULT (DATE_FORMAT(CURRENT_DATE, '%Y/%m/%d')) NOT NULL,
+    `notes` VARCHAR(500) NOT NULL
+);
+```
+
+```sql
+USE punch;
+
+CREATE TABLE `punch_kp`(
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `group` VARCHAR(10) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    `date` VARCHAR(10) DEFAULT (DATE_FORMAT(CURRENT_DATE, '%Y/%m/%d')) NOT NULL,
+    `notes` VARCHAR(500) NOT NULL
+);
+```
+
+```sql
+USE punch;
+
+CREATE TABLE `punch_xx`(
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `group` VARCHAR(10) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    `date` VARCHAR(10) DEFAULT (DATE_FORMAT(CURRENT_DATE, '%Y/%m/%d')) NOT NULL,
+    `notes` VARCHAR(500) NOT NULL
+);
+```
+
+```sql
+USE punch;
+
+CREATE TABLE `punch_wl`(
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `group` VARCHAR(10) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    `date` VARCHAR(10) DEFAULT (DATE_FORMAT(CURRENT_DATE, '%Y/%m/%d')) NOT NULL,
+    `notes` VARCHAR(500) NOT NULL
+);
+```
+
+```sql
+USE punch;
+
+CREATE TABLE `punch_sc`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `group` VARCHAR(10) NOT NULL,
     `name` VARCHAR(10) NOT NULL,
@@ -57,7 +117,7 @@ CREATE USER 'punch_insert'@'localhost' IDENTIFIED WITH mysql_native_password BY 
 授予`punch_insert`用户权限：
 
 ```sql
-GRANT INSERT ON punch TO 'punch_insert'@'localhost' WITH GRANT OPTION;
+GRANT INSERT ON punch.* TO 'punch_insert'@'localhost' WITH GRANT OPTION;
 ```
 
 #### 2.2.2 punch_select用户
@@ -71,11 +131,7 @@ CREATE USER 'punch_select'@'localhost' IDENTIFIED WITH mysql_native_password BY 
 授予`punch_select`用户权限：
 
 ```sql
-USE punch; GRANT SELECT ON punch TO 'punch_select'@'localhost' WITH GRANT OPTION;
-```
-
-```sql
-USE punch; GRANT SELECT ON admin TO 'punch_select'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON punch.* TO 'punch_select'@'localhost' WITH GRANT OPTION;
 ```
 
 #### 2.2.3 重置用户权限缓存
