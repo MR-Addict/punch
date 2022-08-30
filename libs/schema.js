@@ -1,6 +1,14 @@
 const Joi = require("joi");
 
 const form_schema = Joi.object().keys({
+  department: Joi.string().valid(
+    "技术开发部",
+    "组织策划部",
+    "科普活动部",
+    "新闻宣传部",
+    "对外联络部",
+    "双创联合服务部"
+  ),
   name: Joi.string().max(10).required(),
   notes: Joi.string().min(4).max(500).required(),
   group: Joi.string().valid(
@@ -24,7 +32,7 @@ const form_schema = Joi.object().keys({
     "视频海报组",
     "摄影组",
 
-    "校外组",
+    "校内组",
     "校外组",
     "赞助组"
   ),

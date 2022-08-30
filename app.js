@@ -34,7 +34,14 @@ app.use(
 
 // Custom variables
 const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }], login_user: "" };
-
+const department_options = {
+  技术开发部: "punch_js",
+  组织策划部: "punch_zc",
+  科普活动部: "punch_kp",
+  新闻宣传部: "punch_xx",
+  对外联络部: "punch_wl",
+  双创联合服务部: "punch_sc",
+};
 const insight_render = {
   sum: { 今日提交: 0, 本周提交: 0, 所有提交: 0 },
   group: { 组别: 0 },
@@ -118,22 +125,19 @@ app.post("/insight", checkAuthenticated, (req, res) => {
             }
           }
           // group query
-          punch_db.pool_select.query(
-            punch_db.analyze_command.group_cmd.replaceAll("punch", req.user.username),
-            (err, result, fields) => {
-              if (err) {
-                console.error(err);
-                insight_render.group = { 组别: 0 };
+          punch_db.pool_select.query(punch_db.analyze_command.group_cmd[req.user.username], (err, result, fields) => {
+            if (err) {
+              console.error(err);
+              insight_render.group = { 组别: 0 };
+            } else {
+              if (result.length) {
+                insight_render.group = JSON.parse(JSON.stringify(result[0]));
               } else {
-                if (result.length) {
-                  insight_render.group = JSON.parse(JSON.stringify(result[0]));
-                } else {
-                  insight_render.group = { 组别: 0 };
-                }
+                insight_render.group = { 组别: 0 };
               }
-              res.send(insight_render);
             }
-          );
+            res.send(insight_render);
+          });
         }
       );
     }
@@ -236,14 +240,14 @@ app.get("/", (req, res) => {
 // Post requests
 app.post("/", (req, res) => {
   const punch_record = req.body;
-  delete punch_record.department;
-  const punch_sql = `INSERT INTO ${req.user.username} SET ?`;
   const validate_result = punch_schema.form_schema.validate(punch_record);
 
   if (validate_result.error) {
     console.error(validate_result.error);
     res.status(502).render("fail/index");
   } else {
+    const punch_sql = `INSERT INTO ${department_options[punch_record.department]} SET ?`;
+    delete punch_record.department;
     punch_db.pool_insert.query(punch_sql, punch_record, (err, result) => {
       if (err) {
         console.error(err);
