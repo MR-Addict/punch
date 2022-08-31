@@ -194,13 +194,15 @@ app.get("/export", checkAuthenticated, (req, res) => {
 
 // Render admin page
 app.get("/admin", checkAuthenticated, (req, res) => {
-  pool_select.query(`SELECT * FROM ${department_options[req.user.username]}`, (err, result, fields) => {
+  const sql_command = `SELECT * FROM ${department_options[req.user.username]}`;
+  pool_select.query(sql_command, (err, result, fields) => {
     if (err) {
       console.error(err);
       admin_render.records = [{ ERROR: err.sqlMessage }];
     } else {
       if (result.length) {
         admin_render.records = result;
+        req.user.command = sql_command;
       } else {
         admin_render.records = [{ ERROR: "The database is empty!" }];
       }
