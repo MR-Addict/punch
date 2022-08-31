@@ -5,7 +5,6 @@ const session = require("express-session");
 const passport = require("passport");
 const excel = require("exceljs");
 const flash = require("connect-flash");
-const cookieParser = require("cookie-parser");
 
 // Custom libs
 const punch_schema = require("./libs/schema");
@@ -17,7 +16,6 @@ initPassport(passport);
 const app = express();
 app.set("view engine", "ejs");
 app.use(flash());
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
