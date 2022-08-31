@@ -8,9 +8,9 @@ const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 
 // Custom libs
-const punch_db = require("./libs/pool");
 const punch_schema = require("./libs/schema");
 const initPassport = require("./libs/passport-config");
+const { pool_insert, pool_select, users, department_options, analyze_command } = require("./libs/pool");
 initPassport(passport);
 
 // Offical middleware
@@ -34,14 +34,6 @@ app.use(
 
 // Custom variables
 const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }], login_user: "" };
-const department_options = {
-  技术开发部: "punch_js",
-  组织策划部: "punch_zc",
-  科普活动部: "punch_kp",
-  新闻宣传部: "punch_xx",
-  对外联络部: "punch_wl",
-  双创联合服务部: "punch_sc",
-};
 const insight_render = {
   sum: { 今日提交: 0, 本周提交: 0, 所有提交: 0 },
   group: { 组别: 0 },
@@ -63,7 +55,6 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 app.get("/help", checkAuthenticated, (req, res) => {
-  admin_render.login_user = req.user.username;
   res.render("admin/help", admin_render);
 });
 
@@ -97,8 +88,8 @@ app.get("/insight", checkAuthenticated, (req, res) => {
 
 app.post("/insight", checkAuthenticated, (req, res) => {
   // sum query
-  punch_db.pool_select.query(
-    punch_db.analyze_command.sum_cmd.replaceAll("punch", req.user.username),
+  pool_select.query(
+    analyze_command.sum_cmd.replaceAll("punch", department_options[req.user.username]),
     (err, result, fields) => {
       if (err) {
         console.error(err);
@@ -111,8 +102,8 @@ app.post("/insight", checkAuthenticated, (req, res) => {
         }
       }
       // days query
-      punch_db.pool_select.query(
-        punch_db.analyze_command.days_cmd.replaceAll("punch", req.user.username),
+      pool_select.query(
+        analyze_command.days_cmd.replaceAll("punch", department_options[req.user.username]),
         (err, result, fields) => {
           if (err) {
             console.error(err);
@@ -125,7 +116,7 @@ app.post("/insight", checkAuthenticated, (req, res) => {
             }
           }
           // group query
-          punch_db.pool_select.query(punch_db.analyze_command.group_cmd[req.user.username], (err, result, fields) => {
+          pool_select.query(analyze_command.group_cmd[department_options[req.user.username]], (err, result, fields) => {
             if (err) {
               console.error(err);
               insight_render.group = { 组别: 0 };
@@ -190,7 +181,7 @@ app.get("/export", checkAuthenticated, (req, res) => {
 
 // Render admin page
 app.get("/admin", checkAuthenticated, (req, res) => {
-  punch_db.pool_select.query(`SELECT * FROM ${req.user.username}`, (err, result, fields) => {
+  pool_select.query(`SELECT * FROM ${department_options[req.user.username]}`, (err, result, fields) => {
     if (err) {
       console.error(err);
       admin_render.records = [{ ERROR: err.sqlMessage }];
@@ -201,7 +192,6 @@ app.get("/admin", checkAuthenticated, (req, res) => {
         admin_render.records = [{ ERROR: "The database is empty!" }];
       }
     }
-    admin_render.login_user = req.user.username;
     res.render("admin/index", admin_render);
   });
 });
@@ -214,7 +204,7 @@ app.post("/admin", checkAuthenticated, (req, res) => {
     admin_render.records = [{ ERROR: validate_result.error.details[0].message }];
     res.render("admin/index", admin_render);
   } else {
-    punch_db.pool_select.query(req.body.command, (err, result, fields) => {
+    pool_select.query(req.body.command, (err, result, fields) => {
       if (err) {
         console.error(err);
         admin_render.records = [{ ERROR: err.sqlMessage }];
@@ -248,7 +238,7 @@ app.post("/", (req, res) => {
   } else {
     const punch_sql = `INSERT INTO ${department_options[punch_record.department]} SET ?`;
     delete punch_record.department;
-    punch_db.pool_insert.query(punch_sql, punch_record, (err, result) => {
+    pool_insert.query(punch_sql, punch_record, (err, result) => {
       if (err) {
         console.error(err);
         res.status(502).render("fail/index");

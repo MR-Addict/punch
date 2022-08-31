@@ -83,7 +83,6 @@ USE punch;
 
 CREATE TABLE `punch_sc`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `group` VARCHAR(10) NOT NULL,
     `name` VARCHAR(10) NOT NULL,
     `date` VARCHAR(10) DEFAULT (DATE_FORMAT(CURRENT_DATE, '%Y/%m/%d')) NOT NULL,
     `notes` VARCHAR(500) NOT NULL

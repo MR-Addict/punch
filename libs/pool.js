@@ -1,5 +1,15 @@
 const mysql = require("mysql");
 const users = [];
+
+const department_options = {
+  技术开发部: "punch_js",
+  组织策划部: "punch_zc",
+  科普活动部: "punch_kp",
+  新闻宣传部: "punch_xx",
+  对外联络部: "punch_wl",
+  双创联合服务部: "punch_sc",
+};
+
 const analyze_command = {
   sum_cmd:
     "SELECT (SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS '今日提交',(SELECT COUNT(*) FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)) AS '本周提交',(SELECT COUNT(*) FROM `punch`) AS '所有提交'",
@@ -54,4 +64,4 @@ pool_select.query("SELECT * FROM admin", function (err, result, fields) {
   }
 });
 
-module.exports = { pool_insert, pool_select, users, analyze_command };
+module.exports = { pool_insert, pool_select, users, department_options, analyze_command };
