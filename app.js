@@ -55,6 +55,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 app.get("/help", checkAuthenticated, (req, res) => {
+  admin_render.login_user = department_options[req.user.username];
   res.render("admin/help", admin_render);
 });
 
@@ -137,45 +138,59 @@ app.post("/insight", checkAuthenticated, (req, res) => {
 
 // Export mysql data
 app.get("/export", checkAuthenticated, (req, res) => {
-  // Create sheets
-  const punch_export = JSON.parse(JSON.stringify(admin_render.records));
-  const workbook = new excel.Workbook();
-  const worksheet = workbook.addWorksheet("值班笔记");
-  const worksheet_columns = [];
-  Object.keys(punch_export[0]).forEach(function (prop) {
-    worksheet_columns.push({
-      header: prop,
-      key: prop,
-    });
-  });
-  worksheet.columns = worksheet_columns;
-  worksheet.addRows(punch_export);
+  const sql_command = req.user.command;
+  pool_select.query(sql_command, (err, result, fields) => {
+    if (err) {
+      console.error(err);
+    } else {
+      if (result.length) {
+        // Create sheets
+        const punch_export = JSON.parse(JSON.stringify(result));
+        const workbook = new excel.Workbook();
+        const worksheet = workbook.addWorksheet("值班笔记");
+        const worksheet_columns = [];
+        Object.keys(punch_export[0]).forEach(function (prop) {
+          worksheet_columns.push({
+            header: prop,
+            key: prop,
+          });
+        });
+        worksheet.columns = worksheet_columns;
+        worksheet.addRows(punch_export);
 
-  // Wrap text and alignment
-  Object.keys(punch_export[0]).forEach((prop) => {
-    worksheet.getColumn(prop).width = 15;
-    worksheet.getColumn(prop).font = { size: 13 };
-    worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "center" };
-    if (prop === "notes") {
-      worksheet.getColumn(prop).width = 100;
-      worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
+        // Wrap text and alignment
+        Object.keys(punch_export[0]).forEach((prop) => {
+          worksheet.getColumn(prop).width = 15;
+          worksheet.getColumn(prop).font = { size: 13 };
+          worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "center" };
+          if (prop === "notes") {
+            worksheet.getColumn(prop).width = 100;
+            worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
+          }
+        });
+        // Header style
+        worksheet.getRow(1).font = {
+          size: 16,
+          bold: true,
+          color: { argb: "00008B" },
+        };
+
+        // Export excel
+        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        res.setHeader(
+          "Content-Disposition",
+          "attachment; filename=" +
+            "%E5%80%BC%E7%8F%AD%E7%AC%94%E8%AE%B0-" +
+            new Date().toISOString().split("T")[0] +
+            ".xlsx"
+        );
+        return workbook.xlsx.write(res).then(function () {
+          res.status(200).end();
+        });
+      } else {
+        console.error("The database is empty!");
+      }
     }
-  });
-  // Header style
-  worksheet.getRow(1).font = {
-    size: 16,
-    bold: true,
-    color: { argb: "00008B" },
-  };
-
-  // Export excel
-  res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-  res.setHeader(
-    "Content-Disposition",
-    "attachment; filename=" + "%E5%80%BC%E7%8F%AD%E7%AC%94%E8%AE%B0-" + new Date().toISOString().split("T")[0] + ".xlsx"
-  );
-  return workbook.xlsx.write(res).then(function () {
-    res.status(200).end();
   });
 });
 
@@ -192,6 +207,7 @@ app.get("/admin", checkAuthenticated, (req, res) => {
         admin_render.records = [{ ERROR: "The database is empty!" }];
       }
     }
+    admin_render.login_user = department_options[req.user.username];
     res.render("admin/index", admin_render);
   });
 });
@@ -204,7 +220,8 @@ app.post("/admin", checkAuthenticated, (req, res) => {
     admin_render.records = [{ ERROR: validate_result.error.details[0].message }];
     res.render("admin/index", admin_render);
   } else {
-    pool_select.query(req.body.command, (err, result, fields) => {
+    const sql_command = req.body.command.replaceAll("punch", department_options[req.user.username]);
+    pool_select.query(sql_command, (err, result, fields) => {
       if (err) {
         console.error(err);
         admin_render.records = [{ ERROR: err.sqlMessage }];
@@ -212,10 +229,11 @@ app.post("/admin", checkAuthenticated, (req, res) => {
       } else {
         if (result.length) {
           admin_render.records = result;
-          req.user.records = req.body.command;
+          req.user.command = sql_command;
         } else {
           admin_render.records = [{ ERROR: "There's no satisfied results!" }];
         }
+        console.log(req.user);
         res.render("admin/index", admin_render);
       }
     });
