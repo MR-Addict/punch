@@ -1,4 +1,4 @@
-<h1>技术部值班笔记<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/> <img src="https://github.com/MR-Addict/punch/actions/workflows/docker.yml/badge.svg?branch=main"/></h1>
+<h1>科协值班笔记<img src="https://github.com/MR-Addict/punch/actions/workflows/server.yml/badge.svg?branch=main"/> <img src="https://github.com/MR-Addict/punch/actions/workflows/docker.yml/badge.svg?branch=main"/></h1>
 
 ## 1. 预览
 
@@ -157,4 +157,4 @@ docker-compose up -d
 
 ## 4. 后台管理
 
-后台账号请联系部长或者组长。
+后台账号请联系主席团或各个部部长。
