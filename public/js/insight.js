@@ -65,24 +65,28 @@ const submitChart = new Chart(myChart1, {
 });
 
 bar_options.plugins.title.text = "组别汇总";
-const groupChart = new Chart(myChart2, {
-  type: "bar", // bar,horizontalBar, pie, line, doughnut, radar, polarArea
-  data: {
-    labels: getInsightKeys("group"),
-    datasets: [
-      {
-        data: getInsightValues("group"),
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.5)",
-          "rgba(54, 162, 235, 0.5)",
-          "rgba(255, 206, 86, 0.5)",
-          "rgba(75, 192, 192, 0.5)",
-        ],
-      },
-    ],
-  },
-  options: bar_options,
-});
+if (insight.group.hasOwnProperty("组别")) {
+  document.getElementById("myChart2").closest(".chart-element").style.display = "none";
+} else {
+  const groupChart = new Chart(myChart2, {
+    type: "bar", // bar,horizontalBar, pie, line, doughnut, radar, polarArea
+    data: {
+      labels: getInsightKeys("group"),
+      datasets: [
+        {
+          data: getInsightValues("group"),
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.5)",
+            "rgba(54, 162, 235, 0.5)",
+            "rgba(255, 206, 86, 0.5)",
+            "rgba(75, 192, 192, 0.5)",
+          ],
+        },
+      ],
+    },
+    options: bar_options,
+  });
+}
 
 line_options.plugins.title.text = "提交曲线";
 const daySubmit = new Chart(myChart3, {
