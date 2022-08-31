@@ -58,7 +58,19 @@
               <option value="SELECT `id`,`date`,`notes` FROM `punch`"></option>
               <% } else { %>
               <option value="SELECT `id`,`group`,`date`,`notes` FROM `punch`"></option>
-              <option value="SELECT * FROM `punch` WHERE `group` = '电子组'"></option>
+              <!-- different department group -->
+              <% if( login_user === 'punch_js' ) { %>
+              <option value="SELECT * FROM `punch` WHERE `group` = '航模组'"></option>
+              <% } else if( login_user === 'punch_zc' ) { %>
+              <option value="SELECT * FROM `punch` WHERE `group` = 'PU组'"></option>
+              <% } else if( login_user === 'punch_kp' ) { %>
+              <option value="SELECT * FROM `punch` WHERE `group` = '策划组'"></option>
+              <% } else if( login_user === 'punch_xx' ) { %>
+              <option value="SELECT * FROM `punch` WHERE `group` = '微信推送组'"></option>
+              <% } else if( login_user === 'punch_wl' ) { %>
+              <option value="SELECT * FROM `punch` WHERE `group` = '校内组'"></option>
+              <% } %>
+              <!-- end -->
               <% } %>
               <option value="SELECT * FROM `punch` WHERE LENGTH(`notes`) > 100"></option>
               <option value="SELECT * FROM `punch` WHERE DATE(`date`) > '2022-8-13'"></option>

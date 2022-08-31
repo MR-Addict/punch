@@ -56,7 +56,19 @@
             <% if( login_user !== 'punch_sc' ) { %>
             <li>查看某个组的笔记：</li>
             <div class="code">
-              <p class="code-block">SELECT * FROM `punch` WHERE `group` = '电子组'</p>
+              <!-- different department group -->
+              <% if( login_user === 'punch_js' ) { %>
+              <p class="code-block">SELECT * FROM `punch` WHERE `group` = '航模组'</p>
+              <% } else if( login_user === 'punch_zc' ) { %>
+              <p class="code-block">SELECT * FROM `punch` WHERE `group` = 'PU组'</p>
+              <% } else if( login_user === 'punch_kp' ) { %>
+              <p class="code-block">SELECT * FROM `punch` WHERE `group` = '策划组'</p>
+              <% } else if( login_user === 'punch_xx' ) { %>
+              <p class="code-block">SELECT * FROM `punch` WHERE `group` = '微信推送组'</p>
+              <% } else if( login_user === 'punch_wl' ) { %>
+              <p class="code-block">SELECT * FROM `punch` WHERE `group` = '校内组'</p>
+              <% } %>
+              <!-- end -->
               <button type="button" title="复制">
                 <img src="/images/copy.svg" alt="copy" />
               </button>
