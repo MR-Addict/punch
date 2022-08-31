@@ -11,11 +11,12 @@ html {
 
 .container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 102vh;
+  padding-top: 5vh;
   background: linear-gradient(160deg, #80ffdb, #0077b6);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
@@ -142,4 +143,10 @@ html {
 footer {
   font-size: 1.6rem;
   margin: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    padding-top: 3vh;
+  }
 }
