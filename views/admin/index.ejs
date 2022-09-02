@@ -33,15 +33,19 @@
             <img src="/images/logout.svg" alt="logout" />
             <p>退出</p>
           </button>
+          <% if(login_user!=='admin'){ %>
           <button type="button" onclick="location.href = '/help'" title="查看帮助页面">
             <img src="/images/help.svg" alt="help" />
             <p>帮助</p>
           </button>
+          <% }; %>
         </div>
         <h1>值班笔记查询</h1>
         <form class="search-box" action="/admin" method="post">
+          <% if(login_user!=='admin'){ %>
           <div class="search">
             <button type="submit"><img src="/images/search.svg" alt="search" /></button>
+            <input type="hidden" name="user" value="<%= login_user %>" />
             <input
               type="text"
               id="command"
@@ -82,6 +86,7 @@
               ></option>
             </datalist>
           </div>
+          <% }; %>
         </form>
         <div class="status">
           <div class="sta-left">

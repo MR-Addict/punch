@@ -83,7 +83,7 @@ app.get("/logout", (req, res, next) => {
 });
 
 app.get("/insight", checkAuthenticated, (req, res) => {
-  res.render("admin/insight");
+  res.render("admin/insight", { login_user: req.user.username });
 });
 
 app.post("/insight", checkAuthenticated, (req, res) => {
@@ -227,7 +227,7 @@ app.get("/admin", checkAuthenticated, (req, res) => {
         } else admin_render.records = [[{ ERROR: "The database is empty!" }]];
         req.user.command = sql_command;
       }
-      // none-amdin login
+      // none-amdmin login
       else {
         if (result.length) {
           admin_render.records = [result];
@@ -250,9 +250,7 @@ app.post("/admin", checkAuthenticated, (req, res) => {
     admin_render.records = [[{ ERROR: validate_result.error.details[0].message }]];
     res.render("admin/index", admin_render);
   } else {
-    let sql_command = "";
-    if (req.user.username === "admin") sql_command = req.body.command;
-    else sql_command = req.body.command.replaceAll("punch", department_options[req.user.username]);
+    const sql_command = req.body.command.replaceAll("punch", req.body.user);
     pool_select.query(sql_command, (err, result, fields) => {
       if (err) {
         console.error(err);
@@ -260,10 +258,10 @@ app.post("/admin", checkAuthenticated, (req, res) => {
         res.render("admin/index", admin_render);
       } else {
         if (result.length) {
-          admin_render.records = result;
+          admin_render.records = [result];
           req.user.command = sql_command;
         } else {
-          admin_render.records = [{ ERROR: "There's no satisfied results!" }];
+          admin_render.records = [[{ ERROR: "There's no satisfied results!" }]];
         }
         console.log(sql_command);
         res.render("admin/index", admin_render);

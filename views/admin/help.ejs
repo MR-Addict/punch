@@ -33,10 +33,12 @@
             <img src="/images/logout.svg" alt="logout" />
             <p>退出</p>
           </button>
-          <button type="button" onclick="location.href = '/admin'" title="返回管理员界面">
-            <img src="/images/help.svg" alt="admin" />
+          <% if(login_user!=='admin'){ %>
+          <button type="button" onclick="location.href = '/admin'" title="查看帮助页面">
+            <img src="/images/help.svg" alt="help" />
             <p>返回</p>
           </button>
+          <% }; %>
         </div>
         <h1>筛选命令</h1>
         <div class="help-content">

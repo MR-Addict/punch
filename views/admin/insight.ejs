@@ -35,10 +35,12 @@
           <img src="/images/logout.svg" alt="logout" />
           <p>退出</p>
         </button>
-        <button type="button" onclick="location.href = '/help'" title="返回管理员界面">
+        <% if(login_user!=='admin'){ %>
+        <button type="button" onclick="location.href = '/help'" title="查看帮助页面">
           <img src="/images/help.svg" alt="help" />
           <p>帮助</p>
         </button>
+        <% }; %>
       </div>
       <h1>提交统计</h1>
       <div class="chart">

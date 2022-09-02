@@ -40,6 +40,7 @@ const form_schema = Joi.object().keys({
 
 const sql_schema = Joi.object().keys({
   command: Joi.string().max(200).required(),
+  user: Joi.string().max(10).required(),
 });
 
 module.exports = { form_schema, sql_schema };
