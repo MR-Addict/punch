@@ -90,6 +90,17 @@
             <div class="sta-element">当前页数:<span id="sta-current-page"></span>/<span id="sta-all-pages"></span></div>
           </div>
           <div class="sta-right">
+            <% if(login_user==='admin'){ %>
+            <p class="sta-element">部门</p>
+            <select id="department_select" name="department_select" class="sta-element">
+              <option value="punch_js">技术开发部</option>
+              <option value="punch_zc">组织策划部</option>
+              <option value="punch_kp">科普活动部</option>
+              <option value="punch_xx">新闻宣传部</option>
+              <option value="punch_wl">对外联络部</option>
+              <option value="punch_sc">双创联合服务部</option>
+            </select>
+            <% }; %>
             <p class="sta-element">每页数目</p>
             <select id="records_per_page" name="records_per_page" class="sta-element">
               <option value="10">10</option>
@@ -104,13 +115,26 @@
             <thead>
               <!-- Title -->
               <tr>
+                <% if(login_user!=='admin'){ %>
+                <!-- if begin -->
                 <% Object.keys(records[0]).forEach(function(prop) { %>
                 <th><%= prop %></th>
                 <% }); %>
+                <!-- else begin -->
+                <% }else{ %>
+                <!-- else records -->
+                <% Object.keys(records[0][0]).forEach(function(prop) { %>
+                <th><%= prop %></th>
+                <% }); %>
+                <!-- Else end -->
+                <% }; %>
               </tr>
+              <!-- Title End -->
             </thead>
+            <!-- Content -->
+            <% if(login_user!=='admin'){ %>
             <tbody>
-              <!-- Content -->
+              <!-- records -->
               <% records.forEach(function(record) { %>
               <tr>
                 <% Object.keys(record).forEach(function(prop) { %>
@@ -119,6 +143,25 @@
               </tr>
               <% }); %>
             </tbody>
+            <% }else{ %>
+            <tbody>
+              <!-- Admin pages -->
+              <% records.forEach(function(department) { %>
+              <!-- department -->
+              <% department.forEach(function(record){ %>
+              <tr>
+                <% Object.keys(record).forEach(function(prop) { %>
+                <td><%= record[prop]; %></td>
+                <% }); %>
+              </tr>
+              <!-- department end -->
+              <% }); %>
+              <!-- records end -->
+              <% }); %>
+              <!-- Else end -->
+            </tbody>
+            <% }; %>
+            <!-- Content End -->
           </table>
         </div>
         <div id="table-pages-nav-buttons"></div>

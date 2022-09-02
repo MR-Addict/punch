@@ -1,7 +1,8 @@
 const rows = document.querySelector(".multi-page-table tbody").rows;
-const sel_element = document.getElementById("records_per_page");
+const department_select = document.getElementById("department_select");
+const records_per_page_select = document.getElementById("records_per_page");
 
-let num_of_records_per_page = Number(sel_element.value);
+let num_of_records_per_page = Number(records_per_page_select.value);
 let table_pages_nav_buttons = document.getElementById("table-pages-nav-buttons");
 
 function showTables(num_of_page) {
@@ -44,8 +45,10 @@ function showTables(num_of_page) {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-sel_element.addEventListener("change", () => {
-  num_of_records_per_page = Number(sel_element.value);
+department_select.addEventListener("change", () => {});
+
+records_per_page_select.addEventListener("change", () => {
+  num_of_records_per_page = Number(records_per_page_select.value);
   showTables(1);
 });
 

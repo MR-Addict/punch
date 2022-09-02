@@ -44,6 +44,7 @@ const pool_select = mysql.createPool({
   user: "punch_select",
   password: "password",
   database: "punch",
+  multipleStatements: true,
 });
 
 pool_insert.getConnection((err, connection) => {

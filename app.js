@@ -194,7 +194,8 @@ app.get("/export", checkAuthenticated, (req, res) => {
 
 // Render admin page
 app.get("/admin", checkAuthenticated, (req, res) => {
-  const sql_command = `SELECT * FROM ${department_options[req.user.username]}`;
+  let sql_command = `SELECT * FROM punch_js;SELECT * FROM punch_zc;`;
+  if (req.user.username !== "admin") sql_command = `SELECT * FROM ${department_options[req.user.username]}`;
   pool_select.query(sql_command, (err, result, fields) => {
     if (err) {
       console.error(err);
@@ -207,7 +208,8 @@ app.get("/admin", checkAuthenticated, (req, res) => {
         admin_render.records = [{ ERROR: "The database is empty!" }];
       }
     }
-    admin_render.login_user = department_options[req.user.username];
+    if (req.user.username === "admin") admin_render.login_user = "admin";
+    else admin_render.login_user = department_options[req.user.username];
     res.render("admin/index", admin_render);
   });
 });
@@ -220,7 +222,9 @@ app.post("/admin", checkAuthenticated, (req, res) => {
     admin_render.records = [{ ERROR: validate_result.error.details[0].message }];
     res.render("admin/index", admin_render);
   } else {
-    const sql_command = req.body.command.replaceAll("punch", department_options[req.user.username]);
+    let sql_command = "";
+    if (req.user.username === "admin") sql_command = req.body.command;
+    else sql_command = req.body.command.replaceAll("punch", department_options[req.user.username]);
     pool_select.query(sql_command, (err, result, fields) => {
       if (err) {
         console.error(err);
@@ -233,7 +237,7 @@ app.post("/admin", checkAuthenticated, (req, res) => {
         } else {
           admin_render.records = [{ ERROR: "There's no satisfied results!" }];
         }
-        console.log(req.user);
+        console.log(sql_command);
         res.render("admin/index", admin_render);
       }
     });
