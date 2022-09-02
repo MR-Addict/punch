@@ -9,6 +9,7 @@ const flash = require("connect-flash");
 // Custom libs
 const punch_schema = require("./libs/schema");
 const initPassport = require("./libs/passport-config");
+const { getArrayDepth } = require("./libs/utilities");
 const { pool_insert, pool_select, users, department_options, analyze_command } = require("./libs/pool");
 initPassport(passport);
 
@@ -31,7 +32,7 @@ app.use(
 );
 
 // Custom variables
-const admin_render = { records: [{ ERROR: "DATABASE ERROR!" }], login_user: "" };
+const admin_render = { records: [[{ ERROR: "DATABASE ERROR!" }]], login_user: "" };
 const insight_render = {
   sum: { 今日提交: 0, 本周提交: 0, 所有提交: 0 },
   group: { 组别: 0 },
@@ -143,35 +144,48 @@ app.get("/export", checkAuthenticated, (req, res) => {
     } else {
       if (result.length) {
         // Create sheets
-        const punch_export = JSON.parse(JSON.stringify(result));
+        let punch_export = [];
         const workbook = new excel.Workbook();
-        const worksheet = workbook.addWorksheet("值班笔记");
-        const worksheet_columns = [];
-        Object.keys(punch_export[0]).forEach(function (prop) {
-          worksheet_columns.push({
-            header: prop,
-            key: prop,
-          });
-        });
-        worksheet.columns = worksheet_columns;
-        worksheet.addRows(punch_export);
+        if (getArrayDepth(result) === 1) punch_export = [result];
+        else punch_export = result;
 
-        // Wrap text and alignment
-        Object.keys(punch_export[0]).forEach((prop) => {
-          worksheet.getColumn(prop).width = 15;
-          worksheet.getColumn(prop).font = { size: 13 };
-          worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "center" };
-          if (prop === "notes") {
-            worksheet.getColumn(prop).width = 100;
-            worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
-          }
+        const tmp = [];
+        punch_export.forEach((prop) => {
+          if (!prop.length) prop = [{ 错误: "值班笔记为空!" }];
+          tmp.push(prop);
         });
-        // Header style
-        worksheet.getRow(1).font = {
-          size: 16,
-          bold: true,
-          color: { argb: "00008B" },
-        };
+        punch_export = tmp;
+
+        // multi sheets
+        punch_export.forEach((sheet, index) => {
+          const worksheet = workbook.addWorksheet(`工作表${index + 1}`);
+          const worksheet_columns = [];
+          Object.keys(sheet[0]).forEach(function (prop) {
+            worksheet_columns.push({
+              header: prop,
+              key: prop,
+            });
+          });
+          worksheet.columns = worksheet_columns;
+          worksheet.addRows(JSON.parse(JSON.stringify(sheet)));
+
+          // Wrap text and alignment
+          Object.keys(sheet[0]).forEach((prop) => {
+            worksheet.getColumn(prop).width = 15;
+            worksheet.getColumn(prop).font = { size: 13 };
+            worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "center" };
+            if (prop === "notes") {
+              worksheet.getColumn(prop).width = 100;
+              worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
+            }
+          });
+          // Header style
+          worksheet.getRow(1).font = {
+            size: 16,
+            bold: true,
+            color: { argb: "00008B" },
+          };
+        });
 
         // Export excel
         res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -199,10 +213,10 @@ app.get("/admin", checkAuthenticated, (req, res) => {
   pool_select.query(sql_command, (err, result, fields) => {
     if (err) {
       console.error(err);
-      admin_render.records = [{ ERROR: err.sqlMessage }];
+      admin_render.records = [[{ ERROR: err.sqlMessage }]];
     } else {
       // admin login
-      if (req.user.username === "admin") {
+      if (getArrayDepth(result) > 1) {
         if (result.length) {
           const tmp = [];
           result.forEach((prop) => {
@@ -216,14 +230,15 @@ app.get("/admin", checkAuthenticated, (req, res) => {
       // none-amdin login
       else {
         if (result.length) {
-          admin_render = result;
+          admin_render.records = [result];
           req.user.command = sql_command;
-        } else admin_render.records = [{ ERROR: "The database is empty!" }];
+        } else admin_render.records = [[{ ERROR: "The database is empty!" }]];
       }
     }
     if (req.user.username === "admin") admin_render.login_user = "admin";
     else admin_render.login_user = department_options[req.user.username];
     res.render("admin/index", admin_render);
+    console.log(req.user);
   });
 });
 
@@ -232,7 +247,7 @@ app.post("/admin", checkAuthenticated, (req, res) => {
 
   if (validate_result.error) {
     console.error(validate_result.error);
-    admin_render.records = [{ ERROR: validate_result.error.details[0].message }];
+    admin_render.records = [[{ ERROR: validate_result.error.details[0].message }]];
     res.render("admin/index", admin_render);
   } else {
     let sql_command = "";
@@ -241,7 +256,7 @@ app.post("/admin", checkAuthenticated, (req, res) => {
     pool_select.query(sql_command, (err, result, fields) => {
       if (err) {
         console.error(err);
-        admin_render.records = [{ ERROR: err.sqlMessage }];
+        admin_render.records = [[{ ERROR: err.sqlMessage }]];
         res.render("admin/index", admin_render);
       } else {
         if (result.length) {

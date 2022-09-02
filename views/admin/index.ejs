@@ -111,31 +111,6 @@
           </div>
         </div>
         <div class="records-list">
-          <% if(login_user!=='admin'){ %>
-          <table class="multi-page-table">
-            <thead>
-              <!-- Title -->
-              <tr>
-                <% Object.keys(records[0]).forEach(function(prop) { %>
-                <th><%= prop %></th>
-                <% }); %>
-              </tr>
-              <!-- Title End -->
-            </thead>
-            <!-- Content -->
-            <tbody>
-              <!-- records -->
-              <% records.forEach(function(record) { %>
-              <tr>
-                <% Object.keys(record).forEach(function(prop) { %>
-                <td><%= record[prop]; %></td>
-                <% }); %>
-              </tr>
-              <% }); %>
-            </tbody>
-            <!-- Content End -->
-          </table>
-          <% }else{ %>
           <!-- Admin pages -->
           <% records.forEach(function(department) { %>
           <table class="multi-page-table">
@@ -164,8 +139,6 @@
           </table>
           <!-- Admin end -->
           <% }); %>
-          <!-- Else end -->
-          <% }; %>
         </div>
         <div id="table-pages-nav-buttons"></div>
       </div>

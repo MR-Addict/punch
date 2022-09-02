@@ -14,13 +14,16 @@ function showDepartment(num_of_depart) {
 function showTable(num_of_page) {
   // Read select value
   const num_of_records_per_page = Number(records_per_page_select.value);
-  const current_department = Number(department_select.value);
+  let current_department = 0;
+  if (department_select) {
+    current_department = Number(department_select.value);
+  }
 
   // Update tables
   showDepartment(current_department);
 
   // Update tables contents
-  const rows = department_tables[current_department].rows;
+  const rows = department_tables[current_department].querySelector("tbody").rows;
   const num_of_all_records = rows.length;
   const num_of_pages = parseInt(num_of_all_records / num_of_records_per_page + 1);
   // Generate buttons
@@ -60,7 +63,7 @@ function showTable(num_of_page) {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-department_select.addEventListener("change", () => {
+department_select?.addEventListener("change", () => {
   showTable(1);
 });
 
