@@ -19,7 +19,7 @@ html {
 /* Home background */
 .container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 101vh;
   padding-top: 5vh;
   background: var(--pri-bcg);
   display: flex;

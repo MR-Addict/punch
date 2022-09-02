@@ -93,12 +93,12 @@
             <% if(login_user==='admin'){ %>
             <p class="sta-element">部门</p>
             <select id="department_select" name="department_select" class="sta-element">
-              <option value="punch_js">技术开发部</option>
-              <option value="punch_zc">组织策划部</option>
-              <option value="punch_kp">科普活动部</option>
-              <option value="punch_xx">新闻宣传部</option>
-              <option value="punch_wl">对外联络部</option>
-              <option value="punch_sc">双创联合服务部</option>
+              <option value="0">技术开发部</option>
+              <option value="1">组织策划部</option>
+              <option value="2">科普活动部</option>
+              <option value="3">新闻宣传部</option>
+              <option value="4">对外联络部</option>
+              <option value="5">双创联合服务部</option>
             </select>
             <% }; %>
             <p class="sta-element">每页数目</p>
@@ -111,28 +111,18 @@
           </div>
         </div>
         <div class="records-list">
+          <% if(login_user!=='admin'){ %>
           <table class="multi-page-table">
             <thead>
               <!-- Title -->
               <tr>
-                <% if(login_user!=='admin'){ %>
-                <!-- if begin -->
                 <% Object.keys(records[0]).forEach(function(prop) { %>
                 <th><%= prop %></th>
                 <% }); %>
-                <!-- else begin -->
-                <% }else{ %>
-                <!-- else records -->
-                <% Object.keys(records[0][0]).forEach(function(prop) { %>
-                <th><%= prop %></th>
-                <% }); %>
-                <!-- Else end -->
-                <% }; %>
               </tr>
               <!-- Title End -->
             </thead>
             <!-- Content -->
-            <% if(login_user!=='admin'){ %>
             <tbody>
               <!-- records -->
               <% records.forEach(function(record) { %>
@@ -143,10 +133,23 @@
               </tr>
               <% }); %>
             </tbody>
-            <% }else{ %>
+            <!-- Content End -->
+          </table>
+          <% }else{ %>
+          <!-- Admin pages -->
+          <% records.forEach(function(department) { %>
+          <table class="multi-page-table">
+            <thead>
+              <!-- Title -->
+              <tr>
+                <% Object.keys(department[0]).forEach(function(prop) { %>
+                <th><%= prop %></th>
+                <% }); %>
+                <!-- Title End -->
+              </tr>
+            </thead>
+            <!-- Content -->
             <tbody>
-              <!-- Admin pages -->
-              <% records.forEach(function(department) { %>
               <!-- department -->
               <% department.forEach(function(record){ %>
               <tr>
@@ -156,13 +159,13 @@
               </tr>
               <!-- department end -->
               <% }); %>
-              <!-- records end -->
-              <% }); %>
-              <!-- Else end -->
             </tbody>
-            <% }; %>
             <!-- Content End -->
           </table>
+          <!-- Admin end -->
+          <% }); %>
+          <!-- Else end -->
+          <% }; %>
         </div>
         <div id="table-pages-nav-buttons"></div>
       </div>

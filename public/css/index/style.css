@@ -11,7 +11,7 @@ html {
 
 .container {
   width: 100%;
-  min-height: 102vh;
+  min-height: 101vh;
   padding-top: 5vh;
   background: linear-gradient(160deg, #80ffdb, #0077b6);
   display: flex;

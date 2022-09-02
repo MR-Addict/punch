@@ -194,18 +194,31 @@ app.get("/export", checkAuthenticated, (req, res) => {
 
 // Render admin page
 app.get("/admin", checkAuthenticated, (req, res) => {
-  let sql_command = `SELECT * FROM punch_js;SELECT * FROM punch_zc;`;
+  let sql_command = `SELECT * FROM punch_js;SELECT * FROM punch_zc;SELECT * FROM punch_kp;SELECT * FROM punch_xx;SELECT * FROM punch_wl;SELECT * FROM punch_sc;`;
   if (req.user.username !== "admin") sql_command = `SELECT * FROM ${department_options[req.user.username]}`;
   pool_select.query(sql_command, (err, result, fields) => {
     if (err) {
       console.error(err);
       admin_render.records = [{ ERROR: err.sqlMessage }];
     } else {
-      if (result.length) {
-        admin_render.records = result;
+      // admin login
+      if (req.user.username === "admin") {
+        if (result.length) {
+          const tmp = [];
+          result.forEach((prop) => {
+            if (!prop.length) prop = [{ ERROR: "The database is empty!" }];
+            tmp.push(prop);
+          });
+          admin_render.records = tmp;
+        } else admin_render.records = [[{ ERROR: "The database is empty!" }]];
         req.user.command = sql_command;
-      } else {
-        admin_render.records = [{ ERROR: "The database is empty!" }];
+      }
+      // none-amdin login
+      else {
+        if (result.length) {
+          admin_render = result;
+          req.user.command = sql_command;
+        } else admin_render.records = [{ ERROR: "The database is empty!" }];
       }
     }
     if (req.user.username === "admin") admin_render.login_user = "admin";
