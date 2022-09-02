@@ -8,8 +8,13 @@
     <script src="/js/chart.js" defer></script>
     <script src="/js/chartDataLabels.js" defer></script>
     <script src="/js/chartOptions.js" defer></script>
+    <% if(login_user==='admin'){ %>
+    <script src="/js/insight_admin.js" defer></script>
+    <link rel="stylesheet" href="/css/admin/insight_admin.css" />
+    <% }else{ %>
     <script src="/js/insight.js" defer></script>
     <link rel="stylesheet" href="/css/admin/insight.css" />
+    <% }; %>
     <title>值班笔记</title>
   </head>
   <body>

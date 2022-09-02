@@ -10,6 +10,11 @@ const department_options = {
   双创联合服务部: "punch_sc",
 };
 
+const admin_analyze_command = {
+  group_cmd:
+    "SELECT (SELECT COUNT(*) FROM `punch_js`) AS '技术',(SELECT COUNT(*) FROM `punch_zc`) AS '组策',(SELECT COUNT(*) FROM `punch_kp`) AS '科普',(SELECT COUNT(*) FROM `punch_xx`) AS '新宣',(SELECT COUNT(*) FROM `punch_wl`) AS '外联',(SELECT COUNT(*) FROM `punch_sc`) AS '双创'",
+};
+
 const analyze_command = {
   sum_cmd:
     "SELECT (SELECT COUNT(*) FROM `punch` WHERE DATE(`date`) = CURRENT_DATE) AS '今日提交',(SELECT COUNT(*) FROM `punch` WHERE WEEK(`date`,1) = WEEK(CURRENT_DATE(),1)) AS '本周提交',(SELECT COUNT(*) FROM `punch`) AS '所有提交'",
@@ -65,4 +70,4 @@ pool_select.query("SELECT * FROM admin", function (err, result, fields) {
   }
 });
 
-module.exports = { pool_insert, pool_select, users, department_options, analyze_command };
+module.exports = { pool_insert, pool_select, users, department_options, analyze_command, admin_analyze_command };

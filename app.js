@@ -10,7 +10,14 @@ const flash = require("connect-flash");
 const punch_schema = require("./libs/schema");
 const initPassport = require("./libs/passport-config");
 const { getArrayDepth } = require("./libs/utilities");
-const { pool_insert, pool_select, users, department_options, analyze_command } = require("./libs/pool");
+const {
+  pool_insert,
+  pool_select,
+  users,
+  department_options,
+  analyze_command,
+  admin_analyze_command,
+} = require("./libs/pool");
 initPassport(passport);
 
 // Offical middleware
@@ -37,6 +44,9 @@ const insight_render = {
   sum: { 今日提交: 0, 本周提交: 0, 所有提交: 0 },
   group: { 组别: 0 },
   days: [{ 日期: "2000/01/01", 提交次数: 0 }],
+};
+const insight_admin_render = {
+  department: { 部门: 0 },
 };
 
 // Passport
@@ -84,6 +94,22 @@ app.get("/logout", (req, res, next) => {
 
 app.get("/insight", checkAuthenticated, (req, res) => {
   res.render("admin/insight", { login_user: req.user.username });
+});
+
+app.post("/insight_admin", checkAuthenticated, (req, res) => {
+  pool_select.query(admin_analyze_command.group_cmd, (err, result, fields) => {
+    if (err) {
+      console.err(err);
+      insight_admin_render.department = { 部门: 0 };
+    } else {
+      if (result.length) {
+        insight_admin_render.department = JSON.parse(JSON.stringify(result[0]));
+      } else {
+        insight_admin_render.department = { 部门: 0 };
+      }
+    }
+    res.send(insight_admin_render);
+  });
 });
 
 app.post("/insight", checkAuthenticated, (req, res) => {
@@ -238,7 +264,6 @@ app.get("/admin", checkAuthenticated, (req, res) => {
     if (req.user.username === "admin") admin_render.login_user = "admin";
     else admin_render.login_user = department_options[req.user.username];
     res.render("admin/index", admin_render);
-    console.log(req.user);
   });
 });
 
@@ -263,7 +288,6 @@ app.post("/admin", checkAuthenticated, (req, res) => {
         } else {
           admin_render.records = [[{ ERROR: "There's no satisfied results!" }]];
         }
-        console.log(sql_command);
         res.render("admin/index", admin_render);
       }
     });
