@@ -1,6 +1,4 @@
 const myChart1 = document.getElementById("myChart1").getContext("2d");
-const myChart2 = document.getElementById("myChart2").getContext("2d");
-const myChart3 = document.getElementById("myChart3").getContext("2d");
 Chart.register(ChartDataLabels);
 
 const xmlHttp = new XMLHttpRequest();
@@ -41,6 +39,3 @@ const submitChart = new Chart(myChart1, {
   },
   options: bar_options,
 });
-
-document.getElementById("myChart2").closest(".chart-element").style.display = "none";
-document.getElementById("myChart3").closest(".chart-line").style.display = "none";
