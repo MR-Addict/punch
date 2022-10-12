@@ -222,6 +222,10 @@ html {
 }
 
 /* Records list */
+.records-list {
+  overflow-x: auto;
+}
+
 table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
