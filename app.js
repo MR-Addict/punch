@@ -72,34 +72,29 @@ app.post("/login", (req, res) => {
     console.error(validate_result.error);
     return res.status(403).json({ status: false, message: "Forbidden!" });
   } else {
-    try {
-      punch_db.pool_select.query(punch_sql, async (err, result, fields) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ status: false, message: "Error!" });
+    punch_db.pool_select.query(punch_sql, async (err, result, fields) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ status: false, message: "Error!" });
+      } else {
+        const user = result.find((user) => (user.username = login_user.username));
+        if (user == null) {
+          return res.status(400).send({ status: false, message: "No such user!" });
         } else {
-          const user = result.find((user) => (user.username = login_user.username));
-          if (user == null) {
-            return res.status(400).send({ status: false, message: "No such user!" });
-          } else {
-            try {
-              if (await bcrypt.compare(login_user.password, user.password)) {
-                const token = jwt.sign({ id: user.id }, "LOGIN_SECRET_KEY", { expiresIn: "30min" });
-                return res.cookie("accessToken", token).json({ status: true, message: token });
-              } else {
-                return res.status(502).send({ status: false, message: "Password incorrect!" });
-              }
-            } catch (err) {
-              console.error(err);
-              return res.status(500).send({ status: false, message: "Error!" });
+          try {
+            if (await bcrypt.compare(login_user.password, user.password)) {
+              const token = jwt.sign({ id: user.id }, "LOGIN_SECRET_KEY", { expiresIn: "30min" });
+              return res.cookie("accessToken", token).json({ status: true, message: token });
+            } else {
+              return res.status(502).send({ status: false, message: "Password incorrect!" });
             }
+          } catch (err) {
+            console.error(err);
+            return res.status(500).send({ status: false, message: "Error!" });
           }
         }
-      });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ status: false, message: "Error!" });
-    }
+      }
+    });
   }
 });
 
@@ -109,8 +104,20 @@ app.get("/logout", authorization, (req, res) => {
 });
 
 // test cookie
-app.get("/testcookie", authorization, (req, res) => {
+app.all("/testcookie", authorization, (req, res) => {
   res.json({ status: true, message: "Success!" });
+});
+
+app.post("/table", authorization, (req, res) => {
+  const punch_sql = "SELECT * FROM punch";
+  punch_db.pool_select.query(punch_sql, (err, result, fields) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ status: false, message: "Error!" });
+    } else {
+      res.status(200).send({ status: true, message: JSON.stringify(result) });
+    }
+  });
 });
 
 // Listen on port 8083

@@ -27,7 +27,15 @@ const pool_select = mysql.createPool({
 pool_insert.getConnection((err, connection) => {
   if (err) console.error(err);
   else {
-    console.log("MySQL Connected successfully!");
+    console.log("Insert DB connected successfully!");
+    connection.release();
+  }
+});
+
+pool_select.getConnection((err, connection) => {
+  if (err) console.error(err);
+  else {
+    console.log("Select DB connected successfully!");
     connection.release();
   }
 });
