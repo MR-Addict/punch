@@ -6,8 +6,9 @@ const form_schema = Joi.object().keys({
   group: Joi.string().valid("航模组", "电子组", "编程组", "静模组").required(),
 });
 
-const sql_schema = Joi.object().keys({
-  command: Joi.string().min(1).max(200).required(),
+const login_schema = Joi.object().keys({
+  username: Joi.string().min(1).max(100).required(),
+  password: Joi.string().min(1).max(100).required(),
 });
 
-module.exports = { form_schema, sql_schema };
+module.exports = { form_schema, login_schema };
