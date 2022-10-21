@@ -136,6 +136,11 @@ html {
   margin: 0 auto 1rem;
 }
 
+.container-body a {
+  margin: 0.3rem auto;
+  font-size: small;
+}
+
 footer {
   font-size: 1.6rem;
   margin: 2rem;
