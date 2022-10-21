@@ -71,22 +71,20 @@ app.post("/login", (req, res) => {
     console.error(validate_result.error);
     return res.status(403).json({ status: false, message: "Forbidden!" });
   } else {
-    punch_db.pool_select.query(punch_sql, (err, result, fields) => {
+    punch_db.pool_select.query(punch_sql, async (err, result, fields) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ status: false, message: "Error!" });
       } else {
-        const user = result.find((user) => (user.username = login_user.username));
-        if (user == null) {
-          console.log("No such user!");
+        const user = result.find((user) => user.username === login_user.username);
+        if (!user) {
           return res.status(400).send({ status: false, message: "No such user!" });
         } else {
           try {
-            if (bcrypt.compare(login_user.password, user.password)) {
+            if (await bcrypt.compare(login_user.password, user.password)) {
               const token = jwt.sign({ id: user.id }, "LOGIN_SECRET_KEY", { expiresIn: "1h" });
               return res.cookie("accessToken", token).json({ status: true, message: token });
             } else {
-              console.log("Password incorrect!");
               return res.status(502).send({ status: false, message: "Password incorrect!" });
             }
           } catch (err) {
@@ -110,7 +108,7 @@ app.all("/testcookie", authorization, (req, res) => {
 });
 
 app.post("/table", authorization, (req, res) => {
-  const punch_sql = "SELECT * FROM punch ORDER BY `date` DESC";
+  const punch_sql = "SELECT * FROM punch ORDER BY `id` DESC";
   punch_db.pool_select.query(punch_sql, (err, result, fields) => {
     if (err) {
       console.error(err);
