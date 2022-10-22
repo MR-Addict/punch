@@ -101,7 +101,9 @@ app.post("/login", (req, res) => {
 
 // logout
 app.get("/logout", (req, res) => {
-  return res.clearCookie("accessToken").status(200).json({ status: true, message: "Logout success!" });
+  return res
+    .clearCookie("accessToken", { sameSite: "none", secure: true })
+    .json({ status: true, message: "Logout success!" });
 });
 
 // test cookie

@@ -1,13 +1,14 @@
 name: server
 
 on:
-  workflow_run:
-    workflows: ["docker"]
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ["docker"]
+  #   types:
+  #     - completed
+  workflow_dispatch:
 
 jobs:
-  Deploy-To-Server:
+  server:
     runs-on: self-hosted
     steps:
       - name: SSH Action
