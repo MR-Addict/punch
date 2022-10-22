@@ -15,7 +15,6 @@ const punch_schema = require("./libs/schema");
 const app = express();
 app.use(cors({ credentials: true, origin: true }));
 app.use(cookieParser());
-app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,11 +34,6 @@ const authorization = (req, res, next) => {
   }
 };
 
-// Render home pages
-app.get("/", (req, res) => {
-  res.render("index/index");
-});
-
 // Post requests
 app.post("/", (req, res) => {
   const punch_record = req.body;
@@ -48,16 +42,16 @@ app.post("/", (req, res) => {
 
   if (validate_result.error) {
     console.error(validate_result.error);
-    res.status(502).render("fail/index");
+    res.status(502).redirect("/fail");
   } else {
     punch_db.pool_insert.query(punch_sql, punch_record, (err, result) => {
       if (err) {
         console.error(err);
-        res.status(502).render("fail/index");
+        res.status(502).redirect("/fail");
       } else {
         console.log("New record inserted successfully!");
       }
-      res.render("success/index");
+      res.status(200).redirect("/success");
     });
   }
 });

@@ -15,7 +15,10 @@
         <img src="/images/fail.png" alt="fail" class="msg-img" />
         <button onclick="location.href = '/'" class="return-but">返回</button>
       </div>
-      <footer class="footer">&copy; Copyright <%= new Date().getFullYear() %> 校大学生科协</footer>
+      <footer></footer>
     </div>
   </body>
+  <script>
+    document.querySelector("footer").innerHTML = `&copy; Copyright ${new Date().getFullYear()} 校大学生科协`;
+  </script>
 </html>
