@@ -17,9 +17,9 @@ const pool_insert = mysql.createPool({
 
 const pool_select = mysql.createPool({
   connectionLimit: 4,
-  host: "mraddict.top",
-  user: "cael",
-  password: "@Cjw20001212",
+  host: "localhost",
+  user: "punch_select",
+  password: "password",
   database: "punch",
   multipleStatements: true,
 });

@@ -1,12 +1,10 @@
 name: server
 
-on: [workflow_dispatch]
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
+on:
+  workflow_run:
+    workflows: ["docker"]
+    types:
+      - completed
 
 jobs:
   Deploy-To-Server:
@@ -25,5 +23,4 @@ jobs:
             git pull
             docker-compose down
             docker rmi mraddict063/punch
-            docker build -t mraddict063/punch --rm .
             docker-compose up -d
