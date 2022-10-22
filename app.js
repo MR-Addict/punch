@@ -83,7 +83,9 @@ app.post("/login", (req, res) => {
           try {
             if (await bcrypt.compare(login_user.password, user.password)) {
               const token = jwt.sign({ id: user.id }, "LOGIN_SECRET_KEY", { expiresIn: "1h" });
-              return res.cookie("accessToken", token).json({ status: true, message: token });
+              return res
+                .cookie("accessToken", token, { httpOnly: true, secure: true, sameSite: "none" })
+                .json({ status: true, message: "Login success!" });
             } else {
               return res.status(502).send({ status: false, message: "Password incorrect!" });
             }
@@ -104,7 +106,7 @@ app.get("/logout", (req, res) => {
 
 // test cookie
 app.all("/testcookie", authorization, (req, res) => {
-  res.json({ status: true, message: "Success!" });
+  res.clearCookie("accessToken").json({ status: true, message: "Success!" });
 });
 
 app.post("/table", authorization, (req, res) => {
