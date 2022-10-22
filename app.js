@@ -10,6 +10,8 @@ const cors = require("cors");
 // Custom libs
 const punch_db = require("./libs/pool");
 const punch_schema = require("./libs/schema");
+const sql_cmds = require("./config").sql_cmds;
+const JWT = require("./config").JWT;
 
 // Offical middleware
 const app = express();
@@ -19,14 +21,14 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// authorization fun
+// authorization middleware
 const authorization = (req, res, next) => {
-  const token = req.cookies.accessToken;
+  const token = req.cookies[JWT.token_name];
   if (!token) {
     return res.status(403).json({ status: false, message: "Error!" });
   }
   try {
-    const data = jwt.verify(token, "LOGIN_SECRET_KEY");
+    const data = jwt.verify(token, JWT.secret);
     req.userId = data.id;
     return next();
   } catch {
@@ -57,9 +59,9 @@ app.post("/", (req, res) => {
 });
 
 // login and set token
-app.post("/login", (req, res) => {
+app.post("/api/v1/login", (req, res) => {
   const login_user = JSON.parse(JSON.stringify(req.body));
-  const punch_sql = "SELECT * FROM admin";
+  const punch_sql = sql_cmds.select.admin_sql;
   const validate_result = punch_schema.login_schema.validate(login_user);
   if (validate_result.error) {
     console.error(validate_result.error);
@@ -76,9 +78,14 @@ app.post("/login", (req, res) => {
         } else {
           try {
             if (await bcrypt.compare(login_user.password, user.password)) {
-              const token = jwt.sign({ id: user.id }, "LOGIN_SECRET_KEY", { expiresIn: "1h" });
+              const token = jwt.sign({ id: user.id }, JWT.secret, { expiresIn: "30min" });
               return res
-                .cookie("accessToken", token, { httpOnly: true, secure: true, sameSite: "none" })
+                .cookie(JWT.token_name, token, {
+                  httpOnly: true,
+                  secure: true,
+                  sameSite: "none",
+                  maxAge: JWT.expire_time,
+                })
                 .json({ status: true, message: "Login success!" });
             } else {
               return res.status(502).send({ status: false, message: "Password incorrect!" });
@@ -94,19 +101,14 @@ app.post("/login", (req, res) => {
 });
 
 // logout
-app.get("/logout", (req, res) => {
+app.get("/api/v1/logout", (req, res) => {
   return res
-    .clearCookie("accessToken", { sameSite: "none", secure: true })
+    .clearCookie(JWT.token_name, { sameSite: "none", secure: true })
     .json({ status: true, message: "Logout success!" });
 });
 
-// test cookie
-app.all("/testcookie", authorization, (req, res) => {
-  res.clearCookie("accessToken").json({ status: true, message: "Success!" });
-});
-
-app.post("/table", authorization, (req, res) => {
-  const punch_sql = "SELECT * FROM punch ORDER BY `id` DESC";
+app.post("/api/v1/table", authorization, (req, res) => {
+  const punch_sql = sql_cmds.select.tabl_sql;
   punch_db.pool_select.query(punch_sql, (err, result, fields) => {
     if (err) {
       console.error(err);
@@ -118,8 +120,8 @@ app.post("/table", authorization, (req, res) => {
 });
 
 // Export mysql data
-app.get("/export", authorization, (req, res) => {
-  const punch_sql = "SELECT * FROM punch ORDER BY `date` DESC";
+app.get("/api/v1/export", authorization, (req, res) => {
+  const punch_sql = sql_cmds.select.export_sql;
   punch_db.pool_select.query(punch_sql, (err, result, fields) => {
     if (err) {
       console.error(err);
@@ -146,8 +148,8 @@ app.get("/export", authorization, (req, res) => {
   });
 });
 
-app.get("/cards", authorization, (req, res) => {
-  punch_db.pool_select.query(punch_db.analyze_command.cards_sql, (err, result, fields) => {
+app.get("/api/v1/status/cards", authorization, (req, res) => {
+  punch_db.pool_select.query(sql_cmds.insight.cards_sql, (err, result, fields) => {
     if (err) {
       console.error(err);
       res.status(500).send({ status: false, message: "Error!" });
@@ -157,8 +159,8 @@ app.get("/cards", authorization, (req, res) => {
   });
 });
 
-app.get("/days", authorization, (req, res) => {
-  punch_db.pool_select.query(punch_db.analyze_command.days_sql, (err, result, fields) => {
+app.get("/api/v1/status/days", authorization, (req, res) => {
+  punch_db.pool_select.query(sql_cmds.insight.days_sql, (err, result, fields) => {
     if (err) {
       console.error(err);
       res.status(500).send({ status: false, message: "Error!" });
@@ -168,8 +170,8 @@ app.get("/days", authorization, (req, res) => {
   });
 });
 
-app.get("/weeks", authorization, (req, res) => {
-  punch_db.pool_select.query(punch_db.analyze_command.weeks_sql, (err, result, fields) => {
+app.get("/api/v1/status/weeks", authorization, (req, res) => {
+  punch_db.pool_select.query(sql_cmds.insight.weeks_sql, (err, result, fields) => {
     if (err) {
       console.error(err);
       res.status(500).send({ status: false, message: "Error!" });
