@@ -107,7 +107,7 @@ app.get("/api/v1/logout", (req, res) => {
     .json({ status: true, message: "Logout success!" });
 });
 
-app.post("/api/v1/table", authorization, (req, res) => {
+app.get("/api/v1/table", authorization, (req, res) => {
   const punch_sql = sql_cmds.select.tabl_sql;
   punch_db.pool_select.query(punch_sql, (err, result, fields) => {
     if (err) {
