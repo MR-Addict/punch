@@ -5,6 +5,11 @@
   font-family: sans-serif;
 }
 
+:root {
+  --bg-main-button: #22c55e;
+  --bg-main-dark-button: #0cb74b;
+}
+
 html {
   font-size: 62.5%;
 }
@@ -25,7 +30,7 @@ html {
   flex-direction: column;
   padding: 2vw 4vw;
   width: 90%;
-  max-width: 60rem;
+  max-width: 50rem;
   border-radius: 1rem;
 }
 
@@ -43,22 +48,22 @@ html {
 }
 
 .container-body .return-but {
-  padding: 1.5rem;
-  background: #ff0063;
+  padding: 1.3rem;
+  background: var(--bg-main-button);
   color: #ffffff;
   font-weight: 800;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   border: 0;
   outline: none;
   cursor: pointer;
   width: 15rem;
   margin: 1rem auto;
-  border-radius: 2rem;
+  border-radius: 1rem;
   transition: transform 0.3s;
 }
 
 .container-body button:hover {
-  transform: scale(1.05);
+  background: var(--bg-main-dark-button);
 }
 
 footer {
