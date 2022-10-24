@@ -65,10 +65,14 @@ html {
 .form-icon {
   color: #666666;
   font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem 0.5rem;
 }
 
 .form-icon img {
-  margin: 0 0.5rem;
   width: 1.5rem;
 }
 
