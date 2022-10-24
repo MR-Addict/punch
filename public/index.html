@@ -14,6 +14,7 @@
       <form action="/" method="post" class="container-body">
         <h1>值班笔记</h1>
         <div class="select form-element">
+          <div class="form-icon"><img src="/images/group.svg" alt="group" />组别</div>
           <select id="group" name="group">
             <option value="航模组">航模组</option>
             <option value="编程组">编程组</option>
@@ -23,15 +24,17 @@
           <div class="arrow-icon"><img src="/images/triangle.svg" alt="arrow" /></div>
         </div>
         <div class="form-element">
+          <div class="form-icon"><img src="/images/user.svg" alt="user" />姓名</div>
           <input type="text" id="name" name="name" placeholder="姓名" />
           <div class="err-msg"></div>
         </div>
         <div class="form-element">
+          <div class="form-icon"><img src="/images/notes.svg" alt="notes" />值班笔记</div>
           <textarea id="notes" name="notes" placeholder="今天的值班笔记内容"></textarea>
           <div class="err-msg"></div>
         </div>
         <button type="submit">提交</button>
-        <a href="https://admin.punch.mraddict.top">我是管理员</a>
+        <a class="admin-href" href="https://admin.punch.mraddict.top">我是管理员</a>
       </form>
       <footer></footer>
     </div>
