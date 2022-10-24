@@ -80,8 +80,7 @@ html {
 .form-element .err-msg {
   color: red;
   width: 100%;
-  margin-top: 1rem;
-  margin-left: 1rem;
+  margin: 0.5rem;
   border-radius: 0.5rem;
 }
 
