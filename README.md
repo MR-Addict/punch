@@ -57,7 +57,7 @@ CREATE USER 'punch_insert'@'localhost' IDENTIFIED WITH mysql_native_password BY 
 授予`punch_insert`用户权限：
 
 ```sql
-GRANT INSERT ON punch TO 'punch_insert'@'localhost' WITH GRANT OPTION;
+USE punch; GRANT INSERT, UPDATE, SELECT ON punch TO 'punch_insert'@'localhost' WITH GRANT OPTION;
 ```
 
 #### 2.2.2 punch_select用户
