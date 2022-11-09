@@ -8,10 +8,15 @@ fv.register("#name", (value, inputField) => {
       pass: false,
       error: "姓名不能为空哦！",
     };
+  } else if (value.length === 1) {
+    return {
+      pass: false,
+      error: "你的名字太短啦！",
+    };
   } else if (value.length > 10) {
     return {
       pass: false,
-      error: "名字太长啦！",
+      error: "你的名字太长啦！",
     };
   }
   return {
