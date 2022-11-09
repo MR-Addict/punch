@@ -41,7 +41,7 @@ app.post("/", (req, res) => {
   const punch_record = req.body;
   const punch_sql_insert = "INSERT INTO `punch` SET ?";
   const punch_sql_select = "SELECT * FROM `punch` WHERE `name`=? AND DATE(?)=CURDATE()";
-  const punch_sql_update = "UPDATE `punch` SET `notes`=? WHERE `name`=? AND DATE(`date`)=CURDATE()";
+  const punch_sql_update = "UPDATE `punch` SET `notes`=? WHERE `name`=? AND DATE(?)=CURDATE()";
   const validate_result = punch_schema.form_schema.validate(punch_record);
 
   if (validate_result.error) {
@@ -57,15 +57,19 @@ app.post("/", (req, res) => {
           console.error(err);
           res.status(502).redirect("/fail");
         } else {
-          punch_db.pool_insert.query(punch_sql_update, [punch_record.notes, punch_record.name], (err, result) => {
-            if (err) {
-              console.error(err);
-              res.status(502).redirect("/fail");
-            } else {
-              console.log("Record updated successfully!");
+          punch_db.pool_insert.query(
+            punch_sql_update,
+            [punch_record.notes, punch_record.name, punch_record.date],
+            (err, result) => {
+              if (err) {
+                console.error(err);
+                res.status(502).redirect("/fail");
+              } else {
+                console.log("Record updated successfully!");
+              }
+              res.status(200).redirect("/success");
             }
-            res.status(200).redirect("/success");
-          });
+          );
         }
       } else {
         punch_db.pool_insert.query(punch_sql_insert, punch_record, (err, result) => {
