@@ -39,21 +39,45 @@ const authorization = (req, res, next) => {
 // Post requests
 app.post("/", (req, res) => {
   const punch_record = req.body;
-  const punch_sql = "INSERT INTO punch SET ?";
+  const punch_sql_insert = "INSERT INTO `punch` SET ?";
+  const punch_sql_select = "SELECT * FROM `punch` WHERE `name`=? AND DATE(`date`)=CURDATE()";
+  const punch_sql_update = "UPDATE `punch` SET `notes`=? WHERE `name`=? AND DATE(`date`)=CURDATE()";
   const validate_result = punch_schema.form_schema.validate(punch_record);
 
   if (validate_result.error) {
     console.error(validate_result.error);
     res.status(502).redirect("/fail");
   } else {
-    punch_db.pool_insert.query(punch_sql, punch_record, (err, result) => {
+    punch_db.pool_select.query(punch_sql_select, [punch_record.name], (err, result) => {
       if (err) {
         console.error(err);
         res.status(502).redirect("/fail");
+      } else if (result) {
+        if (err) {
+          console.error(err);
+          res.status(502).redirect("/fail");
+        } else {
+          punch_db.pool_insert.query(punch_sql_update, [punch_record.notes, punch_record.name], (err, result) => {
+            if (err) {
+              console.error(err);
+              res.status(502).redirect("/fail");
+            } else {
+              console.log("Record updated successfully!");
+            }
+            res.status(200).redirect("/success");
+          });
+        }
       } else {
-        console.log("New record inserted successfully!");
+        punch_db.pool_insert.query(punch_sql_insert, punch_record, (err, result) => {
+          if (err) {
+            console.error(err);
+            res.status(502).redirect("/fail");
+          } else {
+            console.log("New record inserted successfully!");
+          }
+          res.status(200).redirect("/success");
+        });
       }
-      res.status(200).redirect("/success");
     });
   }
 });
@@ -119,35 +143,6 @@ app.get("/api/v1/table", authorization, (req, res) => {
   });
 });
 
-// Export mysql data
-app.get("/api/v1/export", authorization, (req, res) => {
-  const punch_sql = sql_cmds.select.export_sql;
-  punch_db.pool_select.query(punch_sql, (err, result, fields) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send({ status: false, message: "Error!" });
-    } else {
-      const punch_export = JSON.parse(JSON.stringify(result));
-      const workbook = new excel.Workbook();
-      const worksheet = workbook.addWorksheet("值班笔记");
-      worksheet.columns = Object.keys(punch_export[0]).map((prop) => ({ header: prop, key: prop }));
-      worksheet.addRows(punch_export);
-      Object.keys(punch_export[0]).forEach((prop) => {
-        worksheet.getColumn(prop).width = 15;
-        worksheet.getColumn(prop).font = { size: 13 };
-        worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
-        if (prop === "notes") worksheet.getColumn(prop).width = 100;
-      });
-      worksheet.getRow(1).font = { size: 16, bold: true, color: { argb: "00008B" } };
-      res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-      res.setHeader("Content-Disposition", "attachment; filename=" + encodeURI("值班笔记") + ".xlsx");
-      return workbook.xlsx.write(res).then(() => {
-        res.status(200).end();
-      });
-    }
-  });
-});
-
 app.get("/api/v1/status/cards", authorization, (req, res) => {
   punch_db.pool_select.query(sql_cmds.insight.cards_sql, (err, result, fields) => {
     if (err) {
@@ -177,6 +172,35 @@ app.get("/api/v1/status/weeks", authorization, (req, res) => {
       res.status(500).send({ status: false, message: "Error!" });
     } else {
       res.status(200).send({ status: true, message: JSON.stringify(result) });
+    }
+  });
+});
+
+// Export mysql data
+app.get("/api/v1/export", authorization, (req, res) => {
+  const punch_sql = sql_cmds.select.export_sql;
+  punch_db.pool_select.query(punch_sql, (err, result, fields) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ status: false, message: "Error!" });
+    } else {
+      const punch_export = JSON.parse(JSON.stringify(result));
+      const workbook = new excel.Workbook();
+      const worksheet = workbook.addWorksheet("值班笔记");
+      worksheet.columns = Object.keys(punch_export[0]).map((prop) => ({ header: prop, key: prop }));
+      worksheet.addRows(punch_export);
+      Object.keys(punch_export[0]).forEach((prop) => {
+        worksheet.getColumn(prop).width = 15;
+        worksheet.getColumn(prop).font = { size: 13 };
+        worksheet.getColumn(prop).alignment = { vertical: "middle", horizontal: "left", wrapText: true };
+        if (prop === "notes") worksheet.getColumn(prop).width = 100;
+      });
+      worksheet.getRow(1).font = { size: 16, bold: true, color: { argb: "00008B" } };
+      res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+      res.setHeader("Content-Disposition", "attachment; filename=" + encodeURI("值班笔记") + ".xlsx");
+      return workbook.xlsx.write(res).then(() => {
+        res.status(200).end();
+      });
     }
   });
 });
