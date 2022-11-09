@@ -40,55 +40,51 @@ const authorization = (req, res, next) => {
 app.post("/", (req, res) => {
   const punch_record = req.body;
   const punch_sql_insert = "INSERT INTO `punch` SET ?";
-  const punch_sql_select = "SELECT * FROM `punch` WHERE `name`=? AND DATE(?)=CURDATE()";
-  const punch_sql_update = "UPDATE `punch` SET `notes`=? WHERE `name`=? AND DATE(?)=CURDATE()";
+  const punch_sql_select = "SELECT * FROM `punch` WHERE `name`=? AND DATE(`date`)=CURDATE() AND `group`=?";
+  const punch_sql_update = "UPDATE `punch` SET `notes`=? WHERE `name`=? AND DATE(`date`)=CURDATE() AND `group`=?";
   const validate_result = punch_schema.form_schema.validate(punch_record);
 
   if (validate_result.error) {
     console.error(validate_result.error);
     res.status(502).redirect("/fail");
   } else {
-    punch_db.pool_select.query(
-      punch_sql_select,
-      [punch_record.name, new Date().toISOString().split("T")[0]],
-      (err, result) => {
-        if (err) {
-          console.error(err);
-          res.status(502).redirect("/fail");
+    punch_db.pool_select.query(punch_sql_select, [punch_record.name, punch_record.group], (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(502).redirect("/fail");
+      } else {
+        if (result.length) {
+          if (err) {
+            console.error(err);
+            res.status(502).redirect("/fail");
+          } else {
+            punch_db.pool_insert.query(
+              punch_sql_update,
+              [punch_record.notes, punch_record.name, punch_record.group],
+              (err, result) => {
+                if (err) {
+                  console.error(err);
+                  res.status(502).redirect("/fail");
+                } else {
+                  console.log("Record updated successfully!");
+                }
+                res.status(200).redirect("/success");
+              }
+            );
+          }
         } else {
-          if (result.length) {
+          punch_db.pool_insert.query(punch_sql_insert, punch_record, (err, result) => {
             if (err) {
               console.error(err);
               res.status(502).redirect("/fail");
             } else {
-              punch_db.pool_insert.query(
-                punch_sql_update,
-                [punch_record.notes, punch_record.name, new Date().toISOString().split("T")[0]],
-                (err, result) => {
-                  if (err) {
-                    console.error(err);
-                    res.status(502).redirect("/fail");
-                  } else {
-                    console.log("Record updated successfully!");
-                  }
-                  res.status(200).redirect("/success");
-                }
-              );
+              console.log("Record inserted successfully!");
             }
-          } else {
-            punch_db.pool_insert.query(punch_sql_insert, punch_record, (err, result) => {
-              if (err) {
-                console.error(err);
-                res.status(502).redirect("/fail");
-              } else {
-                console.log("New record inserted successfully!");
-              }
-              res.status(200).redirect("/success");
-            });
-          }
+            res.status(200).redirect("/success");
+          });
         }
       }
-    );
+    });
   }
 });
 
