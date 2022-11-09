@@ -40,7 +40,7 @@ const authorization = (req, res, next) => {
 app.post("/", (req, res) => {
   const punch_record = req.body;
   const punch_sql_insert = "INSERT INTO `punch` SET ?";
-  const punch_sql_select = "SELECT * FROM `punch` WHERE `name`=? AND DATE(`date`)=CURDATE()";
+  const punch_sql_select = "SELECT * FROM `punch` WHERE `name`=? AND DATE(?)=CURDATE()";
   const punch_sql_update = "UPDATE `punch` SET `notes`=? WHERE `name`=? AND DATE(`date`)=CURDATE()";
   const validate_result = punch_schema.form_schema.validate(punch_record);
 
@@ -48,7 +48,7 @@ app.post("/", (req, res) => {
     console.error(validate_result.error);
     res.status(502).redirect("/fail");
   } else {
-    punch_db.pool_select.query(punch_sql_select, [punch_record.name], (err, result) => {
+    punch_db.pool_select.query(punch_sql_select, [punch_record.name, punch_record.date], (err, result) => {
       if (err) {
         console.error(err);
         res.status(502).redirect("/fail");
