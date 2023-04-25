@@ -2,7 +2,7 @@
 
 ## 1. 预览
 
-![Punch](images/Punch.png)
+![preview](images/preview.png)
 
 ## 2. 准备数据库
 
@@ -103,3 +103,7 @@ docker-compose up -d
 ## 4. 后台管理
 
 后台账号请联系部长或者组长。
+
+> 后台管理项目地址:
+>
+> - [https://github.com/MR-Addict/punch-frontend](https://github.com/MR-Addict/punch-frontend)
