@@ -6,19 +6,32 @@
 }
 
 :root {
-  --bg-main-input: #f1f5f9;
-  --bg-main-button: #22c55e;
-  --bg-main-dark-button: #0cb74b;
+  --bg-main: #f3f4f6;
+  --bg-main-button: #16a34a;
+  --bg-main-dark-button: #15803d;
 }
 
 html {
   font-size: 62.5%;
 }
 
+body {
+  padding: 1rem;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--bg-main);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 .container {
   width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(160deg, #80ffdb, #0077b6);
+  max-width: 45rem;
+  flex-grow: 1;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,13 +39,15 @@ html {
 }
 
 .container-body {
+  box-shadow: 0 0 5px #80808040;
   background: #ffffff;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   padding: 1vw 2vw;
-  width: 90%;
-  max-width: 50rem;
+  width: 100%;
   border-radius: 1rem;
+  border: solid 1px #d1d5db;
 }
 
 .container-body h1 {
@@ -45,21 +60,18 @@ html {
 
 .container-body .form-element,
 .container-body .select {
-  border: 0;
-  outline: none;
   font-size: 1.6rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .form-element input,
 .form-element textarea {
-  border: 0;
-  padding: 2rem;
+  border: solid 1px black;
+  padding: 1.5rem;
   outline: none;
   width: 100%;
-  background: var(--bg-main-input);
   font-size: 1.6rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .form-icon {
@@ -69,7 +81,8 @@ html {
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  margin: 0 0 0.5rem 0.5rem;
+  margin-left: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .form-icon img {
@@ -79,35 +92,31 @@ html {
 /* error message */
 .form-element .err-msg {
   color: red;
-  width: 100%;
-  margin: 0.5rem;
-  border-radius: 0.5rem;
+  font-size: small;
 }
 
 /* Select body */
 .container-body .select {
   position: relative;
-  margin: 1rem 0;
 }
 
 .container-body select {
-  border: 0;
+  border: solid 1px black;
   width: 100%;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   outline: none;
   font-size: 1.6rem;
   appearance: none;
-  background: var(--bg-main-input);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .form-element textarea {
-  height: 20rem;
+  height: 15rem;
 }
 
 .container-body .select .arrow-icon {
   position: absolute;
-  top: 4.5rem;
+  top: 4rem;
   right: 1.5rem;
   background: transparent;
   pointer-events: none;
@@ -124,22 +133,23 @@ html {
 }
 
 /* form input placeholder */
-.container-body input:focus::placeholder,
-.container-body textarea:focus::placeholder {
-  color: transparent;
+.container-body select:focus,
+.container-body input:focus,
+.container-body textarea:focus {
+  border-color: #2563eb;
 }
 
-.container-body button[type="submit"] {
+.container-body button {
   padding: 1.3rem;
   background: var(--bg-main-button);
   color: #ffffff;
   font-weight: 800;
   font-size: 1.6rem;
-  border: 0;
+  border: solid 1px black;
   outline: none;
   cursor: pointer;
   width: 100%;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   transition: transform 0.2s;
 }
 
@@ -148,14 +158,8 @@ html {
 }
 
 .container-body .admin-href {
-  margin-top: 1rem;
-  width: fit-content;
   font-size: small;
-}
-
-.container-body a {
-  margin: 0.3rem auto;
-  font-size: small;
+  text-align: center;
 }
 
 footer {
@@ -163,7 +167,7 @@ footer {
   margin: 1rem;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
   .container-body {
     padding: 4vw;
   }

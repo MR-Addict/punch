@@ -4,21 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/images/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="值班笔记" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/success/style.css" />
     <title>值班笔记</title>
   </head>
   <body>
-    <div class="container">
+    <main class="container">
       <div class="container-body">
         <h1>提交成功</h1>
         <img src="/images/check.png" alt="check" class="msg-img" />
-        <button onclick="location.href = '/'" class="return-but">返回</button>
+        <button type="button" onclick="location.href = '/'" class="return-but">返回</button>
       </div>
-      <footer></footer>
-    </div>
+    </main>
+    <footer></footer>
   </body>
   <script>
-    document.querySelector("footer").innerHTML = `&copy; Copyright ${new Date().getFullYear()} 校大学生科协`;
+    document.querySelector("footer").innerHTML =
+      "Copyright " +
+      new Date().getFullYear() +
+      ' &copy; 校大学生科协 • <a href="https://github.com/MR-Addict/punch">Github</a>';
   </script>
 </html>

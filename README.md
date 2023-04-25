@@ -1,4 +1,4 @@
-<h1>技术部值班笔记 <img src="https://github.com/MR-Addict/punch/actions/workflows/docker.yml/badge.svg?branch=main"/></h1>
+# 技术部值班笔记 ![docker](https://github.com/MR-Addict/punch/actions/workflows/docker.yml/badge.svg?branch=main)
 
 ## 1. 预览
 
@@ -14,9 +14,9 @@
 CREATE DATABASE punch;
 ```
 
-#### 2.1.1 创建提交Table
+#### 2.1.1 创建提交 Table
 
-创建新的Table，名称为`punch`：
+创建新的 Table，名称为`punch`：
 
 ```sql
 USE punch;
@@ -30,9 +30,9 @@ CREATE TABLE `punch`(
 );
 ```
 
-#### 2.1.2 创建管理员Table
+#### 2.1.2 创建管理员 Table
 
-创建新的Table，名称为`admin`：
+创建新的 Table，名称为`admin`：
 
 ```sql
 USE punch;
@@ -46,9 +46,9 @@ CREATE TABLE `admin`(
 
 ### 2.2 创建新用户
 
-#### 2.2.1 punch_insert用户
+#### 2.2.1 punch_insert 用户
 
-创建新的MySQL用户，用户名为`punch_insert`，密码为`password`：
+创建新的 MySQL 用户，用户名为`punch_insert`，密码为`password`：
 
 ```sql
 CREATE USER 'punch_insert'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
@@ -60,9 +60,9 @@ CREATE USER 'punch_insert'@'localhost' IDENTIFIED WITH mysql_native_password BY 
 USE punch; GRANT INSERT, UPDATE, SELECT ON punch TO 'punch_insert'@'localhost' WITH GRANT OPTION;
 ```
 
-#### 2.2.2 punch_select用户
+#### 2.2.2 punch_select 用户
 
-创建新的MySQL用户，用户名为`punch_select`，密码为`password`：
+创建新的 MySQL 用户，用户名为`punch_select`，密码为`password`：
 
 ```sql
 CREATE USER 'punch_select'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
@@ -94,7 +94,7 @@ FLUSH PRIVILEGES;
 git clone https://github.com/MR-Addict/punch.git
 ```
 
-启动docker容器：
+启动 docker 容器：
 
 ```bash
 docker-compose up -d

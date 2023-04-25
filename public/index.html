@@ -6,15 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/index/style.css" />
+    <meta name="description" content="值班笔记" />
     <script src="/js/index.js" type="module" defer></script>
     <title>值班笔记</title>
   </head>
   <body>
-    <div class="container">
+    <main class="container">
       <form action="/" method="post" class="container-body">
         <h1>值班笔记</h1>
+
         <div class="select form-element">
-          <div class="form-icon"><img src="/images/group.svg" alt="group" /><span>组别</span></div>
+          <label for="group" class="form-icon"><img src="/images/group.svg" alt="group" /><span>组别</span></label>
           <select id="group" name="group">
             <option value="航模组">航模组</option>
             <option value="编程组">编程组</option>
@@ -23,23 +25,30 @@
           </select>
           <div class="arrow-icon"><img src="/images/triangle.svg" alt="arrow" /></div>
         </div>
+
         <div class="form-element">
-          <div class="form-icon"><img src="/images/user.svg" alt="user" /><span>姓名</span></div>
+          <label for="name" class="form-icon"><img src="/images/user.svg" alt="user" /><span>姓名</span></label>
           <input type="text" id="name" name="name" placeholder="姓名" />
           <div class="err-msg"></div>
         </div>
+
         <div class="form-element">
-          <div class="form-icon"><img src="/images/notes.svg" alt="notes" /><span>值班笔记</span></div>
+          <label for="notes" class="form-icon"><img src="/images/notes.svg" alt="notes" /><span>值班笔记</span></label>
           <textarea id="notes" name="notes" placeholder="今天的值班笔记内容"></textarea>
           <div class="err-msg"></div>
         </div>
+
         <button type="submit">提交</button>
         <a class="admin-href" href="https://admin.mraddict.top">我是管理员</a>
       </form>
-      <footer></footer>
-    </div>
+    </main>
+
+    <footer></footer>
   </body>
   <script>
-    document.querySelector("footer").innerHTML = `&copy; Copyright ${new Date().getFullYear()} 校大学生科协`;
+    document.querySelector("footer").innerHTML =
+      "Copyright " +
+      new Date().getFullYear() +
+      ' &copy; 校大学生科协 • <a href="https://github.com/MR-Addict/punch">Github</a>';
   </script>
 </html>

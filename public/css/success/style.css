@@ -6,18 +6,32 @@
 }
 
 :root {
-  --bg-main-button: #22c55e;
-  --bg-main-dark-button: #0cb74b;
+  --bg-main: #f3f4f6;
+  --bg-main-button: #16a34a;
+  --bg-main-dark-button: #15803d;
 }
 
 html {
   font-size: 62.5%;
 }
 
+body {
+  padding: 1rem;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--bg-main);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 .container {
   width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(160deg, #80ffdb, #0077b6);
+  max-width: 45rem;
+  flex-grow: 1;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,40 +39,44 @@ html {
 }
 
 .container-body {
+  box-shadow: 0 0 5px #80808040;
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  padding: 2vw 4vw;
-  width: 90%;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding-block: 6rem;
+  width: 100%;
   max-width: 50rem;
   border-radius: 1rem;
+  border: solid 1px #d1d5db;
 }
 
 .container-body h1 {
   color: #555;
+  font-size: 3rem;
   font-weight: 800;
-  font-size: 5rem;
-  margin: 5rem auto 2rem;
+  text-align: center;
+  margin: 1rem;
 }
 
 .container-body .msg-img {
-  width: 12rem;
-  height: 12rem;
-  margin: 2rem auto 5rem;
+  width: 10rem;
+  height: 10rem;
 }
 
 .container-body .return-but {
-  padding: 1.3rem;
+  padding: 1rem;
   background: var(--bg-main-button);
   color: #ffffff;
   font-weight: 800;
   font-size: 1.6rem;
-  border: 0;
-  outline: none;
+  border: solid 1px #d1d5db;
   cursor: pointer;
-  width: 15rem;
+  width: 13rem;
   margin: 1rem auto;
-  border-radius: 1rem;
+  border-radius: 0.7rem;
   transition: transform 0.3s;
 }
 
@@ -68,5 +86,5 @@ html {
 
 footer {
   font-size: 1.6rem;
-  margin: 2rem;
+  margin: 1rem;
 }

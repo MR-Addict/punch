@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Offical packages
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -18,7 +20,7 @@ const app = express();
 app.use(cors({ credentials: true, origin: true }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("public", { maxAge: process.env.ISLOCALHOST === "true" ? 0 : 1000 * 60 * 60 * 4 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // authorization middleware
